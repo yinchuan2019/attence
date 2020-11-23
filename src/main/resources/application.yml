@@ -1,0 +1,50 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /
+
+# db config
+spring:
+  profiles:
+    active: jdbc
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://112.126.60.148:3306/zskDB?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    username: root
+    password: root
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+# thymeleaf
+thymeleaf:
+ prefix: classpath:/templates/
+ check-template-location: true
+ suffix: .html
+ encoding: UTF-8
+ servlet.content-type: text/html
+ mode: HTML5
+ cache: false
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.my.attence.entity
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+logging:
+  level:
+    root: info
+    com.example: debug
+
+
+
