@@ -9,8 +9,6 @@ import com.my.attence.modal.Bo.RestResponseBo;
 import com.my.attence.modal.Vo.CommentVo;
 import com.my.attence.modal.Vo.ContentVo;
 import com.my.attence.modal.Vo.MetaVo;
-import com.my.attence.service.ICommentService;
-import com.my.attence.service.IContentService;
 import com.my.attence.service.IMetaService;
 import com.my.attence.utils.IPKit;
 import com.my.attence.utils.PatternKit;
@@ -40,14 +38,7 @@ public class IndexController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Resource
-    private IContentService contentService;
-
-    @Resource
-    private ICommentService commentService;
-
-    @Resource
     private IMetaService metaService;
-
 
     /**
      * 首页
@@ -74,42 +65,6 @@ public class IndexController extends BaseController {
             this.title(request, "第" + p + "页");
         }
         return this.render("index");
-    }
-
-    /**
-     * 文章页
-     *
-     * @param request 请求
-     * @param cid     文章主键
-     * @return
-     */
-    @GetMapping(value = {"article/{cid}", "article/{cid}.html"})
-    public String getArticle(HttpServletRequest request, @PathVariable String cid) {
-        ContentVo contents = contentService.getContents(cid);
-        if (null == contents || "draft".equals(contents.getStatus())) {
-            return this.render_404();
-        }
-        request.setAttribute("article", contents);
-        request.setAttribute("is_post", true);
-        return this.render("post");
-    }
-
-    /**
-     * 文章页(预览)
-     *
-     * @param request 请求
-     * @param cid     文章主键
-     * @return
-     */
-    @GetMapping(value = {"article/{cid}/preview", "article/{cid}.html"})
-    public String articlePreview(HttpServletRequest request, @PathVariable String cid) {
-        ContentVo contents = contentService.getContents(cid);
-        if (null == contents) {
-            return this.render_404();
-        }
-        request.setAttribute("article", contents);
-        request.setAttribute("is_post", true);
-        return this.render("post");
     }
 
     /**
@@ -185,7 +140,6 @@ public class IndexController extends BaseController {
         comments.setMail(mail);
         comments.setParent(coid);
         try {
-            commentService.insertComment(comments);
             cookie("tale_remember_author", URLEncoder.encode(author, "UTF-8"), 7 * 24 * 60 * 60, response);
             cookie("tale_remember_mail", URLEncoder.encode(mail, "UTF-8"), 7 * 24 * 60 * 60, response);
             if (StringUtils.isNotBlank(url)) {
@@ -246,24 +200,6 @@ public class IndexController extends BaseController {
         return this.render("links");
     }
 
-    /**
-     * 自定义页面,如关于的页面
-     */
-    @GetMapping(value = "/{pagename}")
-    public String page(@PathVariable String pagename, HttpServletRequest request) {
-        ContentVo contents = contentService.getContents(pagename);
-        if (null == contents) {
-            return this.render_404();
-        }
-        if (contents.getAllowComment()) {
-            String cp = request.getParameter("cp");
-            if (StringUtils.isBlank(cp)) {
-                cp = "1";
-            }
-        }
-        request.setAttribute("article", contents);
-        return this.render("page");
-    }
 
 
     /**

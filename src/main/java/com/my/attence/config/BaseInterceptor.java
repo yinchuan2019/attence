@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class BaseInterceptor implements HandlerInterceptor {
     private static final Logger LOGGE = LoggerFactory.getLogger(BaseInterceptor.class);
+
     private static final String USER_AGENT = "user-agent";
 
     @Resource

@@ -6,7 +6,6 @@ import com.my.attence.dto.MetaDto;
 import com.my.attence.exception.TipException;
 import com.my.attence.modal.Vo.MetaVo;
 import com.my.attence.modal.Vo.MetaVoExample;
-import com.my.attence.service.IContentService;
 import com.my.attence.service.IMetaService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -27,9 +26,6 @@ public class MetaServiceImpl implements IMetaService {
 
     @Resource
     private MetaVoMapper metaDao;
-
-    @Resource
-    private IContentService contentService;
 
     @Override
     public MetaDto getMeta(String type, String name) {
@@ -90,7 +86,6 @@ public class MetaServiceImpl implements IMetaService {
                     metas.setMid(mid);
                     metaDao.updateByPrimaryKeySelective(metas);
 //                    更新原有文章的categories
-                    contentService.updateCategory(original.getName(),name);
                 } else {
                     metas.setType(type);
                     metaDao.insertSelective(metas);

@@ -1,6 +1,5 @@
 package com.my.attence.utils;
 
-import com.my.attence.controller.admin.DemoController;
 import com.my.attence.exception.TipException;
 import com.my.attence.constant.WebConst;
 import com.my.attence.modal.Vo.UserVo;
@@ -423,9 +422,6 @@ public class TaleUtils {
 
     public static String getFileKey(String name) {
         String prefix = "/upload/" + DateKit.dateFormat(new Date(), "yyyy/MM");
-        if (!new File(DemoController.CLASSPATH + prefix).exists()) {
-            new File(DemoController.CLASSPATH + prefix).mkdirs();
-        }
 
         name = StringUtils.trimToNull(name);
         if (name == null) {
