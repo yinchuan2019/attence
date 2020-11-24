@@ -1,7 +1,10 @@
 package com.my.attence.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.entity.Student;
@@ -34,6 +37,7 @@ public class StudentController {
 
     @GetMapping(value = "/student")
     public String login() {
+
         Student student = studentMapper.selectById(1);
         int i = studentMapper.countWithSql();
         List<Student> list = iStudentService.list();
@@ -41,7 +45,19 @@ public class StudentController {
         IPage<Student> page = new Page<>(1, 2);
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
         IPage<Student> studentIPage = studentMapper.selectPage(page, queryWrapper);
+        Student st = new Student();
+        st.setAge(1);
+        st.setStudentName("setStudentName");
+        studentMapper.insert(st);
+        LambdaUpdateWrapper<Student> updateWrapper = new UpdateWrapper<Student>().lambda();
 
+        updateWrapper.eq(Student::getAge,99);
+        studentMapper.update(st,updateWrapper);
+
+        LambdaQueryWrapper<Student> deleteWrapper = new QueryWrapper<Student>().lambda();
+        deleteWrapper.eq(Student::getAge,99);
+
+        studentMapper.delete(deleteWrapper);
 
         return "admin/login";
     }
