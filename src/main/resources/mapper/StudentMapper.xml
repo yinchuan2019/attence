@@ -16,4 +16,11 @@
         id, student_name, email, gender, age
     </sql>
 
+    <select id="countWithSql" resultType="Integer">
+    SELECT count(0)
+    FROM student a ;
+   </select>
+
+
+
 </mapper>

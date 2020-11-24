@@ -1,4 +1,4 @@
-package com.my.attence.controller;
+package com.my.attence.config;
 
 import com.my.attence.exception.TipException;
 import org.slf4j.Logger;
