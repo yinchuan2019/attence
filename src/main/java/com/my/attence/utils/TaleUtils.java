@@ -1,12 +1,10 @@
 package com.my.attence.utils;
 
-import com.my.attence.exception.TipException;
-import com.my.attence.constant.WebConst;
-import com.my.attence.modal.Vo.UserVo;
+import com.my.attence.constant.Constant;
+import com.my.attence.entity.SysUser;
+import com.my.attence.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;
-import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -24,8 +22,11 @@ import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.*;
 
 /**
  * Tale工具类
@@ -44,8 +45,8 @@ public class TaleUtils {
      * 匹配邮箱正则
      */
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern SLUG_REGEX = Pattern.compile("^[A-Za-z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
+            compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", CASE_INSENSITIVE);
+    private static final Pattern SLUG_REGEX = compile("^[A-Za-z0-9_-]{5,100}$", CASE_INSENSITIVE);
     /**
      * markdown解析器
      */
@@ -72,7 +73,7 @@ public class TaleUtils {
      * @return
      */
     public static int getCurrentTime() {
-        return (int) (new Date().getTime() / 1000);
+        return (int) (System.currentTimeMillis() / 1000);
     }
 
     /**
@@ -123,10 +124,10 @@ public class TaleUtils {
 //            默认是classPath路径
             InputStream resourceAsStream = TaleUtils.class.getClassLoader().getResourceAsStream(fileName);
             if (resourceAsStream == null) {
-                throw new TipException("get resource from path fail");
+                throw new BusinessException("get resource from path fail");
             }
             properties.load(resourceAsStream);
-        } catch (TipException | IOException e) {
+        } catch (BusinessException | IOException e) {
             LOGGER.error("get properties file fail={}", e.getMessage());
         }
         return properties;
@@ -142,7 +143,7 @@ public class TaleUtils {
 //            默认是classPath路径
             InputStream resourceAsStream = new FileInputStream(fileName);
             properties.load(resourceAsStream);
-        } catch (TipException | IOException e) {
+        } catch (BusinessException | IOException e) {
             LOGGER.error("get properties file fail={}", e.getMessage());
         }
         return properties;
@@ -205,12 +206,12 @@ public class TaleUtils {
      *
      * @return
      */
-    public static UserVo getLoginUser(HttpServletRequest request) {
+    public static SysUser getLoginUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (null == session) {
             return null;
         }
-        return (UserVo) session.getAttribute(WebConst.LOGIN_SESSION_KEY);
+        return (SysUser) session.getAttribute(Constant.LOGIN_SESSION_KEY);
     }
 
 
@@ -222,10 +223,10 @@ public class TaleUtils {
      */
     public static Integer getCookieUid(HttpServletRequest request) {
         if (null != request) {
-            Cookie cookie = cookieRaw(WebConst.USER_IN_COOKIE, request);
+            Cookie cookie = cookieRaw(Constant.USER_IN_COOKIE, request);
             if (cookie != null && cookie.getValue() != null) {
                 try {
-                    String uid = Tools.deAes(cookie.getValue(), WebConst.AES_SALT);
+                    String uid = Tools.deAes(cookie.getValue(), Constant.AES_SALT);
                     return StringUtils.isNotBlank(uid) && Tools.isNumber(uid) ? Integer.valueOf(uid) : null;
                 } catch (Exception e) {
                 }
@@ -258,13 +259,11 @@ public class TaleUtils {
      * 设置记住密码cookie
      *
      * @param response
-     * @param uid
      */
-    public static void setCookie(HttpServletResponse response, Integer uid) {
+    public static void setCookie(HttpServletResponse response, String password) {
         try {
-            String val = Tools.enAes(uid.toString(), WebConst.AES_SALT);
             boolean isSSL = false;
-            Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, val);
+            Cookie cookie = new Cookie(Constant.USER_IN_COOKIE, password);
             cookie.setPath("/");
             cookie.setMaxAge(60*30);
             cookie.setSecure(isSSL);
@@ -292,7 +291,7 @@ public class TaleUtils {
      *
      * @param markdown
      * @return
-     */
+
     public static String mdToHtml(String markdown) {
         if (StringUtils.isBlank(markdown)) {
             return "";
@@ -311,7 +310,7 @@ public class TaleUtils {
 //            content = content.replaceAll("&lt;script src=\"https://gist.github.com/(\\w+)/(\\w+)\\.js\">&lt;/script>", "<script src=\"https://gist.github.com/$1/$2\\.js\"></script>");
 //        }
         return content;
-    }
+    } */
 
     /**
      * 退出登录状态
@@ -320,12 +319,12 @@ public class TaleUtils {
      * @param response
      */
     public static void logout(HttpSession session, HttpServletResponse response) {
-        session.removeAttribute(WebConst.LOGIN_SESSION_KEY);
-        Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
+        session.removeAttribute(Constant.LOGIN_SESSION_KEY);
+        Cookie cookie = new Cookie(Constant.USER_IN_COOKIE, "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         try {
-            response.sendRedirect(Commons.site_url());
+            response.sendRedirect("");
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -362,42 +361,42 @@ public class TaleUtils {
             cleanValue = cleanValue.replaceAll("\0", "");
 
             // Avoid anything between script tags
-            Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
+            Pattern scriptPattern = compile("<script>(.*?)</script>", CASE_INSENSITIVE);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Avoid anything in a src='...' type of expression
-            scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", CASE_INSENSITIVE | MULTILINE | DOTALL);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
-            scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", CASE_INSENSITIVE | MULTILINE | DOTALL);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Remove any lonesome </script> tag
-            scriptPattern = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
+            scriptPattern = compile("</script>", CASE_INSENSITIVE);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Remove any lonesome <script ...> tag
-            scriptPattern = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = compile("<script(.*?)>", CASE_INSENSITIVE | MULTILINE | DOTALL);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Avoid eval(...) expressions
-            scriptPattern = Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = compile("eval\\((.*?)\\)", CASE_INSENSITIVE | MULTILINE | DOTALL);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Avoid expression(...) expressions
-            scriptPattern = Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = compile("expression\\((.*?)\\)", CASE_INSENSITIVE | MULTILINE | DOTALL);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Avoid javascript:... expressions
-            scriptPattern = Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE);
+            scriptPattern = compile("javascript:", CASE_INSENSITIVE);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Avoid vbscript:... expressions
-            scriptPattern = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
+            scriptPattern = compile("vbscript:", CASE_INSENSITIVE);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
 
             // Avoid onload= expressions
-            scriptPattern = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = compile("onload(.*?)=", CASE_INSENSITIVE | MULTILINE | DOTALL);
             cleanValue = scriptPattern.matcher(cleanValue).replaceAll("");
         }
         return cleanValue;
@@ -492,5 +491,31 @@ public class TaleUtils {
         path = path.substring(0, lastIndex);
         File file = new File("");
         return file.getAbsolutePath() + "/";
+    }
+
+    /**
+     * 生成随机的token
+     *
+     * @return token
+     */
+    public static String getRandomToken() {
+        Random random = new Random();
+        StringBuilder randomStr = new StringBuilder();
+
+        // 根据length生成相应长度的随机字符串
+        for (int i = 0; i < 32; i++) {
+            String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
+
+            //输出字母还是数字
+            if ("char".equalsIgnoreCase(charOrNum)) {
+                //输出是大写字母还是小写字母
+                int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
+                randomStr.append((char) (random.nextInt(26) + temp));
+            } else {
+                randomStr.append(random.nextInt(10));
+            }
+        }
+
+        return randomStr.toString();
     }
 }

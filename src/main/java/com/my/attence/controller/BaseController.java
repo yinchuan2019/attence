@@ -1,8 +1,8 @@
 package com.my.attence.controller;
 
-import com.my.attence.modal.Vo.UserVo;
-import com.my.attence.utils.TaleUtils;
+import com.my.attence.entity.SysUser;
 import com.my.attence.utils.MapCache;
+import com.my.attence.utils.TaleUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,13 +39,10 @@ public abstract class BaseController {
      * @param request
      * @return
      */
-    public UserVo user(HttpServletRequest request) {
+    public SysUser user(HttpServletRequest request) {
         return TaleUtils.getLoginUser(request);
     }
 
-    public Integer getUid(HttpServletRequest request){
-        return this.user(request).getUid();
-    }
 
     public String render_404() {
         return "comm/error_404";

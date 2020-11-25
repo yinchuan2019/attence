@@ -59,7 +59,7 @@ public class CodeGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");//?serverTimezone=GMT%2B8
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://112.126.60.148:3306/zskDB?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true");
+        dsc.setUrl("jdbc:mysql://112.126.60.148:3306/attence?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true");
         mpg.setDataSource(dsc);
 
         // 策略配置

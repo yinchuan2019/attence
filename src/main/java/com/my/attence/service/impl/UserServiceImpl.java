@@ -1,79 +1,172 @@
 package com.my.attence.service.impl;
 
-import com.my.attence.exception.TipException;
-import com.my.attence.service.IUserService;
-import com.my.attence.mapper.UserVoMapper;
-import com.my.attence.modal.Vo.UserVo;
-import com.my.attence.utils.TaleUtils;
-import com.my.attence.modal.Vo.UserVoExample;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.my.attence.common.code.BaseResponseCode;
+import com.my.attence.entity.SysRole;
+import com.my.attence.entity.SysUser;
+import com.my.attence.exception.BusinessException;
+import com.my.attence.mapper.SysUserMapper;
+import com.my.attence.modal.Dto.SysUserDto;
+import com.my.attence.service.PermissionService;
+import com.my.attence.service.RoleService;
+import com.my.attence.service.UserRoleService;
+import com.my.attence.service.UserService;
+import com.my.attence.utils.PasswordUtils;
+import com.my.attence.vo.req.UserRoleOperationReqVO;
+import com.my.attence.vo.resp.UserOwnRoleRespVO;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by BlueT on 2017/3/3.
+ * Created by abel on 2020/11/25
+ * TODO
  */
 @Service
-public class UserServiceImpl implements IUserService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+@Slf4j
+public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements UserService {
 
     @Resource
-    private UserVoMapper userVoMapper;
+    private SysUserMapper sysUserMapper;
+    @Resource
+    private RoleService roleService;
+    @Resource
+    private PermissionService permissionService;
+    @Resource
+    private UserRoleService userRoleService;
 
     @Override
-    public Integer insertUser(UserVo userVo) {
-        Integer uid = null;
-        if (StringUtils.isNotBlank(userVo.getUsername()) && StringUtils.isNotBlank(userVo.getEmail())) {
-//            用户密码加密
-            String encodePwd = TaleUtils.MD5encode(userVo.getUsername() + userVo.getPassword());
-            userVo.setPassword(encodePwd);
-            userVoMapper.insertSelective(userVo);
+    public void register(SysUserDto dto) {
+        SysUser sysUserOne = sysUserMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUsername, dto.getUsername()));
+        if (sysUserOne != null) {
+            throw new BusinessException("用户名已存在！");
         }
-        return userVo.getUid();
+        SysUser sysUser = new SysUser();
+        sysUser.setSalt(PasswordUtils.getSalt());
+        String encode = PasswordUtils.encode(dto.getPassword(), dto.getSalt());
+        sysUser.setPassword(encode);
+        sysUserMapper.insert(sysUser);
     }
 
     @Override
-    public UserVo queryUserById(Integer uid) {
-        UserVo userVo = null;
-        if (uid != null) {
-            userVo = userVoMapper.selectByPrimaryKey(uid);
+    public SysUser login(SysUserDto dto) {
+        SysUser sysUser = sysUserMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUsername, dto.getUsername()));
+        if (null == sysUser) {
+            throw new BusinessException(BaseResponseCode.NOT_ACCOUNT);
         }
-        return userVo;
+        if (sysUser.getStatus() == 2) {
+            throw new BusinessException(BaseResponseCode.USER_LOCK);
+        }
+        if (!PasswordUtils.matches(sysUser.getSalt(), dto.getPassword(), sysUser.getPassword())) {
+            throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
+        }
+        return sysUser;
     }
 
     @Override
-    public UserVo login(String username, String password) {
-        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            throw new TipException("用户名和密码不能为空");
+    public void updateUserInfo(SysUserDto dto) {
+        SysUser sysUser = sysUserMapper.selectById(dto.getId());
+        if (null == sysUser) {
+            throw new BusinessException("传入数据异常");
         }
-        UserVoExample example = new UserVoExample();
-        UserVoExample.Criteria criteria = example.createCriteria();
-        criteria.andUsernameEqualTo(username);
-        long count = userVoMapper.countByExample(example);
-        if (count < 1) {
-            throw new TipException("不存在该用户");
+
+        //如果用户名变更
+        if (!sysUser.getUsername().equals(dto.getUsername())) {
+            SysUser sysUserOne = sysUserMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUsername, dto.getUsername()));
+            if (sysUserOne != null) {
+                throw new BusinessException("用户名已存在！");
+            }
         }
-        String pwd = TaleUtils.MD5encode(username+password);
-        criteria.andPasswordEqualTo(pwd);
-        List<UserVo> userVos = userVoMapper.selectByExample(example);
-        if (userVos.size()!=1) {
-            throw new TipException("用户名或密码错误");
+
+        if (!StringUtils.isEmpty(dto.getPassword())) {
+            String newPassword = PasswordUtils.encode(dto.getPassword(), sysUser.getSalt());
+            sysUser.setPassword(newPassword);
+        } else {
+            sysUser.setPassword(null);
         }
-        return userVos.get(0);
+        sysUserMapper.updateById(sysUser);
+    }
+
+
+    @Override
+    public IPage<SysUser> pageInfo(SysUserDto dto) {
+        Page page = new Page(dto.getPage(), dto.getLimit());
+        LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
+        if (!StringUtils.isEmpty(dto.getUsername())) {
+            queryWrapper.like(SysUser::getUsername, dto.getUsername());
+        }
+        if (!StringUtils.isEmpty(dto.getStartTime())) {
+            queryWrapper.gt(SysUser::getCreateTime, dto.getStartTime());
+        }
+        if (!StringUtils.isEmpty(dto.getEndTime())) {
+            queryWrapper.lt(SysUser::getCreateTime, dto.getEndTime());
+        }
+        if (!StringUtils.isEmpty(dto.getNickName())) {
+            queryWrapper.like(SysUser::getNickName, dto.getNickName());
+        }
+        if (null != dto.getStatus()) {
+            queryWrapper.eq(SysUser::getStatus, dto.getStatus());
+        }
+
+        IPage<SysUser> iPage = sysUserMapper.selectPage(page, queryWrapper);
+
+        return iPage;
     }
 
     @Override
-    public void updateByUid(UserVo userVo) {
-        if (null == userVo || null == userVo.getUid()) {
-            throw new TipException("userVo is null");
+    public void addUser(SysUserDto dto) {
+
+        SysUser sysUserOne = sysUserMapper.selectOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUsername, dto.getUsername()));
+        if (sysUserOne != null) {
+            throw new BusinessException("用户已存在，请勿重复添加！");
         }
-        int i = userVoMapper.updateByPrimaryKeySelective(userVo);
-        if(i!=1){
-            throw new TipException("update user by uid and retrun is not one");
+        SysUser sysUser = new SysUser();
+        sysUser.setSalt(PasswordUtils.getSalt());
+        String encode = PasswordUtils.encode(dto.getPassword(), dto.getSalt());
+        sysUser.setPassword(encode);
+        sysUser.setStatus(1);
+        sysUser.setCreateWhere(1);
+        sysUserMapper.insert(sysUser);
+        if (null != dto.getRoleIds() && !dto.getRoleIds().isEmpty()) {
+            UserRoleOperationReqVO reqVO = new UserRoleOperationReqVO();
+            reqVO.setUserId(dto.getId());
+            reqVO.setRoleIds(dto.getRoleIds());
+            userRoleService.addUserRoleInfo(reqVO);
         }
+    }
+
+    @Override
+    public void updatePwd(SysUserDto dto) {
+
+        SysUser sysUser = sysUserMapper.selectById(dto.getId());
+        if (sysUser == null) {
+            throw new BusinessException("传入数据异常");
+        }
+
+        if (!PasswordUtils.matches(sysUser.getSalt(), dto.getOldPwd(), sysUser.getPassword())) {
+            throw new BusinessException(BaseResponseCode.OLD_PASSWORD_ERROR);
+        }
+        if (sysUser.getPassword().equals(PasswordUtils.encode(dto.getNewPwd(), sysUser.getSalt()))) {
+            throw new BusinessException("新密码不能与旧密码相同");
+        }
+        sysUser.setPassword(PasswordUtils.encode(dto.getNewPwd(), sysUser.getSalt()));
+        sysUserMapper.updateById(sysUser);
+    }
+
+    @Override
+    public UserOwnRoleRespVO getUserOwnRole(String userId) {
+        List<String> roleIdsByUserId = userRoleService.getRoleIdsByUserId(userId);
+        List<SysRole> list = roleService.list();
+        UserOwnRoleRespVO vo = new UserOwnRoleRespVO();
+        vo.setAllRole(list);
+        vo.setOwnRoles(roleIdsByUserId);
+        return vo;
     }
 }

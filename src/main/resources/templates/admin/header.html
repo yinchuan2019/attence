@@ -65,7 +65,31 @@
     <div class="sidebar-inner slimscrollleft">
         <div id="sidebar-menu">
             <ul>
-                1111
+                <li th:class="${active}=='article'?'active':''">
+                    <a th:href="@{/admin/article}"
+                       th:class="${active}=='article'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-list" aria-hidden="true"></i><span> 考勤管理 </span></a>
+                </li>
+                <li th:class="${active}=='page'?'active':''">
+                    <a th:href="@{/admin/page}" th:class="${active}=='page'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-file-text" aria-hidden="true"></i><span> 预约管理 </span></a>
+                </li>
+                <li th:class="${active}=='comments'?'active':''">
+                    <a th:href="@{/admin/comments}"
+                       th:class="${active}=='comments'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-comments" aria-hidden="true"></i><span> 人员管理 </span></a>
+                </li>
+                <li th:class="${active}=='category'?'active':''">
+                    <a th:href="@{/admin/category}"
+                       th:class="${active}=='category'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-tags" aria-hidden="true"></i><span> 楼层管理 </span></a>
+                </li>
+                <li th:class="${active}=='attach'?'active':''">
+                    <a th:href="@{/admin/attach}"
+                       th:class="${active}=='attach'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-cloud-upload" aria-hidden="true"></i><span> 文件管理 </span></a>
+                </li>
+
             </ul>
             <div class="clearfix"></div>
         </div>

@@ -1,10 +1,13 @@
 package com.my.attence.config;
 
-import com.my.attence.modal.Vo.UserVo;
-import com.my.attence.service.IUserService;
-import com.my.attence.utils.*;
-import com.my.attence.constant.WebConst;
-import com.my.attence.dto.Types;
+
+import com.my.attence.constant.Constant;
+import com.my.attence.entity.SysUser;
+import com.my.attence.service.UserService;
+import com.my.attence.utils.AdminCommons;
+import com.my.attence.utils.IPKit;
+import com.my.attence.utils.MapCache;
+import com.my.attence.utils.TaleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,16 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class BaseInterceptor implements HandlerInterceptor {
     private static final Logger LOGGE = LoggerFactory.getLogger(BaseInterceptor.class);
-
     private static final String USER_AGENT = "user-agent";
 
     @Resource
-    private IUserService userService;
+    private UserService userService;
 
     private MapCache cache = MapCache.single();
-
-    @Resource
-    private Commons commons;
 
     @Resource
     private AdminCommons adminCommons;
@@ -46,32 +45,20 @@ public class BaseInterceptor implements HandlerInterceptor {
 
 
         //请求拦截处理
-        UserVo user = TaleUtils.getLoginUser(request);
-        if (null == user) {
-            Integer uid = TaleUtils.getCookieUid(request);
-            if (null != uid) {
-                //这里还是有安全隐患,cookie是可以伪造的
-                user = userService.queryUserById(uid);
-                request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, user);
-            }
+        SysUser login = TaleUtils.getLoginUser(request);
+        if (null == login) {
+            request.getSession().setAttribute(Constant.LOGIN_SESSION_KEY, login);
         }
-        if (uri.startsWith("/admin") && !uri.startsWith("/admin/login") && null == user) {
-            response.sendRedirect(request.getContextPath() + "/admin/login");
-            return false;
+        if (!uri.contains("/login") && null == login) {
+            //response.sendRedirect(request.getContextPath() + "/sys/login");
+            //return false;
         }
-        //设置get请求的token
-        if (request.getMethod().equals("GET")) {
-            String csrf_token = UUID.UU64();
-            // 默认存储30分钟
-            cache.hset(Types.CSRF_TOKEN.getType(), csrf_token, uri, 30 * 60);
-            request.setAttribute("_csrf_token", csrf_token);
-        }
+
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        httpServletRequest.setAttribute("commons", commons);//一些工具类和公共方法
         httpServletRequest.setAttribute("adminCommons", adminCommons);
     }
 

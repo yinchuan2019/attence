@@ -1,11 +1,11 @@
 package com.my.attence.config;
 
 
-import com.my.attence.utils.TaleUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import javax.annotation.Resource;
 
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * Created by BlueT on 2017/3/9.
  */
 @Component
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Resource
     private BaseInterceptor baseInterceptor;
     @Override
@@ -22,13 +22,31 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(baseInterceptor);
     }
 
+  /**
+     * 页面跨域访问Controller过滤
+     */
+   @Override
+   public void addCorsMappings(CorsRegistry registry) {
+       WebMvcConfig.super.addCorsMappings(registry);
+       registry.addMapping("/**")
+               .allowedHeaders("*")
+               .allowedMethods("POST", "GET", "PUT", "DELETE")
+               .allowedOrigins("*");
+   }
+
     /**
-     * 添加静态资源文件，外部可以直接访问地址
-     * @param registry
+     * 发现如果继承了WebMvcConfigurationSupport，则在yml中配置的相关内容会失效。 需要重新指定静态资源
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+ TaleUtils.getUplodFilePath()+"upload/");
-        super.addResourceHandlers(registry);
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+
+        registry.addResourceHandler("doc.html").addResourceLocations(
+                "classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
+                "classpath:/META-INF/resources/webjars/");
     }
+
+
 }
+

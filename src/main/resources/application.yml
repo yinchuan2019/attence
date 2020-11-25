@@ -9,7 +9,7 @@ spring:
     active: jdbc
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://112.126.60.148:3306/zskDB?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    url: jdbc:mysql://112.126.60.148:3306/attence?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
     username: root
     password: root
   jackson:
@@ -41,10 +41,11 @@ mybatis-plus:
       logic-not-delete-value: 1
       # 删除后
       logic-delete-value: 0
-logging:
-  level:
-    root: info
-    com.example: debug
+      logic-delete-field: deleted
+  logging:
+    level:
+      root: info
+      com.example: debug
 
 
 
