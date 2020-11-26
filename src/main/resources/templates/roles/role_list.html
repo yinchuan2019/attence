@@ -242,7 +242,7 @@
             }
         });
         var getRoleDetail = function (id) {
-            CoreUtil.sendGet("/sys/role" + id, null, function (res) {
+            CoreUtil.sendGet("/sys/role/" + id, null, function (res) {
                 $(".operation_role input[name=id]").val(res.data.id);
                 $(".operation_role input[name=pid]").val(res.data.pid);
                 $(".operation_role input[name=name]").val(res.data.name);
@@ -271,8 +271,8 @@
                 } else {
                     $("#dataScopeS option:first").prop("selected", 'selected');
                 }
+                debugger
                 loadPermissionTree(res.data.permissionRespNodes);
-                loadDeptTree(res.data.deptRespNodes);
                 form.render(); //更新全部
 
             });

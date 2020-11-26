@@ -17,7 +17,7 @@ import com.my.attence.service.UserRoleService;
 import com.my.attence.service.UserService;
 import com.my.attence.utils.PasswordUtils;
 import com.my.attence.vo.req.UserRoleOperationReqVO;
-import com.my.attence.vo.resp.UserOwnRoleRespVO;
+import com.my.attence.vo.resp.UserOwnRoleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -161,10 +161,10 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
     }
 
     @Override
-    public UserOwnRoleRespVO getUserOwnRole(Long userId) {
-        List<String> roleIdsByUserId = userRoleService.getRoleIdsByUserId(userId);
+    public UserOwnRoleVO getUserOwnRole(Long userId) {
+        List<Long> roleIdsByUserId = userRoleService.getRoleIdsByUserId(userId);
         List<SysRole> list = roleService.list();
-        UserOwnRoleRespVO vo = new UserOwnRoleRespVO();
+        UserOwnRoleVO vo = new UserOwnRoleVO();
         vo.setAllRole(list);
         vo.setOwnRoles(roleIdsByUserId);
         return vo;

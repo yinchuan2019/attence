@@ -4,7 +4,7 @@ import com.my.attence.common.DataResult;
 import com.my.attence.entity.SysUser;
 import com.my.attence.service.HomeService;
 import com.my.attence.utils.TaleUtils;
-import com.my.attence.vo.resp.HomeRespVO;
+import com.my.attence.vo.resp.HomeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,7 @@ public class HomeController {
     public DataResult getHomeInfo(HttpServletRequest request) {
         SysUser login = TaleUtils.getLoginUser(request);
         DataResult result = DataResult.success();
-        HomeRespVO homeInfo = homeService.getHomeInfo(login.getId());
+        HomeVO homeInfo = homeService.getHomeInfo(login.getId());
         result.setData(homeInfo);
         return result;
     }

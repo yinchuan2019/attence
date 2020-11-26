@@ -13,10 +13,10 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class HomeRespVO {
+public class HomeVO {
     @ApiModelProperty(value = "用户信息")
-    private UserInfoRespVO userInfo;
+    private UserInfoVO userInfo;
     @ApiModelProperty(value = "目录菜单")
-    private List<PermissionRespNode> menus;
+    private List<PermissionNode> menus;
 
 }

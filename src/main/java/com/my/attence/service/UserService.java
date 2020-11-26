@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.attence.entity.SysUser;
 import com.my.attence.modal.Dto.SysUserDto;
-import com.my.attence.vo.resp.UserOwnRoleRespVO;
+import com.my.attence.vo.resp.UserOwnRoleVO;
 
 /**
  * Created by abel on 2020/11/25
@@ -49,6 +49,6 @@ public interface UserService extends IService<SysUser> {
      * @param userId userId
      * @return UserOwnRoleRespVO
      */
-    UserOwnRoleRespVO getUserOwnRole(Long userId);
+    UserOwnRoleVO getUserOwnRole(Long userId);
 
 }

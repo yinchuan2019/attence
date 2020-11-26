@@ -2,7 +2,7 @@ package com.my.attence.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.attence.entity.SysPermission;
-import com.my.attence.vo.resp.PermissionRespNode;
+import com.my.attence.vo.resp.PermissionNode;
 
 import java.util.List;
 import java.util.Set;
@@ -47,19 +47,19 @@ public interface PermissionService extends IService<SysPermission> {
      * @param userId
      * @return List
      */
-    List<PermissionRespNode> permissionTreeList(Long userId);
+    List<PermissionNode> permissionTreeList(Long userId);
 
     /**
      * 根据权限树
      * @return List
      */
-    List<PermissionRespNode> selectAllByTree();
+    List<PermissionNode> selectAllByTree();
 
     /**
      * 根据目录树
      * @param permissionId permissionId
      * @return List
      */
-    List<PermissionRespNode> selectAllMenuByTree(Long permissionId);
+    List<PermissionNode> selectAllMenuByTree(Long permissionId);
 
 }

@@ -13,9 +13,9 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class PermissionRespNode {
+public class PermissionNode {
     @ApiModelProperty(value = "id")
-    private String id;
+    private Long id;
     @ApiModelProperty(value = "菜单权限名称")
     private String title;
 

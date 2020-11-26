@@ -10,8 +10,7 @@ import com.my.attence.exception.BusinessException;
 import com.my.attence.mapper.SysRoleMapper;
 import com.my.attence.service.*;
 import com.my.attence.vo.req.RolePermissionOperationReqVO;
-import com.my.attence.vo.resp.DeptRespNodeVO;
-import com.my.attence.vo.resp.PermissionRespNode;
+import com.my.attence.vo.resp.PermissionNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,33 +85,23 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
             log.error("传入 的 id:{}不合法", id);
             throw new BusinessException("传入数据异常");
         }
-        List<PermissionRespNode> permissionRespNodes = permissionService.selectAllByTree();
+        List<PermissionNode> permissionRespNodes = permissionService.selectAllByTree();
         LambdaQueryWrapper<SysRolePermission> queryWrapper = Wrappers.<SysRolePermission>lambdaQuery().select(SysRolePermission::getPermissionId).eq(SysRolePermission::getRoleId, sysRole.getId());
-        Set<Object> checkList =
-                new HashSet<>(rolePermissionService.listObjs(queryWrapper));
+        Set<Object> checkList = new HashSet<>(rolePermissionService.listObjs(queryWrapper));
         setChecked(permissionRespNodes, checkList);
         sysRole.setPermissionRespNodes(permissionRespNodes);
 
         return sysRole;
     }
 
-    private void setCheckedDept(List<DeptRespNodeVO> deptRespNodes, Set<Object> checkDeptList) {
-        for (DeptRespNodeVO node : deptRespNodes) {
-            if (checkDeptList.contains(node.getId())) {
-                node.setChecked(true);
-            }
-            setCheckedDept((List<DeptRespNodeVO>) node.getChildren(), checkDeptList);
-        }
-    }
 
-
-    private void setChecked(List<PermissionRespNode> list, Set<Object> checkList) {
-        for (PermissionRespNode node : list) {
+    private void setChecked(List<PermissionNode> list, Set<Object> checkList) {
+        for (PermissionNode node : list) {
             if (checkList.contains(node.getId())
                     && (node.getChildren() == null || node.getChildren().isEmpty())) {
                 node.setChecked(true);
             }
-            setChecked((List<PermissionRespNode>) node.getChildren(), checkList);
+            setChecked((List<PermissionNode>) node.getChildren(), checkList);
         }
     }
 
@@ -131,8 +120,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
 
     @Override
     public List<SysRole> getRoleInfoByUserId(Long userId) {
-
-        List<String> roleIds = userRoleService.getRoleIdsByUserId(userId);
+        List<Long> roleIds = userRoleService.getRoleIdsByUserId(userId);
         if (roleIds.isEmpty()) {
             return null;
         }

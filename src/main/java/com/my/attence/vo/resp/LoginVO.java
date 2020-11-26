@@ -10,17 +10,17 @@ import java.util.List;
  * TODO
  */
 @Data
-public class LoginRespVO {
+public class LoginVO {
     @ApiModelProperty(value = "token")
     private String accessToken;
     @ApiModelProperty(value = "用户名")
     private String username;
     @ApiModelProperty(value = "用户id")
-    private String id;
+    private Long id;
     @ApiModelProperty(value = "电话")
     private String phone;
     @ApiModelProperty(value = "密码")
     private String password;
     @ApiModelProperty(value = "用户所拥有的菜单权限(前后端分离返回给前端控制菜单和按钮的显示和隐藏)")
-    private List<PermissionRespNode> list;
+    private List<PermissionNode> list;
 }

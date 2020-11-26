@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.my.attence.vo.resp.DeptRespNodeVO;
-import com.my.attence.vo.resp.PermissionRespNode;
+import com.my.attence.vo.resp.PermissionNode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -45,9 +44,7 @@ public class SysRole extends BaseEntity implements Serializable {
     private Integer deleted;
 
     @TableField(exist = false)
-    private List<PermissionRespNode> permissionRespNodes;
-    @TableField(exist = false)
-    private List<DeptRespNodeVO> deptRespNodes;
+    private List<PermissionNode> permissionRespNodes;
 
     @TableField(exist = false)
     private String startTime;

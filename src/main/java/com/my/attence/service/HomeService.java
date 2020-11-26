@@ -1,6 +1,6 @@
 package com.my.attence.service;
 
-import com.my.attence.vo.resp.HomeRespVO;
+import com.my.attence.vo.resp.HomeVO;
 
 /**
  * 首页
@@ -16,5 +16,5 @@ public interface HomeService {
      * @param userId userId
      * @return HomeRespVO
      */
-    HomeRespVO getHomeInfo(Long userId);
+    HomeVO getHomeInfo(Long userId);
 }
