@@ -127,10 +127,6 @@
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
 <script>
-    //获取token
-    var token = CoreUtil.getData("access_token");
-    //地址栏转义token中的#号
-    var tokenQuery = token.replace("#", "%23");
     var tableIns1;
     var tableIns2;
     var selectDictId = null;
@@ -141,8 +137,6 @@
     var laydate = layui.laydate;
 
     layui.use(['table', 'layer', 'laydate'], function () {
-
-
         //加载table
         tableIns1 = table.render({
             elem: '#showTable'

@@ -19,8 +19,11 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     private BaseInterceptor baseInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(baseInterceptor);
+        registry.addInterceptor(baseInterceptor)
+                .addPathPatterns("/**/index/*")
+                ;
     }
+
 
   /**
      * 页面跨域访问Controller过滤
