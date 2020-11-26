@@ -1,9 +1,11 @@
-package com.my.attence.entity;
+package com.my.attence.modal.Dto;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.my.attence.entity.BaseEntity;
+import com.my.attence.vo.resp.PermissionNode;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -11,6 +13,7 @@ import lombok.experimental.Accessors;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by abel on 2020/11/26
@@ -19,7 +22,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
-public class SysRole extends BaseEntity implements Serializable {
+public class SysRoleDto extends BaseEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
@@ -40,5 +43,20 @@ public class SysRole extends BaseEntity implements Serializable {
 
     @TableField(fill = FieldFill.INSERT)
     private Integer deleted;
+
+    @TableField(exist = false)
+    private List<PermissionNode> permissionRespNodes;
+
+    @TableField(exist = false)
+    private String startTime;
+
+    @TableField(exist = false)
+    private String endTime;
+
+    @TableField(exist = false)
+    private List<Long> permissions;
+
+    @TableField(exist = false)
+    private List<String> depts;
 
 }

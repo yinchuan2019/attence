@@ -271,7 +271,6 @@
                 } else {
                     $("#dataScopeS option:first").prop("selected", 'selected');
                 }
-                debugger
                 loadPermissionTree(res.data.permissionRespNodes);
                 form.render(); //更新全部
 
@@ -297,19 +296,6 @@
             });
         };
         var el;
-        var loadDeptTree = function (data) {
-            $("#deptTree").html("");
-            el = eleTree({
-                el: '#deptTree',
-                data: data,
-                highlightCurrent: true,
-                showCheckbox: true,
-                isDefaultChangePstatus: true,
-                checkStrictly: true,
-                draggable: true,
-                defaultExpandAll: true
-            })
-        };
         form.on('switch(switch)', function () {
             $(".operation_role input[name=status]").attr('type', 'hidden').val(this.checked ? 1 : 0);
 
@@ -416,17 +402,6 @@
             getPermissionIds(jsonObj[i].children, permissionIds);
         }
         return permissionIds;
-    }
-
-    function getDeptIds(jsonObj, deptIds) {
-        if (jsonObj == undefined || jsonObj == null || !jsonObj instanceof Object) {
-            return null;
-        }
-        for (var i = 0; i < jsonObj.length; i++) {
-            deptIds.push(jsonObj[i].id);
-            getDeptIds(jsonObj[i].children, deptIds);
-        }
-        return deptIds;
     }
 
     //执行查询

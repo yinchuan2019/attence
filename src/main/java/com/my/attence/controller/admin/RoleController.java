@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.DataResult;
 import com.my.attence.entity.SysRole;
+import com.my.attence.modal.Dto.SysRoleDto;
 import com.my.attence.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,8 +32,8 @@ public class RoleController {
 
     @PostMapping("/role")
     @ApiOperation(value = "新增角色接口")
-    public DataResult addRole(@RequestBody @Valid SysRole vo) {
-        roleService.addRole(vo);
+    public DataResult addRole(@RequestBody @Valid SysRoleDto dto) {
+        roleService.addRole(dto);
         return DataResult.success();
     }
 
@@ -45,11 +46,11 @@ public class RoleController {
 
     @PutMapping("/role")
     @ApiOperation(value = "更新角色信息接口")
-    public DataResult updateDept(@RequestBody SysRole vo) {
-        if (StringUtils.isEmpty(vo.getId())) {
+    public DataResult updateDept(@RequestBody SysRoleDto dto) {
+        if (StringUtils.isEmpty(dto.getId())) {
             return DataResult.fail("id不能为空");
         }
-        roleService.updateRole(vo);
+        roleService.updateRole(dto);
         return DataResult.success();
     }
 
@@ -63,11 +64,6 @@ public class RoleController {
             return DataResult.fail("获取角色失败");
         }
 
-        //先删除所有绑定
-        //如果不是自定义
-        if (vo.getDataScope() != 2) {
-            vo.setDepts(null);
-        }
         roleService.updateById(new SysRole().setId(vo.getId()).setDataScope(vo.getDataScope()));
         return DataResult.success();
     }
@@ -81,20 +77,20 @@ public class RoleController {
     @PostMapping("/roles")
     @ApiOperation(value = "分页获取角色信息接口")
     @SuppressWarnings("unchecked")
-    public DataResult pageInfo(@RequestBody SysRole vo) {
-        Page page = new Page(vo.getPage(), vo.getLimit());
+    public DataResult pageInfo(@RequestBody SysRoleDto dto) {
+        Page page = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<SysRole> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(vo.getName())) {
-            queryWrapper.like(SysRole::getName, vo.getName());
+        if (!StringUtils.isEmpty(dto.getName())) {
+            queryWrapper.like(SysRole::getName, dto.getName());
         }
-        if (!StringUtils.isEmpty(vo.getStartTime())) {
-            queryWrapper.gt(SysRole::getCreateTime, vo.getStartTime());
+        if (!StringUtils.isEmpty(dto.getStartTime())) {
+            queryWrapper.gt(SysRole::getCreateTime, dto.getStartTime());
         }
-        if (!StringUtils.isEmpty(vo.getEndTime())) {
-            queryWrapper.lt(SysRole::getCreateTime, vo.getEndTime());
+        if (!StringUtils.isEmpty(dto.getEndTime())) {
+            queryWrapper.lt(SysRole::getCreateTime, dto.getEndTime());
         }
-        if (!StringUtils.isEmpty(vo.getStatus())) {
-            queryWrapper.eq(SysRole::getStatus, vo.getStatus());
+        if (!StringUtils.isEmpty(dto.getStatus())) {
+            queryWrapper.eq(SysRole::getStatus, dto.getStatus());
         }
         queryWrapper.orderByDesc(SysRole::getCreateTime);
         return DataResult.success(roleService.page(page, queryWrapper));

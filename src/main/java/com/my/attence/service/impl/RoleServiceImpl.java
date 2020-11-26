@@ -8,10 +8,13 @@ import com.my.attence.entity.SysRolePermission;
 import com.my.attence.entity.SysUserRole;
 import com.my.attence.exception.BusinessException;
 import com.my.attence.mapper.SysRoleMapper;
+import com.my.attence.modal.Dto.SysRoleDto;
+import com.my.attence.modal.Vo.SysRoleVo;
 import com.my.attence.service.*;
 import com.my.attence.vo.req.RolePermissionOperationReqVO;
 import com.my.attence.vo.resp.PermissionNode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -45,33 +48,36 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void addRole(SysRole vo) {
-
-        vo.setStatus(1);
-        sysRoleMapper.insert(vo);
-        if (null != vo.getPermissions() && !vo.getPermissions().isEmpty()) {
+    public void addRole(SysRoleDto dto) {
+        SysRole sysRole = new SysRole();
+        BeanUtils.copyProperties(dto,sysRole);
+        sysRole.setStatus(1);
+        sysRoleMapper.insert(sysRole);
+        if (null != dto.getPermissions() && !dto.getPermissions().isEmpty()) {
             RolePermissionOperationReqVO reqVO = new RolePermissionOperationReqVO();
-            reqVO.setRoleId(vo.getId());
-            reqVO.setPermissionIds(vo.getPermissions());
+            reqVO.setRoleId(sysRole.getId());
+            reqVO.setPermissionIds(dto.getPermissions());
             rolePermissionService.addRolePermission(reqVO);
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateRole(SysRole vo) {
-        SysRole sysRole = sysRoleMapper.selectById(vo.getId());
+    public void updateRole(SysRoleDto dto) {
+        SysRole model = new SysRole();
+        BeanUtils.copyProperties(dto,model);
+        SysRole sysRole = sysRoleMapper.selectById(model.getId());
         if (null == sysRole) {
-            log.error("传入 的 id:{}不合法", vo.getId());
+            log.error("传入 的 id:{}不合法", model.getId());
             throw new BusinessException("传入数据异常");
         }
-        sysRoleMapper.updateById(vo);
+        sysRoleMapper.updateById(model);
         //删除角色权限关联
         rolePermissionService.remove(Wrappers.<SysRolePermission>lambdaQuery().eq(SysRolePermission::getRoleId, sysRole.getId()));
-        if (!CollectionUtils.isEmpty(vo.getPermissions())) {
+        if (!CollectionUtils.isEmpty(dto.getPermissions())) {
             RolePermissionOperationReqVO reqVO = new RolePermissionOperationReqVO();
             reqVO.setRoleId(sysRole.getId());
-            reqVO.setPermissionIds(vo.getPermissions());
+            reqVO.setPermissionIds(dto.getPermissions());
             rolePermissionService.addRolePermission(reqVO);
             // 刷新权限
             httpSessionService.refreshRolePermission(sysRole.getId());
@@ -79,8 +85,10 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
     }
 
     @Override
-    public SysRole detailInfo(Long id) {
+    public SysRoleVo detailInfo(Long id) {
         SysRole sysRole = sysRoleMapper.selectById(id);
+        SysRoleVo vo = new SysRoleVo();
+        BeanUtils.copyProperties(sysRole,vo);
         if (sysRole == null) {
             log.error("传入 的 id:{}不合法", id);
             throw new BusinessException("传入数据异常");
@@ -89,9 +97,9 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
         LambdaQueryWrapper<SysRolePermission> queryWrapper = Wrappers.<SysRolePermission>lambdaQuery().select(SysRolePermission::getPermissionId).eq(SysRolePermission::getRoleId, sysRole.getId());
         Set<Object> checkList = new HashSet<>(rolePermissionService.listObjs(queryWrapper));
         setChecked(permissionRespNodes, checkList);
-        sysRole.setPermissionRespNodes(permissionRespNodes);
+        vo.setPermissionRespNodes(permissionRespNodes);
 
-        return sysRole;
+        return vo;
     }
 
 

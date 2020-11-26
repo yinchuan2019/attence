@@ -2,36 +2,33 @@ package com.my.attence.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.attence.entity.SysRole;
+import com.my.attence.modal.Dto.SysRoleDto;
+import com.my.attence.modal.Vo.SysRoleVo;
 
 import java.util.List;
 
 /**
- * 角色
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 public interface RoleService  extends IService<SysRole> {
 
     /**
      * 添加角色
-     * @param vo SysRole
      */
-    void addRole(SysRole vo);
+    void addRole(SysRoleDto dto);
 
     /**
      * 更新角色
-     * @param vo SysRole
      */
-    void updateRole(SysRole vo);
+    void updateRole(SysRoleDto dto);
 
     /**
      * 根据id获取角色详情
      * @param id id
-     * @return SysRole
+     * @return SysRoleDto
      */
-    SysRole detailInfo(Long id);
+    SysRoleVo detailInfo(Long id);
 
     /**
      * 根据id删除
