@@ -118,17 +118,13 @@
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update">编辑2</a>
     <a class="layui-btn layui-btn-xs" lay-event="dataScope" shiro:hasPermission="sys:role:bindDept">数据权限</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:role:deleted">删除</a>
 </script>
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
 <script>
-    //获取token
-    var token = CoreUtil.getData("access_token");
-    //地址栏转义token中的#号
-    var tokenQuery = token.replace("#", "%23");
     var tableIns1;
     var table = layui.table;
     var form = layui.form;
@@ -147,7 +143,6 @@
         tableIns1 = table.render({
             elem: '#role_table'
             , contentType: 'application/json'
-            , headers: {"authorization": token}
             , page: true //开启分页
             , url: '/sys/roles' //数据接口
             , method: 'POST'
@@ -247,7 +242,7 @@
             }
         });
         var getRoleDetail = function (id) {
-            CoreUtil.sendGet("/sys/role/" + id, null, function (res) {
+            CoreUtil.sendGet("/sys/role" + id, null, function (res) {
                 $(".operation_role input[name=id]").val(res.data.id);
                 $(".operation_role input[name=pid]").val(res.data.pid);
                 $(".operation_role input[name=name]").val(res.data.name);
