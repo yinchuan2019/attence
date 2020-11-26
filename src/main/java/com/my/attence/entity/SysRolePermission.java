@@ -1,6 +1,7 @@
 package com.my.attence.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
@@ -9,20 +10,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 角色权限
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 @Data
 public class SysRolePermission implements Serializable {
-    @TableId
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
-    private String roleId;
+    private Long roleId;
 
-    private String permissionId;
+    private Long permissionId;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;

@@ -8,18 +8,15 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
- * UserRoleOperationReqVO
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 @Data
 public class UserRoleOperationReqVO {
     @ApiModelProperty(value = "用户id")
     @NotBlank(message = "用户id不能为空")
-    private String userId;
+    private Long userId;
     @ApiModelProperty(value = "角色id集合")
     @NotEmpty(message = "角色id集合不能为空")
-    private List<String> roleIds;
+    private List<Long> roleIds;
 }

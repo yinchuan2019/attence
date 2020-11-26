@@ -16,5 +16,5 @@ public interface HomeService {
      * @param userId userId
      * @return HomeRespVO
      */
-    HomeRespVO getHomeInfo(String userId);
+    HomeRespVO getHomeInfo(Long userId);
 }

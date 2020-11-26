@@ -38,7 +38,7 @@ public class RoleController {
 
     @DeleteMapping("/role/{id}")
     @ApiOperation(value = "删除角色接口")
-    public DataResult deleted(@PathVariable("id") String id) {
+    public DataResult deleted(@PathVariable("id") Long id) {
         roleService.deletedRole(id);
         return DataResult.success();
     }
@@ -74,7 +74,7 @@ public class RoleController {
 
     @GetMapping("/role/{id}")
     @ApiOperation(value = "查询角色详情接口")
-    public DataResult detailInfo(@PathVariable("id") String id) {
+    public DataResult detailInfo(@PathVariable("id") Long id) {
         return DataResult.success(roleService.detailInfo(id));
     }
 

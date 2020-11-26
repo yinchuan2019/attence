@@ -27,7 +27,7 @@ public class UserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserR
     private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
-    public List getRoleIdsByUserId(String userId) {
+    public List getRoleIdsByUserId(Long userId) {
         LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getRoleId).eq(SysUserRole::getUserId, userId);
         return sysUserRoleMapper.selectObjs(queryWrapper);
     }
@@ -39,7 +39,7 @@ public class UserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserR
             return;
         }
         List<SysUserRole> list = new ArrayList<>();
-        for (String roleId : vo.getRoleIds()) {
+        for (Long roleId : vo.getRoleIds()) {
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setUserId(vo.getUserId());
             sysUserRole.setRoleId(roleId);

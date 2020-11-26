@@ -6,11 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * BaseEntity
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 @Data
 public class BaseEntity {

@@ -161,7 +161,7 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
     }
 
     @Override
-    public UserOwnRoleRespVO getUserOwnRole(String userId) {
+    public UserOwnRoleRespVO getUserOwnRole(Long userId) {
         List<String> roleIdsByUserId = userRoleService.getRoleIdsByUserId(userId);
         List<SysRole> list = roleService.list();
         UserOwnRoleRespVO vo = new UserOwnRoleRespVO();

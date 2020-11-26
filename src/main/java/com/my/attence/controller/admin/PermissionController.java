@@ -39,7 +39,7 @@ public class PermissionController {
 
     @DeleteMapping("/permission/{id}")
     @ApiOperation(value = "删除菜单权限接口")
-    public DataResult deleted(@PathVariable("id") String id) {
+    public DataResult deleted(@PathVariable("id") Long id) {
         permissionService.deleted(id);
         return DataResult.success();
     }
@@ -77,7 +77,7 @@ public class PermissionController {
 
     @GetMapping("/permission/tree")
     @ApiOperation(value = "获取所有目录菜单树接口")
-    public DataResult getAllMenusPermissionTree(@RequestParam(required = false) String permissionId) {
+    public DataResult getAllMenusPermissionTree(@RequestParam(required = false) Long permissionId) {
         return DataResult.success(permissionService.selectAllMenuByTree(permissionId));
     }
 

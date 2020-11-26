@@ -178,7 +178,7 @@ public class HttpSessionService {
      *
      * @param roleId roleId
      */
-    public void refreshRolePermission(String roleId) {
+    public void refreshRolePermission(Long roleId) {
         List userIds = userRoleService.listObjs(Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getUserId).eq(SysUserRole::getRoleId, roleId));;
         if (!userIds.isEmpty()) {
             for (Object userId : userIds) {
@@ -193,7 +193,7 @@ public class HttpSessionService {
      *
      * @param permissionId permissionId
      */
-    public void refreshPermission(String permissionId) {
+    public void refreshPermission(Long permissionId) {
         //根据权限id，获取所有角色id
         List<Object> roleIds = rolePermissionService.listObjs(Wrappers.<SysRolePermission>lambdaQuery().select(SysRolePermission::getRoleId).eq(SysRolePermission::getPermissionId, permissionId));
         if (!roleIds.isEmpty()) {
@@ -235,11 +235,11 @@ public class HttpSessionService {
     }
 
 
-    private List<String> getRolesByUserId(String userId) {
+    private List<String> getRolesByUserId(Long userId) {
         return roleService.getRoleNames(userId);
     }
 
-    private Set<String> getPermissionsByUserId(String userId) {
+    private Set<String> getPermissionsByUserId(Long userId) {
         return permissionService.getPermissionsByUserId(userId);
     }
 

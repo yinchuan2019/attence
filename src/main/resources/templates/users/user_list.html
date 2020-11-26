@@ -101,7 +101,6 @@
     </div>
 </div>
 
-<div id="deptTree" style="display: none"></div>
 <div id="roles" class="demo-transfer" style="display: none"></div>
 </body>
 <script type="text/html" id="toolbar">
@@ -119,10 +118,6 @@
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
 <script>
-    //获取token
-    var token = CoreUtil.getData("access_token");
-    //地址栏转义token中的#号
-    var tokenQuery = token.replace("#", "%23");
     var tableIns1;
     var table = layui.table;
     var form = layui.form;
@@ -136,13 +131,10 @@
     var endTime = null;
     layui.use(['table', 'layer', 'laydate', 'tree', 'transfer'], function () {
 
-        initLeftTree();
-
         //加载table
         tableIns1 = table.render({
             elem: '#user_table'
             , contentType: 'application/json'
-            , headers: {"authorization": token}
             , page: true //开启分页
             , url: '/sys/users' //数据接口
             , method: 'POST'
@@ -246,7 +238,6 @@
                     $(".operation_user input[name=username]").val("");
                     $(".operation_user input[name=password]").val("");
                     $(".operation_user input[name=phone]").val("");
-                    $(".operation_user input[name=deptName]").val("");
                     $(".operation_user input[name=status]").attr('checked', 'checked');
                     $(".operation_user input[name=status]").attr('type', 'hidden').val(1);
                     var x = document.getElementsByClassName("layui-unselect layui-form-switch");
@@ -273,11 +264,9 @@
                     $(".operation_user").show();
                     $(".title").html("编辑用户");
                     $(".operation_user input[name=id]").val(data.id);
-                    $(".operation_user input[name=deptId]").val(data.deptId);
                     $(".operation_user input[name=username]").val(data.username);
                     $(".operation_user input[name=password]").val("");
                     $(".operation_user input[name=phone]").val(data.phone);
-                    $(".operation_user input[name=deptName]").val(data.deptName);
                     if (data.status == 1) {
                         $(".operation_user input[name=status]").attr('checked', 'checked');
                         $(".operation_user input[name=status]").attr('type', 'hidden').val(1);
@@ -373,7 +362,7 @@
             }
             return false;
         });
-        var loadDeptTree = function (data) {
+        var loadTree = function (data) {
             tree.render({
                 elem: '#deptTree'
                 , data: data
@@ -392,7 +381,7 @@
                 , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
                 , click: function (obj) {
                     console.log(obj)
-                    deptNo = obj.data.deptNo;
+                    deptNo = obj.dta.deptNo;
                     $("#leftTree span").removeClass('custom-tree-item-clicked');     //清除旧的样式
                     $("#leftTree span:contains(" + obj.data.title + ")").addClass('custom-tree-item-clicked');
                     search()
@@ -422,12 +411,7 @@
             });
         });
 
-        function initLeftTree(){
-            CoreUtil.sendGet("/sys/dept/tree", null, function (res) {
-                loadLeftTree(res.data);
-                loadDeptTree(res.data);
-            });
-        }
+
         var initTransfer = function (data) {
             transfer.render({
                 elem: '#roles'

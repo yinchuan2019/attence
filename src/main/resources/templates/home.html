@@ -95,7 +95,6 @@
     var element = layui.element;
     initBgColor();
     $(function () {
-        debugger;
         FrameWH();
         //递归获取导航栏无线层级
         var getChild = function (item, ulHtml) {
@@ -123,7 +122,6 @@
             ulHtml += "</dl>"
             return ulHtml;
         };
-        debugger;
         CoreUtil.sendGet("/sys/home", null, function (res) {
             $("#nickName").html(res.data.userInfo.username);
             var data = res.data.menus;

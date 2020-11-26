@@ -28,7 +28,7 @@ public class HomeServiceImpl implements HomeService {
     private PermissionService permissionService;
 
     @Override
-    public HomeRespVO getHomeInfo(String userId) {
+    public HomeRespVO getHomeInfo(Long userId) {
 
         SysUser sysUser = userService.getById(userId);
         UserInfoRespVO vo = new UserInfoRespVO();

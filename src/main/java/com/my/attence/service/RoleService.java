@@ -31,25 +31,25 @@ public interface RoleService  extends IService<SysRole> {
      * @param id id
      * @return SysRole
      */
-    SysRole detailInfo(String id);
+    SysRole detailInfo(Long id);
 
     /**
      * 根据id删除
      * @param id id
      */
-    void deletedRole(String id);
+    void deletedRole(Long id);
 
     /**
      * 根据userId获取绑定的角色
      * @param userId userId
      * @return List
      */
-    List<SysRole> getRoleInfoByUserId(String userId);
+    List<SysRole> getRoleInfoByUserId(Long userId);
 
     /**
      * 根据userId获取绑定的角色名
      * @param userId userId
      * @return List
      */
-    List<String> getRoleNames(String userId);
+    List<String> getRoleNames(Long userId);
 }

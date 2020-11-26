@@ -75,11 +75,6 @@
                 contentType: "application/json",
                 success: function (res) {
                     if (res.code == 0) {
-                        debugger;
-                        layui.data('LocalData', {
-                            key: "access_token",
-                            value: res.data.accessToken
-                        })
                         layer.msg('登录成功', {time: 1000}, function () {
                             window.location = '/index/home';
                         });

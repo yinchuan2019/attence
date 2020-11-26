@@ -1,7 +1,6 @@
 package com.my.attence.config;
 
 
-import com.my.attence.constant.Constant;
 import com.my.attence.entity.SysUser;
 import com.my.attence.service.UserService;
 import com.my.attence.utils.AdminCommons;
@@ -46,9 +45,9 @@ public class BaseInterceptor implements HandlerInterceptor {
 
         //请求拦截处理
         SysUser login = TaleUtils.getLoginUser(request);
-        if (null == login) {
+        /*if (null == login) {
             request.getSession().setAttribute(Constant.LOGIN_SESSION_KEY, login);
-        }
+        }*/
         if (!uri.contains("/login") && null == login) {
             //response.sendRedirect(request.getContextPath() + "/sys/login");
             //return false;

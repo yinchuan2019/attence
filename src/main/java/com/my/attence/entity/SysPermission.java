@@ -1,6 +1,7 @@
 package com.my.attence.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
@@ -11,18 +12,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 权限菜单
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 @Data
 public class SysPermission implements Serializable {
 
 
-    @TableId
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     @NotBlank(message = "菜单权限名称不能为空")
     private String name;
@@ -36,7 +34,7 @@ public class SysPermission implements Serializable {
     private String target;
 
     @NotNull(message = "所属菜单不能为空")
-    private String pid;
+    private Long pid;
 
     private Integer orderNum;
 

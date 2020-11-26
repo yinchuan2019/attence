@@ -23,7 +23,7 @@ import java.util.List;
 @Data
 public class SysUserDto extends BaseEntity implements Serializable {
     @TableId
-    private String id;
+    private Long id;
 
     @NotBlank(message = "账号不能为空")
     private String username;
@@ -75,7 +75,7 @@ public class SysUserDto extends BaseEntity implements Serializable {
     private String endTime;
 
     @TableField(exist = false)
-    private List<String> roleIds;
+    private List<Long> roleIds;
 
     @TableField(exist = false)
     private String Captcha;

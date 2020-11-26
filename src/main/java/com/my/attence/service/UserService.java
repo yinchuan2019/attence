@@ -49,6 +49,6 @@ public interface UserService extends IService<SysUser> {
      * @param userId userId
      * @return UserOwnRoleRespVO
      */
-    UserOwnRoleRespVO getUserOwnRole(String userId);
+    UserOwnRoleRespVO getUserOwnRole(Long userId);
 
 }

@@ -131,7 +131,7 @@ public class UserController {
         if (StringUtils.isEmpty(dto.getOldPwd()) || StringUtils.isEmpty(dto.getNewPwd())) {
             return DataResult.fail("旧密码与新密码不能为空");
         }
-        String userId = "";
+        Long userId = null;
         dto.setId(userId);
         dto.setPassword(dto.getNewPwd());
         userService.updatePwd(dto);
@@ -151,7 +151,7 @@ public class UserController {
 
     @GetMapping("/user/roles/{userId}")
     @ApiOperation(value = "赋予角色-获取所有角色接口")
-    public DataResult getUserOwnRole(@PathVariable("userId") String userId) {
+    public DataResult getUserOwnRole(@PathVariable("userId") Long userId) {
         DataResult result = DataResult.success();
         result.setData(userService.getUserOwnRole(userId));
         return result;
@@ -159,7 +159,7 @@ public class UserController {
 
     @PutMapping("/user/roles/{userId}")
     @ApiOperation(value = "赋予角色-用户赋予角色接口")
-    public DataResult setUserOwnRole(@PathVariable("userId") String userId, @RequestBody List<String> roleIds) {
+    public DataResult setUserOwnRole(@PathVariable("userId") Long userId, @RequestBody List<Long> roleIds) {
 
         LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysUserRole::getUserId, userId);

@@ -80,7 +80,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
     }
 
     @Override
-    public SysRole detailInfo(String id) {
+    public SysRole detailInfo(Long id) {
         SysRole sysRole = sysRoleMapper.selectById(id);
         if (sysRole == null) {
             log.error("传入 的 id:{}不合法", id);
@@ -118,7 +118,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void deletedRole(String id) {
+    public void deletedRole(Long id) {
         //删除角色
         sysRoleMapper.deleteById(id);
         //删除角色权限关联
@@ -130,7 +130,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
     }
 
     @Override
-    public List<SysRole> getRoleInfoByUserId(String userId) {
+    public List<SysRole> getRoleInfoByUserId(Long userId) {
 
         List<String> roleIds = userRoleService.getRoleIdsByUserId(userId);
         if (roleIds.isEmpty()) {
@@ -140,7 +140,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
     }
 
     @Override
-    public List<String> getRoleNames(String userId) {
+    public List<String> getRoleNames(Long userId) {
 
         List<SysRole> sysRoles = getRoleInfoByUserId(userId);
         if (null == sysRoles || sysRoles.isEmpty()) {

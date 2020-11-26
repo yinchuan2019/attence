@@ -11,18 +11,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SysUser extends BaseEntity implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
-    private String id;
+    private Long id;
 
     private String username;
 

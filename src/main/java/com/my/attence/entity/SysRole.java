@@ -1,6 +1,7 @@
 package com.my.attence.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.my.attence.vo.resp.DeptRespNodeVO;
@@ -15,18 +16,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 角色
- *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * Created by abel on 2020/11/26
+ * TODO
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 public class SysRole extends BaseEntity implements Serializable {
-    @TableId
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     @NotBlank(message = "名称不能为空")
     private String name;
@@ -58,7 +56,7 @@ public class SysRole extends BaseEntity implements Serializable {
     private String endTime;
 
     @TableField(exist = false)
-    private List<String> permissions;
+    private List<Long> permissions;
 
     @TableField(exist = false)
     private List<String> depts;

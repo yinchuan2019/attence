@@ -20,7 +20,7 @@ public interface UserRoleService  extends IService<SysUserRole> {
      * @param userId userId
      * @return List
      */
-    List<String> getRoleIdsByUserId(String userId);
+    List<String> getRoleIdsByUserId(Long userId);
 
     /**
      * 用户绑定角色

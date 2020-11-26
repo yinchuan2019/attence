@@ -21,13 +21,13 @@ public interface PermissionService extends IService<SysPermission> {
      * @param userId userId
      * @return 权限
      */
-    List<SysPermission> getPermission(String userId);
+    List<SysPermission> getPermission(Long userId);
 
     /**
      * 删除权限
      * @param permissionId 权限id
      */
-    void deleted(String permissionId);
+    void deleted(Long permissionId);
 
     /**
      * 获取所有
@@ -40,14 +40,14 @@ public interface PermissionService extends IService<SysPermission> {
      * @param userId userId
      * @return Set
      */
-    Set<String> getPermissionsByUserId(String userId);
+    Set<String> getPermissionsByUserId(Long userId);
 
     /**
      * 根据userId获取权限树
      * @param userId
      * @return List
      */
-    List<PermissionRespNode> permissionTreeList(String userId);
+    List<PermissionRespNode> permissionTreeList(Long userId);
 
     /**
      * 根据权限树
@@ -60,6 +60,6 @@ public interface PermissionService extends IService<SysPermission> {
      * @param permissionId permissionId
      * @return List
      */
-    List<PermissionRespNode> selectAllMenuByTree(String permissionId);
+    List<PermissionRespNode> selectAllMenuByTree(Long permissionId);
 
 }

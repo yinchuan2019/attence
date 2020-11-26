@@ -23,7 +23,7 @@ public class RolePermissionServiceImpl extends ServiceImpl<SysRolePermissionMapp
     @Override
     public void addRolePermission(RolePermissionOperationReqVO vo) {
         List<SysRolePermission> list = new ArrayList<>();
-        for (String permissionId : vo.getPermissionIds()) {
+        for (Long permissionId : vo.getPermissionIds()) {
             SysRolePermission sysRolePermission = new SysRolePermission();
             sysRolePermission.setPermissionId(permissionId);
             sysRolePermission.setRoleId(vo.getRoleId());
