@@ -51,7 +51,7 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>v
+        </dependency>
 
         <!-- Start: log4j2 -->
         <dependency>
@@ -83,10 +83,6 @@
         </dependency>
         <!-- End: log4j2 -->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
