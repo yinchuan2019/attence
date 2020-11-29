@@ -59,46 +59,32 @@
         </form>
     </div>
 </div>
-<!-- 左树 -->
-<div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-sm12 layui-col-md4 layui-col-lg2">
-            <div class="layui-card">
-                <div class="layui-card-body mini-bar" id="leftTree">
-                </div>
+<div class="user_table_div">
+    <div id="searchParam" shiro:hasPermission="sys:user:list">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input type="text" id="username" class="layui-input" autocomplete="off" placeholder="请输入账号">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" id="nickName" class="layui-input" autocomplete="off" placeholder="请输用户昵称">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
+            </div>
+            <div class="layui-input-inline layui-form">
+                <select id="status">
+                    <option value="">请选择账号状态</option>
+                    <option value="1">正常</option>
+                    <option value="2">禁用</option>
+                </select>
+            </div>
+            <div class="layui-input-inline ">
+                <button class="layui-btn" onclick="search()" id="search">查询</button>
             </div>
         </div>
-        <div class="layui-col-sm12 layui-col-md8 layui-col-lg10">
-            <div class="user_table_div">
-                <div id="searchParam" shiro:hasPermission="sys:user:list">
-                    <div class="layui-form-item">
-                        <div class="layui-input-inline">
-                            <input type="text" id="username" class="layui-input" autocomplete="off" placeholder="请输入账号">
-                        </div>
-                        <div class="layui-input-inline">
-                            <input type="text" id="nickName" class="layui-input" autocomplete="off" placeholder="请输用户昵称">
-                        </div>
-                        <div class="layui-input-inline">
-                            <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
-                        </div>
-                        <div class="layui-input-inline layui-form">
-                            <select id="status">
-                                <option value="">请选择账号状态</option>
-                                <option value="1">正常</option>
-                                <option value="2">禁用</option>
-                            </select>
-                        </div>
-                        <div class="layui-input-inline ">
-                            <button class="layui-btn" onclick="search()" id="search">查询</button>
-                        </div>
-                    </div>
 
-                </div>
-                <table class="layui-hide" id="user_table" lay-filter="user_table"></table>
-            </div>
-
-        </div>
     </div>
+    <table class="layui-hide" id="user_table" lay-filter="user_table"></table>
 </div>
 
 <div id="roles" class="demo-transfer" style="display: none"></div>
@@ -362,33 +348,7 @@
             }
             return false;
         });
-        var loadTree = function (data) {
-            tree.render({
-                elem: '#deptTree'
-                , data: data
-                , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
-                , click: function (obj) {
-                    selectNode = obj;
-                    layer.msg(JSON.stringify(selectNode.data.title));
-                }
-            });
-        };
 
-        var loadLeftTree = function (data) {
-            tree.render({
-                elem: '#leftTree'
-                , data: data
-                , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
-                , click: function (obj) {
-                    console.log(obj)
-                    deptNo = obj.dta.deptNo;
-                    $("#leftTree span").removeClass('custom-tree-item-clicked');     //清除旧的样式
-                    $("#leftTree span:contains(" + obj.data.title + ")").addClass('custom-tree-item-clicked');
-                    search()
-
-                }
-            });
-        };
         $(".operation_user input[name=deptName]").click(function () {
             layer.open({
                 type: 1,

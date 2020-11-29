@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 @Component
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Resource
-    private BaseInterceptor baseInterceptor;
+    private LoginInterceptor baseInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseInterceptor)

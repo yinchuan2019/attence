@@ -10,6 +10,7 @@ import com.my.attence.modal.Dto.SysUserDto;
 import com.my.attence.service.HttpSessionService;
 import com.my.attence.service.UserRoleService;
 import com.my.attence.service.UserService;
+import com.my.attence.utils.TaleUtils;
 import com.my.attence.vo.req.UserRoleOperationReqVO;
 import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
@@ -118,22 +119,23 @@ public class UserController {
 
     @GetMapping("/user/logout")
     @ApiOperation(value = "退出接口")
-    public DataResult logout() {
-        httpSessionService.abortUserByToken();
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
+    public DataResult logout(HttpServletRequest request) {
+        request.getSession().removeAttribute(Constant.LOGIN_SESSION_KEY);
         return DataResult.success();
     }
 
     @PutMapping("/user/pwd")
     @ApiOperation(value = "修改密码接口")
-    public DataResult updatePwd(@RequestBody SysUserDto dto) {
+    public DataResult updatePwd(@RequestBody SysUserDto dto,
+                                HttpServletRequest request) {
         if (StringUtils.isEmpty(dto.getOldPwd()) || StringUtils.isEmpty(dto.getNewPwd())) {
             return DataResult.fail("旧密码与新密码不能为空");
         }
-        Long userId = null;
-        dto.setId(userId);
+        SysUser login = TaleUtils.getLoginUser(request);
+
+        dto.setId(login.getId());
         dto.setPassword(dto.getNewPwd());
+
         userService.updatePwd(dto);
         return DataResult.success();
     }
@@ -170,7 +172,6 @@ public class UserController {
             reqVO.setRoleIds(roleIds);
             userRoleService.addUserRoleInfo(reqVO);
         }
-        //httpSessionService.refreshUerId(userId);
         return  DataResult.success();
     }
 }

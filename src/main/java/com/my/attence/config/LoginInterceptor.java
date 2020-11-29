@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  * Created by BlueT on 2017/3/9.
  */
 @Component
-public class BaseInterceptor implements HandlerInterceptor {
-    private static final Logger LOGGE = LoggerFactory.getLogger(BaseInterceptor.class);
+public class LoginInterceptor implements HandlerInterceptor {
+    private static final Logger LOGGE = LoggerFactory.getLogger(LoginInterceptor.class);
     private static final String USER_AGENT = "user-agent";
 
     @Resource
@@ -48,6 +48,7 @@ public class BaseInterceptor implements HandlerInterceptor {
 
         if (!uri.contains("/login") && null == login) {
             response.sendRedirect(request.getContextPath() + "/index/login");
+            return false;
         }
 
 
