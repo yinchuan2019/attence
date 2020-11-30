@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,9 +13,8 @@ import java.util.Date;
  * Created by abel on 2020/11/26
  * TODO
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class SysUser extends BaseEntity implements Serializable {
+public class SysUser implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

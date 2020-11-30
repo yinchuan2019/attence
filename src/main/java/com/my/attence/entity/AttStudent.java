@@ -7,36 +7,49 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by abel on 2020/11/26
- * TODO
+ * <p>
+ * 
+ * </p>
+ *
+ * @author abel
+ * @since 2020-11-30
  */
 @Data
 @Accessors(chain = true)
-public class SysRole  implements Serializable {
+public class AttStudent implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @NotBlank(message = "名称不能为空")
-    private String name;
+    private String stuNo;
 
-    private String description;
+    private String stuName;
 
-    private Integer status;
+    private String stuEmail;
 
-    private Integer dataScope;
+    private Integer stuAge;
+
+    private String stuSex;
+
+    private String stuClass;
+
+    private String stuProfessional;
+
+    private Integer stuStatus;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 
-    @TableField(fill = FieldFill.INSERT)
     private Integer deleted;
+
 
 }

@@ -20,7 +20,7 @@ public class CodeGenerator {
 
     final static String dirPath = "/Users/yinchuan/IdeaProjects/attence/src/main/java";
 
-    final static String tableName = "student";
+    final static String tableName = "att_student";
 
     /**
      * <p>
