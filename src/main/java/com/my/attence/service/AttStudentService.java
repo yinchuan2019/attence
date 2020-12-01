@@ -1,7 +1,9 @@
 package com.my.attence.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.attence.entity.AttStudent;
-import com.baomidou.mybatisplus.extension.service.IService;;
+
+;
 
 /**
  * <p>

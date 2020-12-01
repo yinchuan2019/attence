@@ -1,13 +1,10 @@
 package com.my.attence.modal.Dto;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.my.attence.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,15 +19,13 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SysUserDto extends BaseEntity implements Serializable {
-    @TableId
+
     private Long id;
 
-    @NotBlank(message = "账号不能为空")
     private String username;
 
     private String salt;
 
-    @NotBlank(message = "密码不能为空")
     private String password;
 
     @TableField(exist = false)
@@ -53,7 +48,6 @@ public class SysUserDto extends BaseEntity implements Serializable {
 
     private Integer sex;
 
-    @TableField(fill = FieldFill.INSERT)
     private Integer deleted;
 
     private String createId;
@@ -62,21 +56,15 @@ public class SysUserDto extends BaseEntity implements Serializable {
 
     private Integer createWhere;
 
-    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
-    @TableField(exist = false)
     private String startTime;
 
-    @TableField(exist = false)
     private String endTime;
 
-    @TableField(exist = false)
     private List<Long> roleIds;
 
-    @TableField(exist = false)
     private String Captcha;
 }
