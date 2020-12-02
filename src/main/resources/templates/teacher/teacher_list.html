@@ -19,33 +19,33 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">学号</label>
                 <div class="layui-input-block">
-                    <input name="stuNo" placeholder="请输入学号" autocomplete="off" class="layui-input">
+                    <input name="teaNo" placeholder="请输入学号" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">姓名</div>
                 <div class="layui-input-block">
-                    <input name="stuName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                    <input name="teaName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">邮箱</div>
                 <div class="layui-input-block">
-                    <input name="stuEmail" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                    <input name="teaEmail" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">年龄</div>
                 <div class="layui-input-block">
-                    <input name="stuAge" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                    <input name="teaAge" placeholder="请输入年龄" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">单选框</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stuSex" value="1" title="男" checked="">
-                    <input type="radio" name="stuSex" value="0" title="女">
+                    <input type="radio" name="teaSex" value="1" title="男" checked="">
+                    <input type="radio" name="teaSex" value="0" title="女">
                 </div>
             </div>
 
@@ -62,10 +62,10 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="stuNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
+                <input type="text" id="teaNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="stuName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
+                <input type="text" id="teaName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
             </div>
             <div class="layui-input-inline">
                 <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
@@ -73,8 +73,9 @@
             <div class="layui-input-inline layui-form">
                 <select id="status">
                     <option value="">请选择账号状态</option>
-                    <option value="1">入籍</option>
-                    <option value="0">出籍</option>
+                    <option value="1">入职</option>
+                    <option value="0">离职</option>
+                    <option value="2">转正</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
@@ -90,7 +91,7 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addStudent" shiro:hasPermission="sys:user:add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addteacher" shiro:hasPermission="sys:user:add">添加</button>
         <button class="layui-btn layui-btn-sm" lay-event="batchUpdate" shiro:hasPermission="sys:user:deleted">更新</button>
     </div>
 </script>
@@ -118,7 +119,7 @@
             elem: '#user_table'
             , contentType: 'application/json'
             , page: true //开启分页
-            , url: '/attence/students' //数据接口
+            , url: '/attence/teachers' //数据接口
             , method: 'POST'
             , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
                 return {
@@ -131,26 +132,28 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'},
-                    {field: 'stuNo', title: '学号', width: 130},
-                    {field: 'stuName', title: '姓名', width: 130},
-                    {field: 'stuEmail', title: '邮箱', width: 120},
-                    {field: 'stuAge', title: '年龄', width: 120},
+                    {field: 'teaNo', title: '学号', width: 130},
+                    {field: 'teaName', title: '姓名', width: 130},
+                    {field: 'teaEmail', title: '邮箱', width: 120},
+                    {field: 'teaAge', title: '年龄', width: 120},
                     {
-                        field: 'stuSex', title: '性别', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
+                        field: 'teaSex', title: '性别', width: 100, templet: function (item) {
+                            if (item.teaSex === 1) {
                                 return "男";
                             }
-                            if (item.stuSex === 0) {
+                            if (item.teaSex === 0) {
                                 return "女";
                             }
                         }
                     },
                     {
-                        field: 'stuStatus', title: '状态', width: 100, templet: function (item) {
-                            if (item.stuStatus === 1) {
-                                return "入籍";                            }
-                            if (item.stuStatus === 0) {
-                                return "出籍";
+                        field: 'teaStatus', title: '状态', width: 100, templet: function (item) {
+                            if (item.teaStatus === 1) {
+                                return "入职";                            }
+                            if (item.teaStatus === 0) {
+                                return "离职";
+                            }if (item.teaStatus === 2) {
+                                return "转正";
                             }
                         }
                     },
@@ -194,7 +197,7 @@
                         updlog(userIds, "选中的");
                     }
                     break;
-                case 'addStudent':
+                case 'addteacher':
                     $(".title").html("新增");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
@@ -212,7 +215,7 @@
                 case 'del':
                     var userIds = [];
                     userIds.push(data.id);
-                    dellog(userIds, data.stuName);
+                    dellog(userIds, data.teaName);
                     break;
                 case 'edit':
                     $(".user_table_div").hide();
@@ -233,7 +236,7 @@
                 content: '确定要更新' + username + "用户么?",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendPut("/attence/student", userIds, function (res) {
+                    CoreUtil.sendPut("/attence/teacher", userIds, function (res) {
                         layer.msg(res.msg);
                         search()
                     });
@@ -246,7 +249,7 @@
                 content: '确定要删除' + username + "么?",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendDelete("/attence/student", userIds, function (res) {
+                    CoreUtil.sendDelete("/attence/teacher", userIds, function (res) {
                         layer.msg(res.msg);
                         search()
                     });
@@ -256,13 +259,13 @@
 
         form.on('submit(submit)', function (data) {
             if (data.field.id === undefined || data.field.id === null || data.field.id === "") {
-                CoreUtil.sendPost("/attence/student", data.field, function (res) {
+                CoreUtil.sendPost("/attence/teacher", data.field, function (res) {
                     $(".user_table_div").show();
                     $(".operation_user").hide();
                     search()
                 });
             } else {
-                CoreUtil.sendPut("/attence/student", data.field, function (res) {
+                CoreUtil.sendPut("/attence/teacher", data.field, function (res) {
                     $(".user_table_div").show();
                     $(".operation_user").hide();
                     search()
@@ -277,11 +280,11 @@
         //这里以搜索为例
         tableIns1.reload({
             where: { //设定异步数据接口的额外参数，任意设
-                stuNo: $("#stuNo").val(),
+                teaNo: $("#teaNo").val(),
                 startTime: startTime,
                 endTime: endTime,
-                stuName: $("#stuName").val(),
-                stuStatus: $("#stuStatus").val()
+                teaName: $("#teaName").val(),
+                teaStatus: $("#teaStatus").val()
             }
             , page: {
                 curr: 1 //重新从第 1 页开始
