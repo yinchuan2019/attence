@@ -11,7 +11,7 @@
 <div class="panel panel-default operation_role" hidden>
     <div class="panel-heading title"></div>
     <div class="layui-card-body">
-        <form class="layui-form " action="" lay-filter="deptInfo" style="width: 700px;margin-top: 10px">
+        <form class="layui-form " action=""  id="operation_form" lay-filter="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <input name="pid" hidden/>
 
@@ -52,41 +52,7 @@
         </form>
     </div>
 </div>
-<div class="panel panel-default operation_role_dataScope" hidden>
-    <div class="panel-heading title"></div>
-    <div class="layui-card-body">
-        <form class="layui-form " action="" lay-filter="deptInfo" style="width: 700px;margin-top: 10px">
-            <input name="roleId" hidden/>
-            <div class="layui-form-item">
-                <label class="layui-form-label">数据范围</label>
-                <div class="layui-input-block">
-                    <input id="dataScope" name="dataScope" hidden/>
-                    <select id="dataScopeS" name="dataScopeS" lay-filter="select-datascope">
-                        <option value="">请选择</option>
-                        <option value="1">所有</option>
-                        <option value="2">自定义部门</option>
-                        <option value="3">本部门及以下部门</option>
-                        <option value="4">本部门</option>
-                        <option value="5">自己</option>
-                    </select>
-                </div>
-            </div>
-            <div id="choose-dept" hidden>
-                <div class="layui-form-item" style="margin-left: 40px;">
-                    <div class="layui-tree">
-                        <div id="deptTree"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit_datascope">保存</button>
-                    <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+
 <div class="role_table_div">
     <div id="searchParam" shiro:hasPermission="sys:role:list">
         <div class="layui-form-item">
@@ -119,7 +85,6 @@
 </script>
 <script type="text/html" id="tool">
     <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update">编辑</a>
-    <a class="layui-btn layui-btn-xs" lay-event="dataScope" shiro:hasPermission="sys:role:bindDept">数据权限</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:role:deleted">删除</a>
 </script>
 <script src="/layui/layui.all.js"></script>
@@ -202,10 +167,7 @@
                     //显示编辑窗口
                     $(".operation_role").show();
                     $(".title").html("新增角色");
-                    $(".operation_role input[name=id]").val("");
-                    $(".operation_role input[name=pid]").val("");
-                    $(".operation_role input[name=name]").val("");
-                    $(".operation_role input[name=description]").val("");
+                    $("#operation_form")[0].reset();
                     $(".operation_role input[name=status]").attr('checked', 'checked');
                     $(".operation_role input[name=status]").attr('type', 'hidden').val(1);
                     var x = document.getElementsByClassName("layui-unselect layui-form-switch");
@@ -243,10 +205,8 @@
         });
         var getRoleDetail = function (id) {
             CoreUtil.sendGet("/sys/role/" + id, null, function (res) {
-                $(".operation_role input[name=id]").val(res.data.id);
-                $(".operation_role input[name=pid]").val(res.data.pid);
-                $(".operation_role input[name=name]").val(res.data.name);
-                $(".operation_role input[name=description]").val(res.data.description);
+                form.val('operation_form', res.data);
+
                 if (res.data.status == 1) {
                     $(".operation_role input[name=status]").attr('checked', 'checked');
                     $(".operation_role input[name=status]").attr('type', 'hidden').val(1);

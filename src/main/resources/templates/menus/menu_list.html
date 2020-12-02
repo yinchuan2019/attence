@@ -31,8 +31,7 @@
             <div class="layui-form-item">
                 <div class="layui-form-label ">所属菜单</div>
                 <div class="layui-input-block">
-                    <input type="pidName" name="pidName" placeholder="请选择所属菜单" autocomplete="off" class="layui-input"
-                           readonly="readonly" style="background:#eeeeee!important">
+                    <input type="pidName" name="pidName" placeholder="请选择所属菜单" autocomplete="off" class="layui-input" readonly="readonly" style="background:#eeeeee!important">
                 </div>
             </div>
             <div class="layui-form-item menu_url">
@@ -305,10 +304,10 @@
         var initTree = function (id) {
             var param = {permissionId: id}
             CoreUtil.sendGet("/sys/permission/tree", param, function (res) {
-                loadDeptTree(res.data);
+                loadTree(res.data);
             });
         };
-        var loadDeptTree = function (data) {
+        var loadTree = function (data) {
             tree.render({
                 elem: '#menuTree'
                 , data: data

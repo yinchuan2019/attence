@@ -14,9 +14,8 @@
 <div class="panel panel-default operation_user" hidden>
     <div class="panel-heading title"></div>
     <div class="layui-card-body">
-        <form class="layui-form " action="" lay-filter="deptInfo" style="width: 700px;margin-top: 10px">
+        <form class="layui-form " action="" id="operation_form" lay-filter="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
-            <input name="deptId" hidden/>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">账号</label>
@@ -37,16 +36,9 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">所属部门</div>
-                <div class="layui-input-block">
-                    <input type="deptName" name="deptName" placeholder="请选择所属部门" autocomplete="off" class="layui-input"
-                           readonly="readonly" style="background:#eeeeee!important">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="status" lay-skin="switch" lay-filter="switch" lay-text="启用|禁用" checked>
+                    <input type="checkbox" name="status" value="1" lay-skin="switch" lay-filter="switch" lay-text="启用|禁用" checked>
                 </div>
             </div>
 
@@ -163,19 +155,6 @@
                             }
                         }
                     },
-                    {
-                        field: 'createWhere', title: '注册涞源', width: 100, templet: function (item) {
-                            if (item.createWhere === 1) {
-                                return "Web";
-                            }
-                            if (item.createWhere === 2) {
-                                return "Android";
-                            }
-                            if (item.createWhere === 3) {
-                                return "Ios";
-                            }
-                        }
-                    },
                     {width: 300, toolbar: "#tool", title: '操作'}
                 ]
             ]
@@ -219,17 +198,9 @@
                     $(".user_table_div").hide();
                     $("#leftTree").hide();
                     $(".operation_user").show();
-                    $(".operation_user input[name=id]").val("");
-                    $(".operation_user input[name=pid]").val("");
-                    $(".operation_user input[name=username]").val("");
-                    $(".operation_user input[name=password]").val("");
-                    $(".operation_user input[name=phone]").val("");
-                    $(".operation_user input[name=status]").attr('checked', 'checked');
-                    $(".operation_user input[name=status]").attr('type', 'hidden').val(1);
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                    var d = document.getElementsByTagName('em')[0];
-                    d.firstChild.nodeValue = '启用';
+                    $("#operation_form")[0].reset();
+                    $("input[type='checkbox']").val(99);
+
                     form.render(); //更新全部
 
                     break;
@@ -249,24 +220,9 @@
                     $("#leftTree").hide();
                     $(".operation_user").show();
                     $(".title").html("编辑用户");
-                    $(".operation_user input[name=id]").val(data.id);
-                    $(".operation_user input[name=username]").val(data.username);
                     $(".operation_user input[name=password]").val("");
-                    $(".operation_user input[name=phone]").val(data.phone);
-                    if (data.status == 1) {
-                        $(".operation_user input[name=status]").attr('checked', 'checked');
-                        $(".operation_user input[name=status]").attr('type', 'hidden').val(1);
-                        var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                        x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                        var d = document.getElementsByTagName('em')[0];
-                        d.firstChild.nodeValue = '启用';
-                    } else {
-                        $(".operation_user input[name=status]").attr('type', 'hidden').removeAttr("checked").val(2);
-                        var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                        x[0].setAttribute("class", "layui-unselect layui-form-switch");
-                        var d = document.getElementsByTagName('em')[0];
-                        d.firstChild.nodeValue = '禁用';
-                    }
+
+                    form.val('operation_form', data);
                     form.render(); //更新全部
 
                     break;
@@ -327,8 +283,7 @@
             });
         };
         form.on('switch(switch)', function () {
-            $(".operation_user input[name=status]").attr('type', 'hidden').val(this.checked ? 1 : 2);
-
+            $("input[type='checkbox']").val(this.checked ? 1 : 0);
         });
         form.on('submit(submit)', function (data) {
             if (data.field.id === undefined || data.field.id === null || data.field.id === "") {

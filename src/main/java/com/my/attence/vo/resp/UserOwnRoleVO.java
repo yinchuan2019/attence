@@ -18,5 +18,5 @@ public class UserOwnRoleVO {
     @ApiModelProperty("所有角色集合")
     private List<SysRole> allRole;
     @ApiModelProperty(value = "用户所拥有角色集合")
-    private List<Long> ownRoles;
+    private List ownRoles;
 }

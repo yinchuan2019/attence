@@ -1,5 +1,6 @@
 package com.my.attence.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -128,6 +129,7 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
             throw new BusinessException("用户已存在，请勿重复添加！");
         }
         SysUser sysUser = new SysUser();
+        BeanUtil.copyProperties(dto,sysUser);
         sysUser.setSalt(PasswordUtils.getSalt());
         String encode = PasswordUtils.encode(dto.getPassword(), dto.getSalt());
         sysUser.setPassword(encode);

@@ -12,13 +12,12 @@ import com.my.attence.service.UserRoleService;
 import com.my.attence.service.UserService;
 import com.my.attence.utils.TaleUtils;
 import com.my.attence.vo.req.UserRoleOperationReqVO;
+import com.my.attence.vo.resp.UserOwnRoleVO;
 import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -155,7 +154,8 @@ public class UserController {
     @ApiOperation(value = "赋予角色-获取所有角色接口")
     public DataResult getUserOwnRole(@PathVariable("userId") Long userId) {
         DataResult result = DataResult.success();
-        result.setData(userService.getUserOwnRole(userId));
+        UserOwnRoleVO userOwnRole = userService.getUserOwnRole(userId);
+        result.setData(userOwnRole);
         return result;
     }
 

@@ -231,7 +231,7 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
         respNode.setId(0L);
         respNode.setTitle("默认顶级菜单");
         respNode.setSpread(true);
-        respNode.setChildren(getTree(list, true));
+        respNode.setChildren(getTree(list, false));
         result.add(respNode);
         return result;
     }
