@@ -27,12 +27,12 @@
             <div>
                 <i class="layui-icon layui-icon-username admin-icon"></i>
                 <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
-                       class="layui-input admin-input admin-input-username" value="guest">
+                       class="layui-input admin-input admin-input-username" value="admin">
             </div>
             <div>
                 <i class="layui-icon layui-icon-password admin-icon"></i>
                 <input type="password" name="password" placeholder="请输入密码" autocomplete="off"
-                       class="layui-input admin-input" value="123456">
+                       class="layui-input admin-input" value="11">
             </div>
             <div>
                 <input type="text" name="captcha" id="captcha" placeholder="请输入验证码" autocomplete="off"
@@ -55,10 +55,10 @@
         // 进行登录操作
         form.on('submit(login)', function (data) {
             data = data.field;
-            if (data.captcha == '') {
+            /*if (data.captcha == '') {
                 layer.msg('请输入验证码');
                 return false;
-            }
+            }*/
             if (data.username == '') {
                 layer.msg('用户名不能为空');
                 return false;

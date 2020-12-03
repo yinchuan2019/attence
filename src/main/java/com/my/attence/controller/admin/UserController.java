@@ -13,7 +13,6 @@ import com.my.attence.service.UserService;
 import com.my.attence.utils.TaleUtils;
 import com.my.attence.vo.req.UserRoleOperationReqVO;
 import com.my.attence.vo.resp.UserOwnRoleVO;
-import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -49,11 +48,11 @@ public class UserController {
                                                 HttpServletRequest request,
                                                 HttpServletResponse response) {
         //判断验证码
-        if (!CaptchaUtil.ver(dto.getCaptcha(), request)) {
+        /*if (!CaptchaUtil.ver(dto.getCaptcha(), request)) {
             // 清除session中的验证码
             CaptchaUtil.clear(request);
             return DataResult.fail("验证码错误！");
-        }
+        }*/
         SysUser login = userService.login(dto);
         request.getSession().setAttribute(Constant.LOGIN_SESSION_KEY, login);
         //String token = TaleUtils.getRandomToken() + "#" + login.getId();
