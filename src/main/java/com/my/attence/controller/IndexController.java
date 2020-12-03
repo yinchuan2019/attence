@@ -65,6 +65,11 @@ public class IndexController {
         return "teacher/teacher_list" ;
     }
 
+    @GetMapping("/record")
+    public String recordList() {
+        return "record/record_list" ;
+    }
+
     @GetMapping("/logs")
     public String logList() {
         return "logs/log_list" ;
