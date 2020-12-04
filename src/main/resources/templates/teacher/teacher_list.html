@@ -17,9 +17,9 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <label class="layui-form-label">学号</label>
+                <label class="layui-form-label">编号</label>
                 <div class="layui-input-block">
-                    <input name="teaNo" placeholder="请输入学号" autocomplete="off" class="layui-input">
+                    <input name="teaNo" placeholder="请输入编号" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -50,6 +50,15 @@
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="teaStatus" value="1" title="入职" checked="">
+                    <input type="radio" name="teaStatus" value="0" title="离职">
+                    <input type="radio" name="teaStatus" value="2" title="转正">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
                     <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
@@ -62,7 +71,7 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="teaNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
+                <input type="text" id="teaNo" class="layui-input" autocomplete="off" placeholder="请输入编号">
             </div>
             <div class="layui-input-inline">
                 <input type="text" id="teaName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
@@ -71,7 +80,7 @@
                 <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
             </div>
             <div class="layui-input-inline layui-form">
-                <select id="status">
+                <select id="teaStatus">
                     <option value="">请选择账号状态</option>
                     <option value="1">入职</option>
                     <option value="0">离职</option>
@@ -132,7 +141,7 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'},
-                    {field: 'teaNo', title: '学号', width: 130},
+                    {field: 'teaNo', title: '编号', width: 130},
                     {field: 'teaName', title: '姓名', width: 130},
                     {field: 'teaEmail', title: '邮箱', width: 120},
                     {field: 'teaAge', title: '年龄', width: 120},
@@ -202,13 +211,14 @@
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                    var d = document.getElementsByTagName('em')[0];
                     form.render(); //更新全部
                     break;
             };
         });
+        form.on('switch(switch)', function () {
+            $(".operation_user input[name=teaStatus]").attr('type', 'hidden').val(this.checked ? 1 : 0);
+        });
+
         table.on('tool(user_table)', function (obj) {
             var data = obj.data;
             switch (obj.event) {

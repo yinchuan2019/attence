@@ -5,8 +5,6 @@ import com.my.attence.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +16,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SysUserDto extends BaseEntity implements Serializable {
+public class SysUserDto extends BaseEntity {
 
     private Long id;
 
@@ -28,10 +26,8 @@ public class SysUserDto extends BaseEntity implements Serializable {
 
     private String password;
 
-    @TableField(exist = false)
     private String oldPwd;
 
-    @TableField(exist = false)
     private String newPwd;
 
     private String phone;
@@ -48,17 +44,11 @@ public class SysUserDto extends BaseEntity implements Serializable {
 
     private Integer sex;
 
-    private Integer deleted;
-
     private String createId;
 
     private String updateId;
 
     private Integer createWhere;
-
-    private Date createTime;
-
-    private Date updateTime;
 
     private String startTime;
 

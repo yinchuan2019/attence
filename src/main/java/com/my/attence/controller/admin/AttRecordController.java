@@ -10,6 +10,7 @@ import com.my.attence.common.DataResult;
 import com.my.attence.entity.AttRecord;
 import com.my.attence.modal.Dto.AttRecordDto;
 import com.my.attence.service.AttRecordService;
+import com.my.attence.service.AttStudentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,9 @@ import java.util.List;
 public class AttRecordController {
     @Resource
     private AttRecordService attRecordService;
+    @Resource
+    private AttStudentService attStudentService;
+
 
     @PostMapping("/record")
     @ApiOperation(value = "新增接口")
@@ -90,7 +94,7 @@ public class AttRecordController {
             queryWrapper.eq(AttRecord::getAttType, dto.getAttType());
         }
         queryWrapper.orderByDesc(AttRecord::getAttBeginDate);
-        IPage page = attRecordService.page(p, queryWrapper);
+        IPage<AttRecord> page = attRecordService.page(p, queryWrapper);
         return DataResult.success(page);
     }
 }

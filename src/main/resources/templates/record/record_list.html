@@ -29,23 +29,22 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">邮箱</div>
+                <div class="layui-form-label ">签到开始时间</div>
                 <div class="layui-input-block">
-                    <input name="attEmail" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                    <input type="text" name="attBeginDate" readonly class="layui-input" id="attBeginDate" placeholder="签到开始时间">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">年龄</div>
+                <div class="layui-form-label ">签到结束时间</div>
                 <div class="layui-input-block">
-                    <input name="attAge" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                    <input type="text" name="attEndDate" readonly class="layui-input" id="attEndDate" placeholder="签到结束时间">
                 </div>
             </div>
-
             <div class="layui-form-item">
-                <label class="layui-form-label">单选框</label>
+                <label class="layui-form-label">签到类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="attSex" value="1" title="男" checked="">
-                    <input type="radio" name="attSex" value="0" title="女">
+                    <input type="radio" name="attType" value="1" title="社内" checked="">
+                    <input type="radio" name="attType" value="0" title="社外">
                 </div>
             </div>
 
@@ -73,8 +72,8 @@
             <div class="layui-input-inline layui-form">
                 <select id="attType">
                     <option value="">请选择账号状态</option>
-                    <option value="1">入籍</option>
-                    <option value="0">出籍</option>
+                    <option value="1">社内</option>
+                    <option value="0">社外</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
@@ -90,8 +89,7 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addStudent" shiro:hasPermission="sys:user:add">人工补签</button>
-        <button class="layui-btn layui-btn-sm" lay-event="batchUpdate" shiro:hasPermission="sys:user:deleted">更新</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addAtt" shiro:hasPermission="sys:user:add">人工补签</button>
     </div>
 </script>
 <script type="text/html" id="tool">
@@ -133,15 +131,15 @@
                     {type: 'checkbox', fixed: 'left'},
                     {field: 'attNo', title: '学号', width: 130},
                     {field: 'attName', title: '姓名', width: 130},
-                    {field: 'attBeginDate', title: '开始签到时间', width: 120},
-                    {field: 'attEndDate', title: '结束签到时间', width: 120},
+                    {field: 'attBeginDate', title: '开始签到时间', width: 160},
+                    {field: 'attEndDate', title: '结束签到时间', width: 160},
                     {
                         field: 'attType', title: '签到类型', width: 100, templet: function (item) {
                             if (item.attType === 1) {
-                                return "男";
+                                return "社内";
                             }
                             if (item.attType === 0) {
-                                return "女";
+                                return "社外";
                             }
                         }
                     },
@@ -169,6 +167,24 @@
             }
         });
 
+        laydate.render({
+            elem: '#attBeginDate'
+            , type: 'datetime'
+            ,format:'yyyy-MM-dd HH:mm:ss'//保留时分
+            , done: function (value, date, endDate) {
+
+            }
+        });
+
+        laydate.render({
+            elem: '#attEndDate'
+            , type: 'datetime'
+            ,format:'yyyy-MM-dd HH:mm:ss'//保留时分
+            , done: function (value, date, endDate) {
+
+            }
+        });
+
         table.on('toolbar(user_table)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
@@ -185,14 +201,11 @@
                         updlog(userIds, "选中的");
                     }
                     break;
-                case 'addStudent':
+                case 'addAtt':
                     $(".title").html("新增");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                    var d = document.getElementsByTagName('em')[0];
                     form.render(); //更新全部
                     break;
             };

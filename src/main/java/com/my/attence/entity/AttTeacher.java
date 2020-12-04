@@ -1,14 +1,11 @@
 package com.my.attence.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -20,7 +17,7 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-public class AttTeacher implements Serializable {
+public class AttTeacher extends BaseEntity {
 
     private static final long serialVersionUID=1L;
 
@@ -43,13 +40,6 @@ public class AttTeacher implements Serializable {
 
     private Integer teaStatus;
 
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
-
-    @TableField(fill = FieldFill.UPDATE)
-    private Date updateTime;
-
-    private Integer deleted;
 
 
 }

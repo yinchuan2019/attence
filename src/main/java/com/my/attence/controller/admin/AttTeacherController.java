@@ -37,7 +37,8 @@ public class AttTeacherController {
     public DataResult add(@RequestBody @Valid AttTeacherDto dto) {
         AttTeacher entity = new AttTeacher();
         BeanUtil.copyProperties(dto,entity);
-        entity.setTeaStatus(1);
+        //入职
+        //entity.setTeaStatus(1);
         attTeacherService.save(entity);
         return DataResult.success();
     }

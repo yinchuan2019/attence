@@ -1,20 +1,15 @@
 package com.my.attence.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by abel on 2020/11/26
  * TODO
  */
 @Data
-public class SysUserRole implements Serializable {
+public class SysUserRole extends BaseEntity{
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
@@ -22,8 +17,7 @@ public class SysUserRole implements Serializable {
 
     private Long roleId;
 
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+
 
 
 }

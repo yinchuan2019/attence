@@ -50,6 +50,13 @@
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" value="1" name="stuStatus" lay-skin="switch" lay-filter="switch" lay-text="出籍|入籍" checked>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
                     <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
@@ -199,9 +206,6 @@
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                    var d = document.getElementsByTagName('em')[0];
                     form.render(); //更新全部
                     break;
             };
@@ -219,10 +223,14 @@
                     $(".operation_user").show();
                     $(".title").html("编辑");
                     form.val('operation_form', data);
-
                     break;
             }
         });
+
+        form.on('switch(switch)', function () {
+            $(".operation_user input[name=stuStatus]").attr('type', 'hidden').val(this.checked ? 1 : 0);
+        });
+
         $("#btn_cancel").click(function () {
             $(".user_table_div").show();
             $(".operation_user").hide();

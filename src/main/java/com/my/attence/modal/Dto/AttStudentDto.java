@@ -1,13 +1,10 @@
 package com.my.attence.modal.Dto;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.my.attence.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +15,7 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class AttStudentDto extends BaseEntity implements Serializable {
+public class AttStudentDto extends BaseEntity {
 
     private static final long serialVersionUID=1L;
 
@@ -39,14 +36,6 @@ public class AttStudentDto extends BaseEntity implements Serializable {
     private String stuProfessional;
 
     private Integer stuStatus;
-
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
-
-    @TableField(fill = FieldFill.UPDATE)
-    private Date updateTime;
-
-    private Integer deleted;
 
     private Date startTime;
 
