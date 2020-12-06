@@ -97,14 +97,18 @@
     var $ = jQuery = layui.jquery;
     var laydate = layui.laydate;
     var tree = layui.tree;
+    var eleTree = layui.eleTree;
+    var i18n = layui.i18n;
     var startTime = null;
     var endTime = null;
+
     layui.config({
         base: '/layui-ext/'
     }).extend({
-        eleTree: 'eleTree/eleTree'
-    }).use(['table', 'laypage', 'layer', 'laydate', 'tree', 'eleTree'], function () {
-        var eleTree = layui.eleTree;
+        eleTree: 'eleTree/eleTree',
+        i18n: 'i18n/i18n'
+    }).use(['table', 'layer', 'tree', 'eleTree'], function () {
+        i18n = layui.i18n;
         tableIns1 = table.render({
             elem: '#role_table'
             , contentType: 'application/json'
@@ -122,7 +126,7 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'},
-                    {field: 'name', title: '角色名称', width: 200},
+                    {field: 'name', title: "姓名", width: 200},
                     {field: 'createTime', title: '创建时间', minWidth: 120},
                     {field: 'updateTime', title: '更新时间', minWidth: 120},
                     {
@@ -168,12 +172,6 @@
                     $(".operation_role").show();
                     $(".title").html("新增角色");
                     $("#operation_form")[0].reset();
-                    $(".operation_role input[name=status]").attr('checked', 'checked');
-                    $(".operation_role input[name=status]").attr('type', 'hidden').val(1);
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                    var d = document.getElementsByTagName('em')[0];
-                    d.firstChild.nodeValue = '启用';
                     form.render(); //更新全部
                     initTree();
                     break;
@@ -210,15 +208,9 @@
                 if (res.data.status == 1) {
                     $(".operation_role input[name=status]").attr('checked', 'checked');
                     $(".operation_role input[name=status]").attr('type', 'hidden').val(1);
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-                    var d = document.getElementsByTagName('em')[0];
                     d.firstChild.nodeValue = '启用';
                 } else {
                     $(".operation_role input[name=status]").attr('type', 'hidden').removeAttr("checked").val(0);
-                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-                    x[0].setAttribute("class", "layui-unselect layui-form-switch");
-                    var d = document.getElementsByTagName('em')[0];
                     d.firstChild.nodeValue = '禁用';
                 }
                 $(".operation_role_dataScope input[name=roleId]").val(res.data.id);
