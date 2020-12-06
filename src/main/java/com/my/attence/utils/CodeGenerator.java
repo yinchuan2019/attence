@@ -93,12 +93,12 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.my");
         pc.setModuleName("attence");
-        pc.setController("controller");
+        //pc.setController("controller");
         pc.setEntity("entity");
-        pc.setMapper("mapper");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
-        pc.setXml("mapper");
+        //pc.setMapper("mapper");
+        //pc.setService("service");
+        //pc.setServiceImpl("service.impl");
+        //pc.setXml("mapper");
 
         mpg.setPackageInfo(pc);
 
