@@ -97,7 +97,7 @@ public class CodeGenerator {
         pc.setEntity("entity");
         pc.setMapper("mapper");
         pc.setService("service");
-        /pc.setServiceImpl("service.impl");
+        pc.setServiceImpl("service.impl");
         pc.setXml("mapper");
 
         mpg.setPackageInfo(pc);
