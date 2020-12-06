@@ -139,4 +139,19 @@ public class IndexController {
     public String sysFiles() {
         return "sysfiles/list";
     }
+
+
+    /**
+     * 前台
+     */
+    @GetMapping("/admin/login")
+    public String adminLogin() {
+        return "admin/login" ;
+    }
+
+    @GetMapping("/admin/home")
+    public String adminIndex() {
+        return "admin/home";
+    }
+
 }

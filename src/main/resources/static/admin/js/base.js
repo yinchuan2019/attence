@@ -132,7 +132,7 @@ $.tale.prototype.post = function (options) {
         url: options.url,
         data: options.data || {},
         async: options.async || false,
-        dataType: 'json',
+        dataType: 'JSON',
         success: function (result) {
             self.hideLoading();
             options.success && options.success(result);

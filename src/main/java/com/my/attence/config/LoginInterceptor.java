@@ -51,6 +51,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
 
+        if (!uri.contains("/admin/login") && null == login) {
+            response.sendRedirect(request.getContextPath() + "/index/admin/login");
+            return false;
+        }
 
         return true;
     }
