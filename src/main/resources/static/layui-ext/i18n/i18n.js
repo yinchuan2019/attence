@@ -1,4 +1,4 @@
-layui.define(function (exports) {
+layui.define(['i18n','jquery'],function (exports) {
     "use strict";
     var $ = layui.jquery;
 

@@ -110,6 +110,46 @@
     var treetable;
     var selectNode = null;
     var iconPicker;
+
+    var cols = [
+        [
+            {type: 'numbers'},
+            {field: 'name', width: 150, title: '菜单名称'},
+            {field: 'url', width: 150, title: 'url'},
+            {field: 'icon', width: 80, title: '图标',templet:function (item) {
+                    return '<i class="icon-color layui-icon '+item.icon+'"></i>';
+                }},
+            {field: 'target', width: 80, title: 'target'},
+            {
+                field: 'type',width: 70, title: '类型', templet: function (item) {
+                    if (item.type === 1) {
+                        return '  <a class="layui-btn layui-btn-xs" >目录</a>';
+                    }
+                    if (item.type === 2) {
+                        return '<a class="layui-btn layui-btn-xs layui-btn-normal" >菜单</a>';
+                    }
+                    if (item.type === 3) {
+                        return '<a class="layui-btn layui-btn-xs layui-btn-warm " >按钮</a>';
+                    }
+                }
+            },
+            {field: 'pidName', title: '父级名称'},
+            {field: 'orderNum', title: '排序',width: 70},
+            {field: 'perms', title: '资源标识',width: 150},
+            {field: 'createTime', title: '创建时间', Width: 150},
+            {
+                field: 'status', title: '状态',width: 100, templet: function (item) {
+                    if (item.status === 1) {
+                        return '  <input type="checkbox" lay-skin="switch" lay-text="启用|禁用" checked disabled>';
+                    }
+                    if (item.status === 0) {
+                        return '  <input type="checkbox" lay-skin="switch" lay-text="启用|禁用" disabled>';
+                    }
+                }
+            },
+            {title: '操作', width: 180, toolbar: '#tool'}
+        ]
+    ]
     layui.config({
         base: '/layui-ext/'
     }).extend({
@@ -139,45 +179,7 @@
                 elem: '#menuTable', // 表格id
                 page: false, // 树形表格一般是没有分页的
                 toolbar: '#toolbar',
-                cols: [
-                    [
-                        {type: 'numbers'},
-                        {field: 'name', width: 150, title: '菜单名称'},
-                        {field: 'url', width: 150, title: 'url'},
-                        {field: 'icon', width: 80, title: '图标',templet:function (item) {
-                            return '<i class="icon-color layui-icon '+item.icon+'"></i>';
-                            }},
-                        {field: 'target', width: 80, title: 'target'},
-                        {
-                            field: 'type',width: 70, title: '类型', templet: function (item) {
-                                if (item.type === 1) {
-                                    return '  <a class="layui-btn layui-btn-xs" >目录</a>';
-                                }
-                                if (item.type === 2) {
-                                    return '<a class="layui-btn layui-btn-xs layui-btn-normal" >菜单</a>';
-                                }
-                                if (item.type === 3) {
-                                    return '<a class="layui-btn layui-btn-xs layui-btn-warm " >按钮</a>';
-                                }
-                            }
-                        },
-                        {field: 'pidName', title: '父级名称'},
-                        {field: 'orderNum', title: '排序',width: 70},
-                        {field: 'perms', title: '资源标识',width: 150},
-                        {field: 'createTime', title: '创建时间', Width: 150},
-                        {
-                            field: 'status', title: '状态',width: 100, templet: function (item) {
-                                if (item.status === 1) {
-                                    return '  <input type="checkbox" lay-skin="switch" lay-text="启用|禁用" checked disabled>';
-                                }
-                                if (item.status === 0) {
-                                    return '  <input type="checkbox" lay-skin="switch" lay-text="启用|禁用" disabled>';
-                                }
-                            }
-                        },
-                        {title: '操作', width: 180, toolbar: '#tool'}
-                    ]
-                ]
+                cols: cols
             });
 
         };

@@ -36,7 +36,7 @@ public class IndexController {
 
     @GetMapping("/admin/info")
     public String userDetail(Model model) {
-        model.addAttribute("flagType", "edit");
+        this.addAttribute(model);
         return "admin/admin_edit" ;
     }
 
@@ -112,5 +112,8 @@ public class IndexController {
     }
 
 
+    private void addAttribute(Model model){
+        model.addAttribute("add", "新增11111");
+    }
 
 }

@@ -18,7 +18,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-block">
-                    <input type="name" name="name" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+                    <input type="name" name="name" placeholder="角色名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -60,7 +60,7 @@
                 <input type="text" id="roleName" class="layui-input" autocomplete="off" placeholder="请输入角色名称">
             </div>
             <div class="layui-input-inline">
-                <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
+                <input type="text" readonly class="layui-input" id="createTime" th:placeholder="#{login.user}">
             </div>
             <div class="layui-input-inline layui-form">
                 <select id="status">
@@ -102,7 +102,7 @@
     var startTime = null;
     var endTime = null;
 
-    var title = [
+    var cols = [
         [
             {type: 'checkbox', fixed: 'left'},
             {field: 'name', title: "姓名", width: 200},
@@ -144,7 +144,7 @@
                     "data": CoreUtil.isEmpty(res.data) ? null : res.data.records //解析数据列表
                 }
             }
-            , cols: title
+            , cols: cols
             , toolbar: '#toolbar'
         });
 
@@ -172,7 +172,7 @@
                     $(".role_table_div").hide();
                     //显示编辑窗口
                     $(".operation_role").show();
-                    $(".title").html("新增角色");
+                    //$(".title").html("新增");
                     $("#operation_form")[0].reset();
                     form.render(); //更新全部
                     initTree();
@@ -189,16 +189,7 @@
                     $(".role_table_div").hide();
                     //显示编辑窗口
                     $(".operation_role").show();
-                    $(".title").html("编辑角色");
-                    getRoleDetail(data.id);
-                    break;
-                case 'dataScope':
-                    $(".role_table_div").hide();
-                    //显示编辑窗口
-                    $(".operation_role").hide();
-                    $(".operation_role_dataScope").show();
-
-                    $(".title").html("数据权限");
+                    $(".title").html("编辑");
                     getRoleDetail(data.id);
                     break;
             }
@@ -207,24 +198,6 @@
             CoreUtil.sendGet("/sys/role/" + id, null, function (res) {
                 form.val('operation_form', res.data);
 
-                if (res.data.status == 1) {
-                    $(".operation_role input[name=status]").attr('checked', 'checked');
-                    $(".operation_role input[name=status]").attr('type', 'hidden').val(1);
-                    d.firstChild.nodeValue = '启用';
-                } else {
-                    $(".operation_role input[name=status]").attr('type', 'hidden').removeAttr("checked").val(0);
-                    d.firstChild.nodeValue = '禁用';
-                }
-                $(".operation_role_dataScope input[name=roleId]").val(res.data.id);
-                if (!CoreUtil.isEmpty(res.data.dataScope)) {
-                    $("#dataScopeS").find('option[value="' + res.data.dataScope + '"]').prop('selected', true);
-                    $("#dataScope").val(res.data.dataScope)
-                    if (res.data.dataScope == "2") {
-                        $("#choose-dept").show();
-                    }
-                } else {
-                    $("#dataScopeS option:first").prop("selected", 'selected');
-                }
                 loadPermissionTree(res.data.permissionRespNodes);
                 form.render(); //更新全部
 
@@ -261,15 +234,6 @@
             return false;
         });
 
-        form.on('select(select-datascope)', function (data) {
-            $("#dataScope").val(data.value)
-            if (data.value == "2") {
-                $("#choose-dept").show();
-            } else {
-                $("#choose-dept").hide();
-            }
-        });
-
         //监听提交
         form.on('submit(submit)', function (data) {
             var permissionIds = [];
@@ -302,37 +266,7 @@
             return false;
         });
 
-        //监听提交
-        form.on('submit(submit_datascope)', function (data) {
 
-            if (CoreUtil.isEmpty($("#dataScope").val())) {
-                layer.msg("请选择数据范围");
-                return false;
-            }
-            var deptIds = [];
-            var brchArrays = el.getChecked();
-            if (brchArrays == undefined || brchArrays == null || !brchArrays instanceof Object) {
-                return false;
-            }
-            for (var i = 0; i < brchArrays.length; i++) {
-                deptIds.push(brchArrays[i].id);
-            }
-            var params = {
-                id: $(".operation_role_dataScope input[name=roleId]").val(),
-                dataScope: $("#dataScope").val(),
-                depts: deptIds
-            }
-            CoreUtil.sendPost("/sys/role/bindDept", params, function (res) {
-                //显示表格
-                $(".role_table_div").show();
-                //隐藏编辑窗口
-                $(".operation_role").hide();
-                $(".operation_role_dataScope").hide();
-                search();
-            });
-
-            return false;
-        });
         var tipDialog = function (id) {
             layer.open({
                 content: '确定要删除么',

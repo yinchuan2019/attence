@@ -25,7 +25,8 @@ spring:
       additional-paths: src/main/java
       #classpath目录下的WEB-INF文件夹内容修改不重启
       spring.devtools.restart.exclude: WEB-INF/**
-  #      指定程序的配置文件
+  messages:
+    basename: messages/message_zh_CN
 # thymeleaf
 thymeleaf:
  prefix: classpath:/templates/

@@ -107,8 +107,43 @@
     var deptNo = null;
     var startTime = null;
     var endTime = null;
-    layui.use(['table', 'layer', 'laydate', 'tree', 'transfer'], function () {
 
+    var cols = [
+        [
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'username', title: '账号', width: 130},
+            {field: 'phone', title: '手机号', width: 130},
+            {field: 'deptName', title: '所属公司', width: 120},
+            {field: 'realName', title: '真实名称', width: 120},
+            {field: 'nickName', title: '昵称', width: 130},
+            {field: 'email', title: '邮箱', width: 150},
+            {
+                field: 'sex', title: '性别', width: 100, templet: function (item) {
+                    if (item.sex === 1) {
+                        return "男";
+                    }
+                    if (item.sex === 2) {
+                        return "女";
+                    }
+                }
+            },
+            {field: 'createTime', title: '创建时间', minWidth: 120},
+            {field: 'updateTime', title: '更新时间', minWidth: 120},
+            {
+                field: 'status', title: '状态', width: 100, templet: function (item) {
+                    if (item.status === 1) {
+                        return '  <input type="checkbox" lay-skin="switch" lay-text="正常|禁用" checked disabled>';
+                    }
+                    if (item.status === 2) {
+                        return '  <input type="checkbox" lay-skin="switch" lay-text="正常|禁用" disabled>';
+                    }
+                }
+            },
+            {width: 300, toolbar: "#tool", title: '操作'}
+        ]
+    ]
+
+    layui.use(['table', 'layer', 'laydate', 'tree', 'transfer'], function () {
         //加载table
         tableIns1 = table.render({
             elem: '#user_table'
@@ -124,40 +159,7 @@
                     "data": CoreUtil.isEmpty(res.data) ? null : res.data.records //解析数据列表
                 }
             }
-            , cols: [
-                [
-                    {type: 'checkbox', fixed: 'left'},
-                    {field: 'username', title: '账号', width: 130},
-                    {field: 'phone', title: '手机号', width: 130},
-                    {field: 'deptName', title: '所属公司', width: 120},
-                    {field: 'realName', title: '真实名称', width: 120},
-                    {field: 'nickName', title: '昵称', width: 130},
-                    {field: 'email', title: '邮箱', width: 150},
-                    {
-                        field: 'sex', title: '性别', width: 100, templet: function (item) {
-                            if (item.sex === 1) {
-                                return "男";
-                            }
-                            if (item.sex === 2) {
-                                return "女";
-                            }
-                        }
-                    },
-                    {field: 'createTime', title: '创建时间', minWidth: 120},
-                    {field: 'updateTime', title: '更新时间', minWidth: 120},
-                    {
-                        field: 'status', title: '状态', width: 100, templet: function (item) {
-                            if (item.status === 1) {
-                                return '  <input type="checkbox" lay-skin="switch" lay-text="正常|禁用" checked disabled>';
-                            }
-                            if (item.status === 2) {
-                                return '  <input type="checkbox" lay-skin="switch" lay-text="正常|禁用" disabled>';
-                            }
-                        }
-                    },
-                    {width: 300, toolbar: "#tool", title: '操作'}
-                ]
-            ]
+            , cols: cols
             , toolbar: '#toolbar'
         });
 
