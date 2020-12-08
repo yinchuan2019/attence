@@ -1,8 +1,8 @@
 package com.my.attence.controller.admin;
 
 import com.my.attence.common.DataResult;
-import com.my.attence.service.UserRoleService;
-import com.my.attence.vo.req.UserRoleOperationReqVO;
+import com.my.attence.service.AdminRoleService;
+import com.my.attence.vo.req.AdminRoleOperationReqVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,14 +23,14 @@ import javax.validation.Valid;
 @RequestMapping("/sys")
 @RestController
 @Api(tags = "组织管理-用户和角色关联接口")
-public class UserRoleController {
+public class AdminRoleController {
     @Resource
-    private UserRoleService userRoleService;
+    private AdminRoleService adminRoleService;
 
     @PostMapping("/user/role")
     @ApiOperation(value = "修改或者新增用户角色接口")
-    public DataResult operationUserRole(@RequestBody @Valid UserRoleOperationReqVO vo) {
-        userRoleService.addUserRoleInfo(vo);
+    public DataResult operationUserRole(@RequestBody @Valid AdminRoleOperationReqVO vo) {
+        adminRoleService.addUserRoleInfo(vo);
         return DataResult.success();
     }
 }

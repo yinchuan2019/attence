@@ -1,8 +1,8 @@
 package com.my.attence.config;
 
 
-import com.my.attence.entity.SysUser;
-import com.my.attence.service.UserService;
+import com.my.attence.entity.SysAdmin;
+import com.my.attence.service.AdminService;
 import com.my.attence.utils.AdminCommons;
 import com.my.attence.utils.IPKit;
 import com.my.attence.utils.MapCache;
@@ -27,7 +27,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     private static final String USER_AGENT = "user-agent";
 
     @Resource
-    private UserService userService;
+    private AdminService adminService;
 
     private MapCache cache = MapCache.single();
 
@@ -44,15 +44,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 
         //请求拦截处理
-        SysUser login = TaleUtils.getLoginUser(request);
+        SysAdmin login = TaleUtils.getLoginUser(request);
 
-        if (!uri.contains("/login") && null == login) {
+        if (uri.contains("/index") && !uri.contains("/login") && null == login) {
             response.sendRedirect(request.getContextPath() + "/index/login");
             return false;
         }
 
-        if (!uri.contains("/admin/login") && null == login) {
-            response.sendRedirect(request.getContextPath() + "/index/admin/login");
+        if (uri.contains("/user") && !uri.contains("/login") && null == login) {
+            response.sendRedirect(request.getContextPath() + "/user/login");
             return false;
         }
 

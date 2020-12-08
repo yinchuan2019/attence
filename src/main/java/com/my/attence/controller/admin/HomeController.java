@@ -1,7 +1,7 @@
 package com.my.attence.controller.admin;
 
 import com.my.attence.common.DataResult;
-import com.my.attence.entity.SysUser;
+import com.my.attence.entity.SysAdmin;
 import com.my.attence.service.HomeService;
 import com.my.attence.utils.TaleUtils;
 import com.my.attence.vo.resp.HomeVO;
@@ -32,7 +32,7 @@ public class HomeController {
     @GetMapping("/home")
     @ApiOperation(value = "获取首页数据接口")
     public DataResult getHomeInfo(HttpServletRequest request) {
-        SysUser login = TaleUtils.getLoginUser(request);
+        SysAdmin login = TaleUtils.getLoginUser(request);
         DataResult result = DataResult.success();
         HomeVO homeInfo = homeService.getHomeInfo(login.getId());
         result.setData(homeInfo);

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.SysRolePermission;
-import com.my.attence.entity.SysUserRole;
+import com.my.attence.entity.SysAdminRole;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import java.util.Set;
 @Service
 public class HttpSessionService {
     @Resource
-    private UserRoleService userRoleService;
+    private AdminRoleService adminRoleService;
     @Resource
     private RolePermissionService rolePermissionService;
     @Resource
@@ -179,7 +179,7 @@ public class HttpSessionService {
      * @param roleId roleId
      */
     public void refreshRolePermission(Long roleId) {
-        List userIds = userRoleService.listObjs(Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getUserId).eq(SysUserRole::getRoleId, roleId));;
+        List userIds = adminRoleService.listObjs(Wrappers.<SysAdminRole>lambdaQuery().select(SysAdminRole::getUserId).eq(SysAdminRole::getRoleId, roleId));;
         if (!userIds.isEmpty()) {
             for (Object userId : userIds) {
                 //redisService.setAndExpire(redisPermissionRefreshKey + userId, String.valueOf(userId), redisPermissionRefreshExpire);
@@ -198,7 +198,7 @@ public class HttpSessionService {
         List<Object> roleIds = rolePermissionService.listObjs(Wrappers.<SysRolePermission>lambdaQuery().select(SysRolePermission::getRoleId).eq(SysRolePermission::getPermissionId, permissionId));
         if (!roleIds.isEmpty()) {
             //根据角色id， 获取关联用户
-            List<Object> userIds = userRoleService.listObjs(Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getUserId).in(SysUserRole::getRoleId, roleIds));
+            List<Object> userIds = adminRoleService.listObjs(Wrappers.<SysAdminRole>lambdaQuery().select(SysAdminRole::getUserId).in(SysAdminRole::getRoleId, roleIds));
             if (!userIds.isEmpty()) {
                 //删除用户redis
                 //userIds.parallelStream().forEach(userId ->

@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 public class HomeVO {
     @ApiModelProperty(value = "用户信息")
-    private UserInfoVO userInfo;
+    private AdminInfoVO userInfo;
     @ApiModelProperty(value = "目录菜单")
     private List<PermissionNode> menus;
 

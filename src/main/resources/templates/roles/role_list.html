@@ -102,6 +102,27 @@
     var startTime = null;
     var endTime = null;
 
+    var title = [
+        [
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'name', title: "姓名", width: 200},
+            {field: 'createTime', title: '创建时间', minWidth: 120},
+            {field: 'updateTime', title: '更新时间', minWidth: 120},
+            {
+                field: 'status', title: '状态', width: 100, templet: function (item) {
+                    if (item.status === 1) {
+                        return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" checked disabled>';
+                    }
+                    if (item.status === 0) {
+                        return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" disabled>';
+                    }
+                }
+            },
+            {field: 'description', title: '描述', width: 300},
+            {title: '操作', width: 250, toolbar: '#tool'}
+        ]
+    ]
+
     layui.config({
         base: '/layui-ext/'
     }).extend({
@@ -123,26 +144,7 @@
                     "data": CoreUtil.isEmpty(res.data) ? null : res.data.records //解析数据列表
                 }
             }
-            , cols: [
-                [
-                    {type: 'checkbox', fixed: 'left'},
-                    {field: 'name', title: "姓名", width: 200},
-                    {field: 'createTime', title: '创建时间', minWidth: 120},
-                    {field: 'updateTime', title: '更新时间', minWidth: 120},
-                    {
-                        field: 'status', title: '状态', width: 100, templet: function (item) {
-                            if (item.status === 1) {
-                                return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" checked disabled>';
-                            }
-                            if (item.status === 0) {
-                                return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" disabled>';
-                            }
-                        }
-                    },
-                    {field: 'description', title: '描述', width: 300},
-                    {title: '操作', width: 250, toolbar: '#tool'}
-                ]
-            ]
+            , cols: title
             , toolbar: '#toolbar'
         });
 

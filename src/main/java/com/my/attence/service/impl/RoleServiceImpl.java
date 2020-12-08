@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.my.attence.entity.SysRole;
 import com.my.attence.entity.SysRolePermission;
-import com.my.attence.entity.SysUserRole;
+import com.my.attence.entity.SysAdminRole;
 import com.my.attence.exception.BusinessException;
 import com.my.attence.mapper.SysRoleMapper;
 import com.my.attence.modal.Dto.SysRoleDto;
@@ -38,7 +38,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
     @Resource
     private SysRoleMapper sysRoleMapper;
     @Resource
-    private UserRoleService userRoleService;
+    private AdminRoleService adminRoleService;
     @Resource
     private RolePermissionService rolePermissionService;
     @Resource
@@ -121,14 +121,14 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
         //删除角色权限关联
         rolePermissionService.remove(Wrappers.<SysRolePermission>lambdaQuery().eq(SysRolePermission::getRoleId, id));
         //删除角色用户关联
-        userRoleService.remove(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getRoleId, id));
+        adminRoleService.remove(Wrappers.<SysAdminRole>lambdaQuery().eq(SysAdminRole::getRoleId, id));
         // 刷新权限
         httpSessionService.refreshRolePermission(id);
     }
 
     @Override
     public List<SysRole> getRoleInfoByUserId(Long userId) {
-        List<Long> roleIds = userRoleService.getRoleIdsByUserId(userId);
+        List<Long> roleIds = adminRoleService.getRoleIdsByUserId(userId);
         if (roleIds.isEmpty()) {
             return null;
         }

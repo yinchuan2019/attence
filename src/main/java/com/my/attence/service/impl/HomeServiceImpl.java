@@ -1,12 +1,12 @@
 package com.my.attence.service.impl;
 
-import com.my.attence.entity.SysUser;
+import com.my.attence.entity.SysAdmin;
 import com.my.attence.service.HomeService;
 import com.my.attence.service.PermissionService;
-import com.my.attence.service.UserService;
+import com.my.attence.service.AdminService;
 import com.my.attence.vo.resp.HomeVO;
 import com.my.attence.vo.resp.PermissionNode;
-import com.my.attence.vo.resp.UserInfoVO;
+import com.my.attence.vo.resp.AdminInfoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +23,18 @@ import java.util.List;
 @Service
 public class HomeServiceImpl implements HomeService {
     @Resource
-    private UserService userService;
+    private AdminService adminService;
     @Resource
     private PermissionService permissionService;
 
     @Override
     public HomeVO getHomeInfo(Long userId) {
 
-        SysUser sysUser = userService.getById(userId);
-        UserInfoVO vo = new UserInfoVO();
+        SysAdmin sysAdmin = adminService.getById(userId);
+        AdminInfoVO vo = new AdminInfoVO();
 
-        if (sysUser != null) {
-            BeanUtils.copyProperties(sysUser, vo);
+        if (sysAdmin != null) {
+            BeanUtils.copyProperties(sysAdmin, vo);
         }
 
         List<PermissionNode> menus = permissionService.permissionTreeList(userId);

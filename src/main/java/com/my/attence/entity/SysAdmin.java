@@ -9,7 +9,7 @@ import lombok.Data;
  * TODO
  */
 @Data
-public class SysUser extends BaseEntity {
+public class SysAdmin extends BaseEntity {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

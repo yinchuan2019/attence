@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
         /*Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             return "redirect:/index/home" ;
@@ -25,59 +25,50 @@ public class IndexController {
     }
 
     @GetMapping("/home")
-    public String home() {
+    public String home(Model model) {
         return "home" ;
     }
 
-    @GetMapping("/users/password")
-    public String updatePassword() {
-        return "users/update_password" ;
+    @GetMapping("/admin")
+    public String userList(Model model) {
+        return "admin/admin_list" ;
     }
 
-    @GetMapping("/users/info")
+    @GetMapping("/admin/info")
     public String userDetail(Model model) {
         model.addAttribute("flagType", "edit");
-        return "users/user_edit" ;
+        return "admin/admin_edit" ;
+    }
+
+    @GetMapping("/admin/password")
+    public String updatePassword(Model model) {
+        return "admin/update_password" ;
     }
 
     @GetMapping("/menus")
-    public String menusList() {
+    public String menusList(Model model) {
         return "menus/menu_list" ;
     }
 
     @GetMapping("/roles")
-    public String roleList() {
+    public String roleList(Model model) {
         return "roles/role_list" ;
     }
 
-    @GetMapping("/users")
-    public String userList() {
-        return "users/user_list" ;
-    }
 
     @GetMapping("/student")
-    public String studentList() {
+    public String studentList(Model model) {
         return "student/student_list" ;
     }
 
     @GetMapping("/teacher")
-    public String teacherList() {
+    public String teacherList(Model model) {
         return "teacher/teacher_list" ;
     }
 
     @GetMapping("/record")
-    public String recordList() {
+    public String recordList(Model model) {
         return "record/record_list" ;
-    }
-
-    @GetMapping("/logs")
-    public String logList() {
-        return "logs/log_list" ;
-    }
-
-    @GetMapping("/depts")
-    public String deptList() {
-        return "depts/dept_list" ;
     }
 
     @GetMapping("/403")
@@ -105,34 +96,14 @@ public class IndexController {
         return "about" ;
     }
 
-    @GetMapping("/build")
-    public String build() {
-        return "build" ;
-    }
-
-    @GetMapping("/sysContent")
-    public String sysContent() {
-        return "syscontent/list" ;
-    }
-
     @GetMapping("/sysDict")
     public String sysDict() {
         return "sysdict/list" ;
     }
 
-    @GetMapping("/sysGenerator")
-    public String sysGenerator() {
-        return "generator/list" ;
-    }
-
     @GetMapping("/sysJob")
     public String sysJob() {
         return "sysjob/list";
-    }
-
-    @GetMapping("/sysJobLog")
-    public String sysJobLog() {
-        return "sysjoblog/list";
     }
 
     @GetMapping("/sysFiles")
@@ -141,17 +112,5 @@ public class IndexController {
     }
 
 
-    /**
-     * 前台
-     */
-    @GetMapping("/admin/login")
-    public String adminLogin() {
-        return "admin/login" ;
-    }
-
-    @GetMapping("/admin/home")
-    public String adminIndex() {
-        return "admin/home";
-    }
 
 }

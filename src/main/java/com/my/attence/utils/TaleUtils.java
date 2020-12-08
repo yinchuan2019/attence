@@ -1,7 +1,7 @@
 package com.my.attence.utils;
 
 import com.my.attence.constant.Constant;
-import com.my.attence.entity.SysUser;
+import com.my.attence.entity.SysAdmin;
 import com.my.attence.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 import org.commonmark.parser.Parser;
@@ -206,12 +206,12 @@ public class TaleUtils {
      *
      * @return
      */
-    public static SysUser getLoginUser(HttpServletRequest request) {
+    public static SysAdmin getLoginUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (null == session) {
             return null;
         }
-        return (SysUser) session.getAttribute(Constant.LOGIN_SESSION_KEY);
+        return (SysAdmin) session.getAttribute(Constant.LOGIN_SESSION_KEY);
     }
 
 

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author abel
- * @since 2020-12-03
+ * @since 2020-12-08
  */
 public interface AttRecordMapper extends BaseMapper<AttRecord> {
 

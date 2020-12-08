@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.DataResult;
 import com.my.attence.constant.Constant;
-import com.my.attence.entity.SysUser;
-import com.my.attence.entity.SysUserRole;
+import com.my.attence.entity.SysAdmin;
+import com.my.attence.entity.SysAdminRole;
 import com.my.attence.modal.Dto.SysUserDto;
 import com.my.attence.service.HttpSessionService;
-import com.my.attence.service.UserRoleService;
-import com.my.attence.service.UserService;
+import com.my.attence.service.AdminRoleService;
+import com.my.attence.service.AdminService;
 import com.my.attence.utils.TaleUtils;
-import com.my.attence.vo.req.UserRoleOperationReqVO;
-import com.my.attence.vo.resp.UserOwnRoleVO;
+import com.my.attence.vo.req.AdminRoleOperationReqVO;
+import com.my.attence.vo.resp.AdminOwnRoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,11 +34,11 @@ import java.util.List;
 @Api(tags = "组织模块-用户管理")
 @RequestMapping("/sys")
 @Slf4j
-public class UserController {
+public class AdminController {
     @Resource
-    private UserService userService;
+    private AdminService adminService;
     @Resource
-    private UserRoleService userRoleService;
+    private AdminRoleService adminRoleService;
     @Resource
     private HttpSessionService httpSessionService;
 
@@ -53,7 +53,7 @@ public class UserController {
             CaptchaUtil.clear(request);
             return DataResult.fail("验证码错误！");
         }*/
-        SysUser login = userService.login(dto);
+        SysAdmin login = adminService.login(dto);
         request.getSession().setAttribute(Constant.LOGIN_SESSION_KEY, login);
         //String token = TaleUtils.getRandomToken() + "#" + login.getId();
         //login.setAccessToken(token);
@@ -63,7 +63,7 @@ public class UserController {
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
     public DataResult register(@RequestBody @Valid SysUserDto dto) {
-        userService.register(dto);
+        adminService.register(dto);
         return DataResult.success();
     }
 
@@ -79,7 +79,7 @@ public class UserController {
         if (StringUtils.isEmpty(dto.getId())) {
             return DataResult.fail("id不能为空");
         }
-        userService.updateUserInfo(dto);
+        adminService.updateUserInfo(dto);
         return DataResult.success();
     }
 
@@ -92,26 +92,26 @@ public class UserController {
     @GetMapping("/user/{id}")
     @ApiOperation(value = "查询用户详情接口")
     public DataResult detailInfo(@PathVariable("id") String id) {
-        return DataResult.success(userService.getById(id));
+        return DataResult.success(adminService.getById(id));
     }
 
     @GetMapping("/user")
     @ApiOperation(value = "查询用户详情接口")
     public DataResult youSelfInfo() {
         String userId = "";
-        return DataResult.success(userService.getById(userId));
+        return DataResult.success(adminService.getById(userId));
     }
 
     @PostMapping("/users")
     @ApiOperation(value = "分页获取用户列表接口")
     public DataResult pageInfo(@RequestBody SysUserDto dto) {
-        return DataResult.success(userService.pageInfo(dto));
+        return DataResult.success(adminService.pageInfo(dto));
     }
 
     @PostMapping("/user")
     @ApiOperation(value = "新增用户接口")
     public DataResult addUser(@RequestBody @Valid SysUserDto dto) {
-        userService.addUser(dto);
+        adminService.addUser(dto);
         return DataResult.success();
     }
 
@@ -129,12 +129,12 @@ public class UserController {
         if (StringUtils.isEmpty(dto.getOldPwd()) || StringUtils.isEmpty(dto.getNewPwd())) {
             return DataResult.fail("旧密码与新密码不能为空");
         }
-        SysUser login = TaleUtils.getLoginUser(request);
+        SysAdmin login = TaleUtils.getLoginUser(request);
 
         dto.setId(login.getId());
         dto.setPassword(dto.getNewPwd());
 
-        userService.updatePwd(dto);
+        adminService.updatePwd(dto);
         return DataResult.success();
     }
 
@@ -143,9 +143,9 @@ public class UserController {
     public DataResult deletedUser(@RequestBody @ApiParam(value = "用户id集合") List<String> userIds) {
         //删除用户， 删除redis的绑定的角色跟权限
         httpSessionService.abortUserByUserIds(userIds);
-        LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.in(SysUser::getId, userIds);
-        userService.remove(queryWrapper);
+        LambdaQueryWrapper<SysAdmin> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.in(SysAdmin::getId, userIds);
+        adminService.remove(queryWrapper);
         return DataResult.success();
     }
 
@@ -153,7 +153,7 @@ public class UserController {
     @ApiOperation(value = "赋予角色-获取所有角色接口")
     public DataResult getUserOwnRole(@PathVariable("userId") Long userId) {
         DataResult result = DataResult.success();
-        UserOwnRoleVO userOwnRole = userService.getUserOwnRole(userId);
+        AdminOwnRoleVO userOwnRole = adminService.getUserOwnRole(userId);
         result.setData(userOwnRole);
         return result;
     }
@@ -162,14 +162,14 @@ public class UserController {
     @ApiOperation(value = "赋予角色-用户赋予角色接口")
     public DataResult setUserOwnRole(@PathVariable("userId") Long userId, @RequestBody List<Long> roleIds) {
 
-        LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(SysUserRole::getUserId, userId);
-        userRoleService.remove(queryWrapper);
+        LambdaQueryWrapper<SysAdminRole> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(SysAdminRole::getUserId, userId);
+        adminRoleService.remove(queryWrapper);
         if (null != roleIds && !roleIds.isEmpty()) {
-            UserRoleOperationReqVO reqVO = new UserRoleOperationReqVO();
+            AdminRoleOperationReqVO reqVO = new AdminRoleOperationReqVO();
             reqVO.setUserId(userId);
             reqVO.setRoleIds(roleIds);
-            userRoleService.addUserRoleInfo(reqVO);
+            adminRoleService.addUserRoleInfo(reqVO);
         }
         return  DataResult.success();
     }

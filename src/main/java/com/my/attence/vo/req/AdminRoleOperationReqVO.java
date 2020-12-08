@@ -12,7 +12,7 @@ import java.util.List;
  * TODO
  */
 @Data
-public class UserRoleOperationReqVO {
+public class AdminRoleOperationReqVO {
     @ApiModelProperty(value = "用户id")
     @NotBlank(message = "用户id不能为空")
     private Long userId;

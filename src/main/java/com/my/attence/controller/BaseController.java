@@ -1,6 +1,6 @@
 package com.my.attence.controller;
 
-import com.my.attence.entity.SysUser;
+import com.my.attence.entity.SysAdmin;
 import com.my.attence.utils.MapCache;
 import com.my.attence.utils.TaleUtils;
 
@@ -39,7 +39,7 @@ public abstract class BaseController {
      * @param request
      * @return
      */
-    public SysUser user(HttpServletRequest request) {
+    public SysAdmin user(HttpServletRequest request) {
         return TaleUtils.getLoginUser(request);
     }
 

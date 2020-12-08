@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class UserOwnRoleVO {
+public class AdminOwnRoleVO {
     @ApiModelProperty("所有角色集合")
     private List<SysRole> allRole;
     @ApiModelProperty(value = "用户所拥有角色集合")

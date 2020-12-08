@@ -10,7 +10,7 @@ import com.my.attence.mapper.SysPermissionMapper;
 import com.my.attence.service.HttpSessionService;
 import com.my.attence.service.PermissionService;
 import com.my.attence.service.RolePermissionService;
-import com.my.attence.service.UserRoleService;
+import com.my.attence.service.AdminRoleService;
 import com.my.attence.vo.resp.PermissionNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -35,7 +35,7 @@ import java.util.Set;
 @Slf4j
 public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements PermissionService {
     @Resource
-    private UserRoleService userRoleService;
+    private AdminRoleService adminRoleService;
     @Resource
     private RolePermissionService rolePermissionService;
     @Resource
@@ -51,7 +51,7 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      */
     @Override
     public List<SysPermission> getPermission(Long userId) {
-        List<Long> roleIds = userRoleService.getRoleIdsByUserId(userId);
+        List<Long> roleIds = adminRoleService.getRoleIdsByUserId(userId);
         if (roleIds.isEmpty()) {
             return null;
         }

@@ -2,15 +2,15 @@ package com.my.attence.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.my.attence.entity.SysUser;
+import com.my.attence.entity.SysAdmin;
 import com.my.attence.modal.Dto.SysUserDto;
-import com.my.attence.vo.resp.UserOwnRoleVO;
+import com.my.attence.vo.resp.AdminOwnRoleVO;
 
 /**
  * Created by abel on 2020/11/25
  * TODO
  */
-public interface UserService extends IService<SysUser> {
+public interface AdminService extends IService<SysAdmin> {
 
     /**
      * 注册
@@ -21,7 +21,7 @@ public interface UserService extends IService<SysUser> {
      * 登陆
      * @return LoginRespVO
      */
-    SysUser login(SysUserDto dto);
+    SysAdmin login(SysUserDto dto);
 
     /**
      * 更新用户信息
@@ -32,7 +32,7 @@ public interface UserService extends IService<SysUser> {
      * 分页
      * @return IPage
      */
-    IPage<SysUser> pageInfo(SysUserDto dto);
+    IPage<SysAdmin> pageInfo(SysUserDto dto);
 
     /**
      * 添加用户
@@ -49,6 +49,6 @@ public interface UserService extends IService<SysUser> {
      * @param userId userId
      * @return UserOwnRoleRespVO
      */
-    UserOwnRoleVO getUserOwnRole(Long userId);
+    AdminOwnRoleVO getUserOwnRole(Long userId);
 
 }
