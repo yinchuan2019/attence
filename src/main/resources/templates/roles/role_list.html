@@ -80,11 +80,11 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addNewRole" shiro:hasPermission="sys:role:add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addNewRole" shiro:hasPermission="sys:role:add" th:placeholder="#{login.user}">添加</button>
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update"><span th:text="#{common.edit}"/></a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:role:deleted">删除</a>
 </script>
 <script src="/layui/layui.all.js"></script>
@@ -105,7 +105,7 @@
     var cols = [
         [
             {type: 'checkbox', fixed: 'left'},
-            {field: 'name', title: "姓名", width: 200},
+            {field: 'name', title: "[[#{common.edit}]]", width: 200},
             {field: 'createTime', title: '创建时间', minWidth: 120},
             {field: 'updateTime', title: '更新时间', minWidth: 120},
             {
@@ -189,7 +189,7 @@
                     $(".role_table_div").hide();
                     //显示编辑窗口
                     $(".operation_role").show();
-                    $(".title").html("编辑");
+                    $(".title").html("[[#{common.edit}]]");
                     getRoleDetail(data.id);
                     break;
             }
