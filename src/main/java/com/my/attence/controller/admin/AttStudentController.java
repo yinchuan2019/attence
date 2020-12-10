@@ -2,6 +2,7 @@ package com.my.attence.controller.admin;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -38,6 +39,7 @@ public class AttStudentController {
         AttStudent entity = new AttStudent();
         BeanUtil.copyProperties(dto,entity);
         entity.setStuStatus(1);
+        entity.setStuPwd("111111");
         attStudentService.save(entity);
         return DataResult.success();
     }
@@ -63,6 +65,22 @@ public class AttStudentController {
         return DataResult.success();
     }
 
+    @PutMapping("/student_status")
+    @ApiOperation(value = "更新状态接口")
+    public DataResult updateStatus(@RequestBody Long id) {
+        AttStudent entity = attStudentService.getById(id);
+        if (ObjectUtil.isEmpty(entity)) {
+            return DataResult.fail("学生不存在");
+        }
+        if(entity.getStuStatus() == 0){
+            entity.setStuStatus(1);
+        }else{
+            entity.setStuStatus(0);
+        }
+        attStudentService.updateById(entity);
+        return DataResult.success();
+    }
+
     @GetMapping("/student")
     @ApiOperation(value = "查询详情接口")
     public DataResult detailInfo(@RequestBody Long id) {
@@ -75,17 +93,14 @@ public class AttStudentController {
     public DataResult pageInfo(@RequestBody AttStudentDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttStudent> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(dto.getStuNo())) {
-            queryWrapper.like(AttStudent::getStuNo, dto.getStuNo());
+        if (!StringUtils.isEmpty(dto.getStuId())) {
+            queryWrapper.like(AttStudent::getStuId, dto.getStuId());
         }
-        if (!StringUtils.isEmpty(dto.getStuName())) {
-            queryWrapper.like(AttStudent::getStuName, dto.getStuName());
+        if (!StringUtils.isEmpty(dto.getStuNmKanji())) {
+            queryWrapper.like(AttStudent::getStuNmKanji, dto.getStuNmKanji());
         }
-        if (!StringUtils.isEmpty(dto.getStartTime())) {
-            queryWrapper.gt(AttStudent::getCreateTime, dto.getStartTime());
-        }
-        if (!StringUtils.isEmpty(dto.getEndTime())) {
-            queryWrapper.lt(AttStudent::getCreateTime, dto.getEndTime());
+        if (!StringUtils.isEmpty(dto.getStuNmRoma())) {
+            queryWrapper.like(AttStudent::getStuNmRoma, dto.getStuNmRoma());
         }
         if (!StringUtils.isEmpty(dto.getStuStatus())) {
             queryWrapper.eq(AttStudent::getStuStatus, dto.getStuStatus());

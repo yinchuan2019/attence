@@ -17,291 +17,279 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <label class="layui-form-label">[[#{id}]]</label>
-                <div class="layui-input-block">
-                    <input name="id" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_id}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_id" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-form-label ">[[#{stu_pwd}]]</div>
-                <div class="layui-input-block">
-                    <input name="stu_pwd" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_nm_kanji}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_nm_kanji" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuNmKanji" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_nm_roma}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_nm_roma" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuNmRoma" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_kokuseki}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_kokuseki" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuKokuseki" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{stu_sex}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stu_sex" value="1" th:title="#{boy}" checked="">
-                    <input type="radio" name="stu_sex" value="0" th:title="#{girl}">
+                    <input type="radio" name="stuSex" value="1" th:title="#{boy}" checked="">
+                    <input type="radio" name="stuSex" value="0" th:title="#{girl}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_birthday}]] </div>
                 <div class="layui-input-block">
-                    <input name="stu_birthday" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuBirthday" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_left_time}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_left_time" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuLeftTime" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_course}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_course" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuCourse" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_major}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_major" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuMajor" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_university}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_university" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuUniversity" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_decision}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_decision" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuDecision" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{stu_contract}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stu_contract" value="1" th:title="#{have}" checked="">
-                    <input type="radio" name="stu_contract" value="0" th:title="#{havenot}">
+                    <input type="radio" name="stuContract" value="1" th:title="#{have}" checked="">
+                    <input type="radio" name="stuContract" value="0" th:title="#{havenot}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{stu_interview}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stu_interview" value="1" th:title="#{have}" checked="">
-                    <input type="radio" name="stu_interview" value="0" th:title="#{havenot}">
+                    <input type="radio" name="stuInterview" value="1" th:title="#{have}" checked="">
+                    <input type="radio" name="stuInterview" value="0" th:title="#{havenot}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{stu_gakuhi}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stu_gakuhi" value="1" th:title="#{pay}" checked="">
-                    <input type="radio" name="stu_gakuhi" value="0" th:title="#{paynot}">
+                    <input type="radio" name="stuGakuhi" value="1" th:title="#{pay}" checked="">
+                    <input type="radio" name="stuGakuhi" value="0" th:title="#{paynot}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_keiyakubi}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_keiyakubi" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuKeiyakubi" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_start}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_start" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuStart" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_end}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_end" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuEnd" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_shang_end}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_shang_end" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuShangEnd" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_jp_end}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_jp_end" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuJpEnd" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_status}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_status" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuStatus" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">[[#{stu_doing_jp_schoo}]]</div>
+                <div class="layui-form-label ">[[#{stu_doing_jp_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_doing_jp_schoo" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuDoingJpSchool" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_home_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_home_school" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuHomeSchool" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{stu_n2}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stu_n2" value="1" th:title="#{have}" checked="">
-                    <input type="radio" name="stu_n2" value="0" th:title="#{havenot}">
+                    <input type="radio" name="stuN2" value="1" th:title="#{have}" checked="">
+                    <input type="radio" name="stuN2" value="0" th:title="#{havenot}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{stu_n1}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="stu_n1" value="1" th:title="#{have}" checked="">
-                    <input type="radio" name="stu_n1" value="0" th:title="#{havenot}">
+                    <input type="radio" name="stuN1" value="1" th:title="#{have}" checked="">
+                    <input type="radio" name="stuN1" value="0" th:title="#{havenot}">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_eju}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_eju" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuEju" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_when_jp}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_when_jp" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuWhenJp" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input lay_date" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_phone_num}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_phone_num" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuPhoneNum" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_wechat}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_wechat" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuWechat" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_background}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_background" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuBackground" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_broker}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_broker" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuBroker" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchool1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school_time}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school_time1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchoolTime1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_pass}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_pass1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuPass1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchool2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school_time}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school_time2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchoolTime2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_pass}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_pass2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuPass2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school3" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchool3" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school_time}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school_time3" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchoolTime3" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_pass}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_pass3" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuPass3" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school4" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchool4" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school_time}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school_time4" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchoolTime4" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_pass}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_pass4" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuPass4" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school5" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchool5" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_school_time}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_school_time5" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuSchoolTime5" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_pass}]]</div>
                 <div class="layui-input-block">
-                    <input name="stu_pass5" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="stuPass5" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -317,19 +305,16 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="stu_id" class="layui-input" autocomplete="off" th:placeholder="#{stu_id}">
+                <input type="text" id="stuId" class="layui-input" autocomplete="off" th:placeholder="#{stu_id}">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="stu_nm_kanji" class="layui-input" autocomplete="off" th:placeholder="#{stu_nm_kanji}">
+                <input type="text" id="stuNmKanji" class="layui-input" autocomplete="off" th:placeholder="#{stu_nm_kanji}">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="stu_nm_roma" class="layui-input" autocomplete="off" th:placeholder="#{stu_nm_roma}">
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" readonly class="layui-input" id="create_time" th:placeholder="#{create_time}">
+                <input type="text" id="stuNmRoma" class="layui-input" autocomplete="off" th:placeholder="#{stu_nm_roma}">
             </div>
             <div class="layui-input-inline layui-form">
-                <select id="stu_status">
+                <select id="stuStatus">
                     <option value="">[[#{status_select}]]</option>
                     <option value="1">[[#{status_on}]]</option>
                     <option value="0">[[#{status_off}]]</option>
@@ -367,20 +352,29 @@
     var laydate = layui.laydate;
     var tree = layui.tree;
     var transfer = layui.transfer;
-    var deptNo = null;
     var startTime = null;
     var endTime = null;
 
+    lay('.lay_date').each(function() {
+        laydate.render({
+             elem: this
+            ,type: 'date'
+            ,lang: 'en'
+            , done: function (value, date, endDate) {
+
+            }
+        });
+    });
+
     var cols = [
         [
-            {type: 'checkbox', fixed: 'left'},
-            {field: 'stu_id', title: '[[#{stu_id}]]', width: 130},
-            {field: 'stu_pwd', title: '[[#{stu_pwd}]]', width: 130},
-            {field: 'stu_nm_kanji', title: '[[#{stu_nm_kanji}]]', width: 130},
-            {field: 'stu_nm_roma', title: '[[#{stu_nm_roma}]]', width: 130},
-            {field: 'stu_kokuseki', title: '[[#{stu_kokuseki}]]', width: 130},
+            {type: 'radio', fixed: 'left'},
+            {field: 'stuId', title: '[[#{stu_id}]]', width: 130},
+            {field: 'stuNmKanji', title: '[[#{stu_nm_kanji}]]', width: 130},
+            {field: 'stuNmRoma', title: '[[#{stu_nm_roma}]]', width: 130},
+            {field: 'stuKokuseki', title: '[[#{stu_kokuseki}]]', width: 130},
             {
-                field: 'stu_sex', title: '[[#{stu_sex}]]', width: 100, templet: function (item) {
+                field: 'stuSex', title: '[[#{stu_sex}]]', width: 100, templet: function (item) {
                     if (item.stuSex === 1) {
                         return "[[#{boy}]]";
                     }
@@ -389,93 +383,90 @@
                     }
                 }
             },
-            {field: 'stu_birthday', title: '[[#{stu_birthday}]]', width: 130},
-            {field: 'stu_left_time', title: '[[#{stu_left_time}]]', width: 130},
-            {field: 'stu_course', title: '[[#{stu_course}]]', width: 130},
-
-            {field: 'stu_major', title: '[[#{stu_major}]]', width: 130},
-            {field: 'stu_university', title: '[[#{stu_university}]]', width: 130},
-            {field: 'stu_decision', title: '[[#{stu_decision}]]', width: 130},
-            {field: 'stu_decision', title: '[[#{stu_decision}]]', width: 130},
+            {field: 'stuBirthday', title: '[[#{stu_birthday}]]', width: 130},
+            {field: 'stuLeftTime', title: '[[#{stu_left_time}]]', width: 130},
+            {field: 'stuCourse', title: '[[#{stu_course}]]', width: 130},
+            {field: 'stuMajor', title: '[[#{stu_major}]]', width: 130},
+            {field: 'stuUniversity', title: '[[#{stu_university}]]', width: 130},
+            {field: 'stuDecision', title: '[[#{stu_decision}]]', width: 130},
             {
-                field: 'stu_decision', title: '[[#{stu_decision}]]', width: 100, templet: function (item) {
-                    if (item.stuSex === 1) {
+                field: 'stuContract', title: '[[#{stu_contract}]]', width: 100, templet: function (item) {
+                    if (item.stuContract === 1) {
                         return "[[#{have}]]";
                     }
-                    if (item.stuSex === 0) {
+                    if (item.stuContract === 0) {
                         return "[[#{havenot}]]";
                     }
                 }
             },
             {
-                field: 'stu_interview', title: '[[#{stu_interview}]]', width: 100, templet: function (item) {
-                    if (item.stuSex === 1) {
+                field: 'stuInterview', title: '[[#{stu_interview}]]', width: 100, templet: function (item) {
+                    if (item.stuInterview === 1) {
                         return "[[#{have}]]";
                     }
-                    if (item.stuSex === 0) {
+                    if (item.stuInterview === 0) {
                         return "[[#{havenot}]]";
                     }
                 }
             },
             {
-                field: 'stu_gakuhi', title: '[[#{stu_gakuhi}]]', width: 100, templet: function (item) {
-                    if (item.stuSex === 1) {
+                field: 'stuGakuhi', title: '[[#{stu_gakuhi}]]', width: 100, templet: function (item) {
+                    if (item.stuGakuhi === 1) {
                         return "[[#{have}]]";
                     }
-                    if (item.stuSex === 0) {
+                    if (item.stuGakuhi === 0) {
                         return "[[#{havenot}]]";
                     }
                 }
             },
-            {field: 'stu_keiyakubi', title: '[[#{stu_keiyakubi}]]', width: 130},
-            {field: 'stu_start', title: '[[#{stu_start}]]', width: 130},
-            {field: 'stu_end', title: '[[#{stu_end}]]', width: 130},
-            {field: 'stu_shang_end', title: '[[#{stu_shang_end}]]', width: 130},
-            {field: 'stu_jp_end', title: '[[#{stu_jp_end}]]', width: 130},
+            {field: 'stuKeiyakubi', title: '[[#{stu_keiyakubi}]]', width: 130},
+            {field: 'stuStart', title: '[[#{stu_start}]]', width: 130},
+            {field: 'stuEnd', title: '[[#{stu_end}]]', width: 130},
+            {field: 'stuShangEnd', title: '[[#{stu_shang_end}]]', width: 130},
+            {field: 'stuJpEnd', title: '[[#{stu_jp_end}]]', width: 130},
             {
-                field: 'stu_status', title: '[[#{stu_status}]]', width: 100, templet: function (item) {
-                    if (item.stuSex === 1) {
+                field: 'stuStatus', title: '[[#{stu_status}]]', width: 100, templet: function (item) {
+                    if (item.stuStatus === 1) {
                         return "[[#{status_on}]]";
                     }
-                    if (item.stuSex === 0) {
+                    if (item.stuStatus === 0) {
                         return "[[#{status_off}]]";
                     }
                 }
             },
-            {field: 'stu_doing_jp_schoo', title: '[[#{stu_doing_jp_schoo}]]', width: 130},
-            {field: 'stu_home_school', title: '[[#{stu_home_school}]]', width: 130},
+            {field: 'stuDoingJpSchool', title: '[[#{stu_doing_jp_school}]]', width: 130},
+            {field: 'stuHomeSchool', title: '[[#{stu_home_school}]]', width: 130},
             {
-                field: 'stu_n2', title: '[[#{stu_n2}]]', width: 100, templet: function (item) {
-                    if (item.stuSex === 1) {
+                field: 'stuN2', title: '[[#{stu_n2}]]', width: 100, templet: function (item) {
+                    if (item.stuN2 === 1) {
                         return "[[#{have}]]";
                     }
-                    if (item.stuSex === 0) {
+                    if (item.stuN2 === 0) {
                         return "[[#{havenot}]]";
                     }
                 }
             },
             {
-                field: 'stu_n1', title: '[[#{stu_n1}]]', width: 100, templet: function (item) {
-                    if (item.stuSex === 1) {
+                field: 'stuN1', title: '[[#{stu_n1}]]', width: 100, templet: function (item) {
+                    if (item.stuN1 === 1) {
                         return "[[#{have}]]";
                     }
-                    if (item.stuSex === 0) {
+                    if (item.stuN1 === 0) {
                         return "[[#{havenot}]]";
                     }
                 }
             },
-            {field: 'stu_eju', title: '[[#{stu_eju}]]', width: 130},
-            {field: 'stu_when_jp', title: '[[#{stu_when_jp}]]', width: 130},
-            {field: 'stu_phone_num', title: '[[#{stu_phone_num}]]', width: 130},
-            {field: 'stu_wechat', title: '[[#{stu_wechat}]]', width: 130},
-            {field: 'stu_background', title: '[[#{stu_background}]]', width: 130},
-            {field: 'stu_broker', title: '[[#{stu_broker}]]', width: 130},
-            {field: 'stu_school', title: '[[#{stu_school}]]', width: 130},
-            {field: 'stu_school_time', title: '[[#{stu_school_time}]]', width: 130},
-            {field: 'stu_pass', title: '[[#{stu_pass}]]', width: 130},
-            {field: 'create_time', title: '[[#{create_time}]]', width: 130},
-            {field: 'update_time', title: '[[#{update_time}]]', width: 130},
-            {field: 'deleted', title: '[[#{deleted}]]', width: 130},
+            {field: 'stuEju', title: '[[#{stu_eju}]]', width: 130},
+            {field: 'stuWhenJp', title: '[[#{stu_when_jp}]]', width: 130},
+            {field: 'stuPhoneNum', title: '[[#{stu_phone_num}]]', width: 130},
+            {field: 'stuWechat', title: '[[#{stu_wechat}]]', width: 130},
+            {field: 'stuBackground', title: '[[#{stu_background}]]', width: 130},
+            {field: 'stuBroker', title: '[[#{stu_broker}]]', width: 130},
+            {field: 'stuSchool', title: '[[#{stu_school}]]', width: 130},
+            {field: 'stuSchoolTime', title: '[[#{stu_school_time}]]', width: 130},
+            {field: 'stuPass', title: '[[#{stu_pass}]]', width: 130},
+            {field: 'createTime', title: '[[#{create_time}]]', width: 130},
+            {field: 'updateTime', title: '[[#{update_time}]]', width: 130},
             {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
         ]
     ]
@@ -500,21 +491,10 @@
             , toolbar: '#toolbar'
         });
 
-        laydate.render({
-            elem: '#create_time'
-            , type: 'datetime'
-            , range: '~'
-            , done: function (value, date, endDate) {
-                if (value != null && value != undefined && value != "") {
-                    startTime = value.split("~")[0];
-                    endTime = value.split("~")[1];
-                } else {
-                    startTime = null;
-                    endTime = null;
-                }
 
-            }
-        });
+
+
+
 
         table.on('toolbar(user_table)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
@@ -525,11 +505,9 @@
                     if (data.length == 0) {
                         layer.msg([[#{stu_select_tips}]]);
                     } else {
-                        var userIds = [];
                         $(data).each(function (index, item) {
-                            userIds.push(item.id);
+                            updlog(item.id, item.stuNmKanji);
                         });
-                        updlog(userIds, "选中的");
                     }
                     break;
                 case 'addStudent':
@@ -547,7 +525,7 @@
                 case 'del':
                     var userIds = [];
                     userIds.push(data.id);
-                    dellog(userIds, data.stu_nm_kanji);
+                    dellog(userIds, data.stuNmKanji);
                     break;
                 case 'edit':
                     $(".user_table_div").hide();
@@ -567,12 +545,12 @@
             $(".operation_user").hide();
             return false;
         });
-        var updlog = function (userIds, username) {
+        var updlog = function (userId, username) {
             layer.open({
                 content: '确定要更新' + username + "用户么?",
-                yes: function (index, layero) {
+                yes: function (index) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendPut("/attence/student", userIds, function (res) {
+                    CoreUtil.sendPut("/attence/student_status", userId, function (res) {
                         layer.msg(res.msg);
                         search()
                     });
@@ -616,12 +594,12 @@
         //这里以搜索为例
         tableIns1.reload({
             where: { //设定异步数据接口的额外参数，任意设
-                stuNo: $("#stu_id").val(),
+                stuId: $("#stuId").val(),
                 startTime: startTime,
                 endTime: endTime,
-                stu_nm_kanji: $("#stu_nm_kanji").val(),
-                stu_nm_roma: $("#stu_nm_roma").val(),
-                stu_status: $("#stu_status").val()
+                stuNmKanji: $("#stuNmKanji").val(),
+                stuNmRoma: $("#stuNmRoma").val(),
+                stuStatus: $("#stuStatus").val()
             }
             , page: {
                 curr: 1 //重新从第 1 页开始
