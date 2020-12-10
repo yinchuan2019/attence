@@ -1,7 +1,5 @@
 package com.my.attence.modal.Dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.my.attence.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +22,6 @@ public class AttStudentDto extends BaseEntity {
     /**
      * 番号/学号
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**

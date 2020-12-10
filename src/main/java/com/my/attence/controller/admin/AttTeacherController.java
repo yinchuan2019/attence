@@ -38,7 +38,9 @@ public class AttTeacherController {
         AttTeacher entity = new AttTeacher();
         BeanUtil.copyProperties(dto,entity);
         //入职
-        //entity.setTeaStatus(1);
+        entity.setTeaStatus(1);
+        entity.setTeaPwd("111111");
+
         attTeacherService.save(entity);
         return DataResult.success();
     }
@@ -76,17 +78,11 @@ public class AttTeacherController {
     public DataResult pageInfo(@RequestBody AttTeacherDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttTeacher> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(dto.getTeaNo())) {
-            queryWrapper.like(AttTeacher::getTeaNo, dto.getTeaNo());
+        if (!StringUtils.isEmpty(dto.getTeaId())) {
+            queryWrapper.like(AttTeacher::getTeaId, dto.getTeaId());
         }
-        if (!StringUtils.isEmpty(dto.getTeaName())) {
-            queryWrapper.like(AttTeacher::getTeaName, dto.getTeaName());
-        }
-        if (!StringUtils.isEmpty(dto.getStartTime())) {
-            queryWrapper.gt(AttTeacher::getCreateTime, dto.getStartTime());
-        }
-        if (!StringUtils.isEmpty(dto.getEndTime())) {
-            queryWrapper.lt(AttTeacher::getCreateTime, dto.getEndTime());
+        if (!StringUtils.isEmpty(dto.getTeaNmKanji())) {
+            queryWrapper.like(AttTeacher::getTeaNmKanji, dto.getTeaNmKanji());
         }
         if (!StringUtils.isEmpty(dto.getTeaStatus())) {
             queryWrapper.eq(AttTeacher::getTeaStatus, dto.getTeaStatus());

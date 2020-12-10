@@ -17,51 +17,82 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <label class="layui-form-label">编号</label>
+                <div class="layui-form-label ">[[#{tea_id}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaNo" placeholder="请输入编号" autocomplete="off" class="layui-input">
+                    <input name="teaId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">姓名</div>
+                <div class="layui-form-label ">[[#{tea_nm_kanji}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                    <input name="teaNmKanji" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">邮箱</div>
+                <div class="layui-form-label ">[[#{tea_nm_roma}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaEmail" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                    <input name="teaNmRoma" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">年龄</div>
+                <div class="layui-form-label ">[[#{tea_email}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaAge" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                    <input name="teaEmail" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
-
             <div class="layui-form-item">
-                <label class="layui-form-label">单选框</label>
+                <div class="layui-form-label ">[[#{tea_kokuseki}]]</div>
                 <div class="layui-input-block">
-                    <input type="radio" name="teaSex" value="1" title="男" checked="">
-                    <input type="radio" name="teaSex" value="0" title="女">
+                    <input name="teaKokuseki" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
-
             <div class="layui-form-item">
-                <label class="layui-form-label">状态</label>
+                <label class="layui-form-label">[[#{tea_sex}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="teaStatus" value="1" title="入职" checked="">
-                    <input type="radio" name="teaStatus" value="0" title="离职">
-                    <input type="radio" name="teaStatus" value="2" title="转正">
+                    <input type="radio" name="teaSex" value="1" th:title="#{boy}" checked="">
+                    <input type="radio" name="teaSex" value="0" th:title="#{girl}">
                 </div>
             </div>
-
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_education}]] </div>
+                <div class="layui-input-block">
+                    <input name="teaEducation" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_major}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaMajor" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_wage}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaWage" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_oteher_wage}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaOteherWage" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_commuting_cost}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaCommutingCost" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_bank}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaBank" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
-                    <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">[[#{save}]]</button>
+                    <button class="layui-btn layui-btn-primary" id="btn_cancel">[[#{cancel}]]</button>
                 </div>
             </div>
         </form>
@@ -71,13 +102,10 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="teaNo" class="layui-input" autocomplete="off" placeholder="请输入编号">
+                <input type="text" id="teaId" class="layui-input" autocomplete="off" placeholder="请输入编号">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="teaName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
+                <input type="text" id="teaNmKanji" class="layui-input" autocomplete="off" placeholder="请输入姓名">
             </div>
             <div class="layui-input-inline layui-form">
                 <select id="teaStatus">
@@ -122,6 +150,58 @@
     var deptNo = null;
     var startTime = null;
     var endTime = null;
+
+    lay('.lay_date').each(function() {
+        laydate.render({
+            elem: this
+            ,type: 'date'
+            ,lang: 'en'
+            , done: function (value, date, endDate) {
+
+            }
+        });
+    });
+    var cols = [
+        [
+            {type: 'radio', fixed: 'left'},
+            {field: 'teaId', title: '[[#{tea_id}]]', width: 130},
+            {field: 'teaNmKanji', title: '[[#{tea_nm_kanji}]]', width: 130},
+            {field: 'teaNmRoma', title: '[[#{tea_nm_roma}]]', width: 120},
+            {field: 'teaEmail', title: '[[#{tea_email}]]', width: 120},
+            {field: 'teaKokuseki', title: '[[#{tea_kokuseki}]]', width: 120},
+
+            {
+                field: 'teaSex', title: '[[#{tea_sex}]]', width: 100, templet: function (item) {
+                    if (item.teaSex === 1) {
+                        return "男";
+                    }
+                    if (item.teaSex === 0) {
+                        return "女";
+                    }
+                }
+            },
+            {field: 'teaEducation', title: '[[#{tea_education}]]', width: 120},
+            {field: 'teaMajor', title: '[[#{tea_major}]]', width: 120},
+            {field: 'teaWage', title: '[[#{tea_wage}]]', width: 120},
+            {field: 'teaOteherWage', title: '[[#{tea_oteher_wage}]]', width: 120},
+            {field: 'teaCommutingCost', title: '[[#{tea_commuting_cost}]]', width: 120},
+            {field: 'teaBank', title: '[[#{tea_bank}]]', width: 120},
+            {
+                field: 'teaStatus', title: '[[#{tea_status}]]', width: 120, templet: function (item) {
+                    if (item.teaStatus === 1) {
+                        return "[[#{status_on}]]";
+                    }
+                    if (item.teaStatus === 0) {
+                        return "[[#{status_off}]]";
+                    }
+                }
+            },
+            {field: 'createTime', title: '[[#{create_time}]]', width: 130},
+            {field: 'updateTime', title: '[[#{update_time}]]', width: 130},
+            {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
+        ]
+    ]
+
     layui.use(['table', 'layer', 'laydate', 'transfer'], function () {
         //加载table
         tableIns1 = table.render({
@@ -138,56 +218,8 @@
                     "data": CoreUtil.isEmpty(res.data) ? null : res.data.records //解析数据列表
                 }
             }
-            , cols: [
-                [
-                    {type: 'checkbox', fixed: 'left'},
-                    {field: 'teaNo', title: '编号', width: 130},
-                    {field: 'teaName', title: '姓名', width: 130},
-                    {field: 'teaEmail', title: '邮箱', width: 120},
-                    {field: 'teaAge', title: '年龄', width: 120},
-                    {
-                        field: 'teaSex', title: '性别', width: 100, templet: function (item) {
-                            if (item.teaSex === 1) {
-                                return "男";
-                            }
-                            if (item.teaSex === 0) {
-                                return "女";
-                            }
-                        }
-                    },
-                    {
-                        field: 'teaStatus', title: '状态', width: 100, templet: function (item) {
-                            if (item.teaStatus === 1) {
-                                return "入职";                            }
-                            if (item.teaStatus === 0) {
-                                return "离职";
-                            }if (item.teaStatus === 2) {
-                                return "转正";
-                            }
-                        }
-                    },
-                    {field: 'createTime', title: '创建时间', minWidth: 120},
-                    {field: 'updateTime', title: '更新时间', minWidth: 120},
-                    {width: 300, toolbar: "#tool", title: '操作'}
-                ]
-            ]
+            , cols:cols
             , toolbar: '#toolbar'
-        });
-
-        laydate.render({
-            elem: '#createTime'
-            , type: 'datetime'
-            , range: '~'
-            , done: function (value, date, endDate) {
-                if (value != null && value != undefined && value != "") {
-                    startTime = value.split("~")[0];
-                    endTime = value.split("~")[1];
-                } else {
-                    startTime = null;
-                    endTime = null;
-                }
-
-            }
         });
 
         table.on('toolbar(user_table)', function (obj) {
@@ -197,7 +229,7 @@
                     var checkStatus = table.checkStatus(obj.config.id);
                     var data = checkStatus.data;
                     if (data.length == 0) {
-                        layer.msg("请选择要更新的学生");
+                        layer.msg("请选择要更新的");
                     } else {
                         var userIds = [];
                         $(data).each(function (index, item) {
@@ -290,10 +322,11 @@
         //这里以搜索为例
         tableIns1.reload({
             where: { //设定异步数据接口的额外参数，任意设
-                teaNo: $("#teaNo").val(),
+                teaId: $("#teaId").val(),
                 startTime: startTime,
                 endTime: endTime,
-                teaName: $("#teaName").val(),
+                stuNmKanji: $("#stuNmKanji").val(),
+                stuNmRoma: $("#stuNmRoma").val(),
                 teaStatus: $("#teaStatus").val()
             }
             , page: {
