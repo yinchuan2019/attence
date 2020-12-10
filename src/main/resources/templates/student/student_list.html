@@ -370,6 +370,116 @@
     var deptNo = null;
     var startTime = null;
     var endTime = null;
+
+    var cols = [
+        [
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'stu_id', title: '[[#{stu_id}]]', width: 130},
+            {field: 'stu_pwd', title: '[[#{stu_pwd}]]', width: 130},
+            {field: 'stu_nm_kanji', title: '[[#{stu_nm_kanji}]]', width: 130},
+            {field: 'stu_nm_roma', title: '[[#{stu_nm_roma}]]', width: 130},
+            {field: 'stu_kokuseki', title: '[[#{stu_kokuseki}]]', width: 130},
+            {
+                field: 'stu_sex', title: '[[#{stu_sex}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{boy}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{girl}]]";
+                    }
+                }
+            },
+            {field: 'stu_birthday', title: '[[#{stu_birthday}]]', width: 130},
+            {field: 'stu_left_time', title: '[[#{stu_left_time}]]', width: 130},
+            {field: 'stu_course', title: '[[#{stu_course}]]', width: 130},
+
+            {field: 'stu_major', title: '[[#{stu_major}]]', width: 130},
+            {field: 'stu_university', title: '[[#{stu_university}]]', width: 130},
+            {field: 'stu_decision', title: '[[#{stu_decision}]]', width: 130},
+            {field: 'stu_decision', title: '[[#{stu_decision}]]', width: 130},
+            {
+                field: 'stu_decision', title: '[[#{stu_decision}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
+            {
+                field: 'stu_interview', title: '[[#{stu_interview}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
+            {
+                field: 'stu_gakuhi', title: '[[#{stu_gakuhi}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
+            {field: 'stu_keiyakubi', title: '[[#{stu_keiyakubi}]]', width: 130},
+            {field: 'stu_start', title: '[[#{stu_start}]]', width: 130},
+            {field: 'stu_end', title: '[[#{stu_end}]]', width: 130},
+            {field: 'stu_shang_end', title: '[[#{stu_shang_end}]]', width: 130},
+            {field: 'stu_jp_end', title: '[[#{stu_jp_end}]]', width: 130},
+            {
+                field: 'stu_status', title: '[[#{stu_status}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{status_on}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{status_off}]]";
+                    }
+                }
+            },
+            {field: 'stu_doing_jp_schoo', title: '[[#{stu_doing_jp_schoo}]]', width: 130},
+            {field: 'stu_home_school', title: '[[#{stu_home_school}]]', width: 130},
+            {
+                field: 'stu_n2', title: '[[#{stu_n2}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
+            {
+                field: 'stu_n1', title: '[[#{stu_n1}]]', width: 100, templet: function (item) {
+                    if (item.stuSex === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuSex === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
+            {field: 'stu_eju', title: '[[#{stu_eju}]]', width: 130},
+            {field: 'stu_when_jp', title: '[[#{stu_when_jp}]]', width: 130},
+            {field: 'stu_phone_num', title: '[[#{stu_phone_num}]]', width: 130},
+            {field: 'stu_wechat', title: '[[#{stu_wechat}]]', width: 130},
+            {field: 'stu_background', title: '[[#{stu_background}]]', width: 130},
+            {field: 'stu_broker', title: '[[#{stu_broker}]]', width: 130},
+            {field: 'stu_school', title: '[[#{stu_school}]]', width: 130},
+            {field: 'stu_school_time', title: '[[#{stu_school_time}]]', width: 130},
+            {field: 'stu_pass', title: '[[#{stu_pass}]]', width: 130},
+            {field: 'create_time', title: '[[#{create_time}]]', width: 130},
+            {field: 'update_time', title: '[[#{update_time}]]', width: 130},
+            {field: 'deleted', title: '[[#{deleted}]]', width: 130},
+            {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
+        ]
+    ]
+
     layui.use(['table', 'layer', 'laydate', 'transfer'], function () {
         //加载table
         tableIns1 = table.render({
@@ -386,114 +496,7 @@
                     "data": CoreUtil.isEmpty(res.data) ? null : res.data.records //解析数据列表
                 }
             }
-            , cols: [
-                [
-                    {type: 'checkbox', fixed: 'left'},
-                    {field: 'stu_id', title: '[[#{stu_id}]]', width: 130},
-                    {field: 'stu_pwd', title: '[[#{stu_pwd}]]', width: 130},
-                    {field: 'stu_nm_kanji', title: '[[#{stu_nm_kanji}]]', width: 130},
-                    {field: 'stu_nm_roma', title: '[[#{stu_nm_roma}]]', width: 130},
-                    {field: 'stu_kokuseki', title: '[[#{stu_kokuseki}]]', width: 130},
-                    {
-                        field: 'stu_sex', title: '[[#{stu_sex}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{boy}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{girl}]]";
-                            }
-                        }
-                    },
-                    {field: 'stu_birthday', title: '[[#{stu_birthday}]]', width: 130},
-                    {field: 'stu_left_time', title: '[[#{stu_left_time}]]', width: 130},
-                    {field: 'stu_course', title: '[[#{stu_course}]]', width: 130},
-
-                    {field: 'stu_major', title: '[[#{stu_major}]]', width: 130},
-                    {field: 'stu_university', title: '[[#{stu_university}]]', width: 130},
-                    {field: 'stu_decision', title: '[[#{stu_decision}]]', width: 130},
-                    {field: 'stu_decision', title: '[[#{stu_decision}]]', width: 130},
-                    {
-                        field: 'stu_decision', title: '[[#{stu_decision}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{have}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{havenot}]]";
-                            }
-                        }
-                    },
-                    {
-                        field: 'stu_interview', title: '[[#{stu_interview}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{have}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{havenot}]]";
-                            }
-                        }
-                    },
-                    {
-                        field: 'stu_gakuhi', title: '[[#{stu_gakuhi}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{have}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{havenot}]]";
-                            }
-                        }
-                    },
-                    {field: 'stu_keiyakubi', title: '[[#{stu_keiyakubi}]]', width: 130},
-                    {field: 'stu_start', title: '[[#{stu_start}]]', width: 130},
-                    {field: 'stu_end', title: '[[#{stu_end}]]', width: 130},
-                    {field: 'stu_shang_end', title: '[[#{stu_shang_end}]]', width: 130},
-                    {field: 'stu_jp_end', title: '[[#{stu_jp_end}]]', width: 130},
-                    {
-                        field: 'stu_status', title: '[[#{stu_status}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{status_on}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{status_off}]]";
-                            }
-                        }
-                    },
-                    {field: 'stu_doing_jp_schoo', title: '[[#{stu_doing_jp_schoo}]]', width: 130},
-                    {field: 'stu_home_school', title: '[[#{stu_home_school}]]', width: 130},
-                    {
-                        field: 'stu_n2', title: '[[#{stu_n2}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{have}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{havenot}]]";
-                            }
-                        }
-                    },
-                    {
-                        field: 'stu_n1', title: '[[#{stu_n1}]]', width: 100, templet: function (item) {
-                            if (item.stuSex === 1) {
-                                return "[[#{have}]]";
-                            }
-                            if (item.stuSex === 0) {
-                                return "[[#{havenot}]]";
-                            }
-                        }
-                    },
-                    {field: 'stu_eju', title: '[[#{stu_eju}]]', width: 130},
-                    {field: 'stu_when_jp', title: '[[#{stu_when_jp}]]', width: 130},
-                    {field: 'stu_phone_num', title: '[[#{stu_phone_num}]]', width: 130},
-                    {field: 'stu_wechat', title: '[[#{stu_wechat}]]', width: 130},
-                    {field: 'stu_background', title: '[[#{stu_background}]]', width: 130},
-                    {field: 'stu_broker', title: '[[#{stu_broker}]]', width: 130},
-                    {field: 'stu_school', title: '[[#{stu_school}]]', width: 130},
-                    {field: 'stu_school_time', title: '[[#{stu_school_time}]]', width: 130},
-                    {field: 'stu_pass', title: '[[#{stu_pass}]]', width: 130},
-                    {field: 'create_time', title: '[[#{create_time}]]', width: 130},
-                    {field: 'update_time', title: '[[#{update_time}]]', width: 130},
-                    {field: 'deleted', title: '[[#{deleted}]]', width: 130},
-                    {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
-                ]
-            ]
+            , cols:cols
             , toolbar: '#toolbar'
         });
 
