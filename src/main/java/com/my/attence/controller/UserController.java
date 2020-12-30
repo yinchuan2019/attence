@@ -15,17 +15,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    /**
-     * 前台
-     */
-    @GetMapping("/login")
-    public String adminLogin() {
-        return "user/login" ;
-    }
-
-    @GetMapping("/home")
-    public String adminIndex() {
-        return "user/home";
-    }
 
 }
