@@ -32,7 +32,7 @@ public class HomeController {
     @GetMapping("/home")
     @ApiOperation(value = "获取首页数据接口")
     public DataResult getHomeInfo(HttpServletRequest request) {
-        SysAdmin login = TaleUtils.getLoginUser(request);
+        SysAdmin login = TaleUtils.getLoginAdmin(request);
         DataResult result = DataResult.success();
         HomeVO homeInfo = homeService.getHomeInfo(login.getId());
         result.setData(homeInfo);

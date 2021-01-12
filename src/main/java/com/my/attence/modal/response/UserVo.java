@@ -1,6 +1,5 @@
-package com.my.attence.modal.Vo;
+package com.my.attence.modal.response;
 
-import jdk.nashorn.internal.objects.annotations.Setter;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -206,12 +206,21 @@ public class TaleUtils {
      *
      * @return
      */
+    public static SysAdmin getLoginAdmin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (null == session) {
+            return null;
+        }
+        return (SysAdmin) session.getAttribute(Constant.LOGIN_SESSION_ADMIN);
+    }
+
+
     public static SysAdmin getLoginUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (null == session) {
             return null;
         }
-        return (SysAdmin) session.getAttribute(Constant.LOGIN_SESSION_KEY);
+        return (SysAdmin) session.getAttribute(Constant.LOGIN_SESSION_USER);
     }
 
 
@@ -319,7 +328,7 @@ public class TaleUtils {
      * @param response
      */
     public static void logout(HttpSession session, HttpServletResponse response) {
-        session.removeAttribute(Constant.LOGIN_SESSION_KEY);
+        session.removeAttribute(Constant.LOGIN_SESSION_ADMIN);
         Cookie cookie = new Cookie(Constant.USER_IN_COOKIE, "");
         cookie.setMaxAge(0);
         response.addCookie(cookie);

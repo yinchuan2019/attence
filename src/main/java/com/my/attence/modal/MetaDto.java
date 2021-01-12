@@ -1,6 +1,6 @@
 package com.my.attence.modal;
 
-import com.my.attence.modal.Vo.MetaVo;
+import com.my.attence.modal.response.MetaVo;
 
 public class MetaDto extends MetaVo {
 

@@ -1,6 +1,6 @@
-package com.my.attence.modal.Dto;
+package com.my.attence.modal.request;
 
-import com.my.attence.modal.Vo.CommentVo;
+import com.my.attence.modal.response.CommentVo;
 
 import java.util.List;
 

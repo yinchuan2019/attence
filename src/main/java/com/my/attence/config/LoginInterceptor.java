@@ -1,6 +1,7 @@
 package com.my.attence.config;
 
 
+import com.my.attence.entity.BaseEntity;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.service.AdminService;
 import com.my.attence.utils.AdminCommons;
@@ -44,14 +45,17 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 
         //请求拦截处理
-        SysAdmin login = TaleUtils.getLoginUser(request);
+        SysAdmin login = TaleUtils.getLoginAdmin(request);
+
+        //请求拦截处理
+        BaseEntity baseUser = TaleUtils.getLoginUser(request);
 
         if (uri.contains("/index") && !uri.contains("/login") && null == login) {
             response.sendRedirect(request.getContextPath() + "/index/login");
             return false;
         }
 
-        if (uri.contains("/user") && !uri.contains("/login") && null == login) {
+        if (uri.contains("/user") && !uri.contains("/login") && null == baseUser) {
             response.sendRedirect(request.getContextPath() + "/user/login");
             return false;
         }

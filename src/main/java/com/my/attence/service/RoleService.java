@@ -2,8 +2,8 @@ package com.my.attence.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.attence.entity.SysRole;
-import com.my.attence.modal.Dto.SysRoleDto;
-import com.my.attence.modal.Vo.SysRoleVo;
+import com.my.attence.modal.request.SysRoleDto;
+import com.my.attence.modal.response.SysRoleVo;
 
 import java.util.List;
 

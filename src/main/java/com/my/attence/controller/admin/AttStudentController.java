@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.DataResult;
 import com.my.attence.entity.AttStudent;
-import com.my.attence.modal.Dto.AttStudentDto;
+import com.my.attence.modal.request.AttStudentDto;
 import com.my.attence.service.AttStudentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.StringUtils;

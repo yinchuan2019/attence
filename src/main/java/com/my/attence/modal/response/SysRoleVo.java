@@ -1,4 +1,4 @@
-package com.my.attence.modal.Vo;
+package com.my.attence.modal.response;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

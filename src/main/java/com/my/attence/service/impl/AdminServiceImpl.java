@@ -11,7 +11,7 @@ import com.my.attence.entity.SysRole;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.exception.BusinessException;
 import com.my.attence.mapper.SysAdminMapper;
-import com.my.attence.modal.Dto.SysUserDto;
+import com.my.attence.modal.request.SysAdminDto;
 import com.my.attence.service.PermissionService;
 import com.my.attence.service.RoleService;
 import com.my.attence.service.AdminRoleService;
@@ -44,7 +44,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
     private AdminRoleService adminRoleService;
 
     @Override
-    public void register(SysUserDto dto) {
+    public void register(SysAdminDto dto) {
         SysAdmin sysAdminOne = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
         if (sysAdminOne != null) {
             throw new BusinessException("用户名已存在！");
@@ -57,7 +57,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
     }
 
     @Override
-    public SysAdmin login(SysUserDto dto) {
+    public SysAdmin login(SysAdminDto dto) {
         SysAdmin sysAdmin = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
         if (null == sysAdmin) {
             throw new BusinessException(BaseResponseCode.NOT_ACCOUNT);
@@ -72,7 +72,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
     }
 
     @Override
-    public void updateUserInfo(SysUserDto dto) {
+    public void updateUserInfo(SysAdminDto dto) {
         SysAdmin sysAdmin = sysAdminMapper.selectById(dto.getId());
         if (null == sysAdmin) {
             throw new BusinessException("传入数据异常");
@@ -97,7 +97,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
 
 
     @Override
-    public IPage<SysAdmin> pageInfo(SysUserDto dto) {
+    public IPage<SysAdmin> pageInfo(SysAdminDto dto) {
         Page page = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<SysAdmin> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getUsername())) {
@@ -122,7 +122,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
     }
 
     @Override
-    public void addUser(SysUserDto dto) {
+    public void addUser(SysAdminDto dto) {
 
         SysAdmin sysAdminOne = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
         if (sysAdminOne != null) {
@@ -145,7 +145,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
     }
 
     @Override
-    public void updatePwd(SysUserDto dto) {
+    public void updatePwd(SysAdminDto dto) {
 
         SysAdmin sysAdmin = sysAdminMapper.selectById(dto.getId());
         if (sysAdmin == null) {

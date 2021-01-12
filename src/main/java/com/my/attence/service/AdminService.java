@@ -3,7 +3,7 @@ package com.my.attence.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.my.attence.entity.SysAdmin;
-import com.my.attence.modal.Dto.SysUserDto;
+import com.my.attence.modal.request.SysAdminDto;
 import com.my.attence.vo.resp.AdminOwnRoleVO;
 
 /**
@@ -15,34 +15,34 @@ public interface AdminService extends IService<SysAdmin> {
     /**
      * 注册
      */
-    void register(SysUserDto dto);
+    void register(SysAdminDto dto);
 
     /**
      * 登陆
      * @return LoginRespVO
      */
-    SysAdmin login(SysUserDto dto);
+    SysAdmin login(SysAdminDto dto);
 
     /**
      * 更新用户信息
      */
-    void updateUserInfo(SysUserDto dto);
+    void updateUserInfo(SysAdminDto dto);
 
     /**
      * 分页
      * @return IPage
      */
-    IPage<SysAdmin> pageInfo(SysUserDto dto);
+    IPage<SysAdmin> pageInfo(SysAdminDto dto);
 
     /**
      * 添加用户
      */
-    void addUser(SysUserDto dto);
+    void addUser(SysAdminDto dto);
 
     /**
      * 修改密码
      */
-    void updatePwd(SysUserDto dto);
+    void updatePwd(SysAdminDto dto);
 
     /**
      * 根据userid获取绑定角色

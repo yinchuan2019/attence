@@ -6,7 +6,7 @@ import com.my.attence.common.DataResult;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.entity.SysAdminRole;
-import com.my.attence.modal.Dto.SysUserDto;
+import com.my.attence.modal.request.SysAdminDto;
 import com.my.attence.service.HttpSessionService;
 import com.my.attence.service.AdminRoleService;
 import com.my.attence.service.AdminService;
@@ -44,7 +44,7 @@ public class AdminController {
 
     @PostMapping(value = "/user/login")
     @ApiOperation(value = "用户登录接口")
-    public DataResult login(@RequestBody @Valid SysUserDto dto,
+    public DataResult login(@RequestBody @Valid SysAdminDto dto,
                                                 HttpServletRequest request,
                                                 HttpServletResponse response) {
         //判断验证码
@@ -54,7 +54,7 @@ public class AdminController {
             return DataResult.fail("验证码错误！");
         }*/
         SysAdmin login = adminService.login(dto);
-        request.getSession().setAttribute(Constant.LOGIN_SESSION_KEY, login);
+        request.getSession().setAttribute(Constant.LOGIN_SESSION_ADMIN, login);
         //String token = TaleUtils.getRandomToken() + "#" + login.getId();
         //login.setAccessToken(token);
         return DataResult.success(login);
@@ -62,7 +62,7 @@ public class AdminController {
 
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
-    public DataResult register(@RequestBody @Valid SysUserDto dto) {
+    public DataResult register(@RequestBody @Valid SysAdminDto dto) {
         adminService.register(dto);
         return DataResult.success();
     }
@@ -75,7 +75,7 @@ public class AdminController {
 
     @PutMapping("/user")
     @ApiOperation(value = "更新用户信息接口")
-    public DataResult updateUserInfo(@RequestBody SysUserDto dto) {
+    public DataResult updateUserInfo(@RequestBody SysAdminDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
             return DataResult.fail("id不能为空");
         }
@@ -85,7 +85,7 @@ public class AdminController {
 
     @PutMapping("/user/info")
     @ApiOperation(value = "更新用户信息接口")
-    public DataResult updateUserInfoById(@RequestBody SysUserDto dto) {
+    public DataResult updateUserInfoById(@RequestBody SysAdminDto dto) {
         return DataResult.success();
     }
 
@@ -104,13 +104,13 @@ public class AdminController {
 
     @PostMapping("/users")
     @ApiOperation(value = "分页获取用户列表接口")
-    public DataResult pageInfo(@RequestBody SysUserDto dto) {
+    public DataResult pageInfo(@RequestBody SysAdminDto dto) {
         return DataResult.success(adminService.pageInfo(dto));
     }
 
     @PostMapping("/user")
     @ApiOperation(value = "新增用户接口")
-    public DataResult addUser(@RequestBody @Valid SysUserDto dto) {
+    public DataResult addUser(@RequestBody @Valid SysAdminDto dto) {
         adminService.addUser(dto);
         return DataResult.success();
     }
@@ -118,18 +118,18 @@ public class AdminController {
     @GetMapping("/user/logout")
     @ApiOperation(value = "退出接口")
     public DataResult logout(HttpServletRequest request) {
-        request.getSession().removeAttribute(Constant.LOGIN_SESSION_KEY);
+        request.getSession().removeAttribute(Constant.LOGIN_SESSION_ADMIN);
         return DataResult.success();
     }
 
     @PutMapping("/user/pwd")
     @ApiOperation(value = "修改密码接口")
-    public DataResult updatePwd(@RequestBody SysUserDto dto,
+    public DataResult updatePwd(@RequestBody SysAdminDto dto,
                                 HttpServletRequest request) {
         if (StringUtils.isEmpty(dto.getOldPwd()) || StringUtils.isEmpty(dto.getNewPwd())) {
             return DataResult.fail("旧密码与新密码不能为空");
         }
-        SysAdmin login = TaleUtils.getLoginUser(request);
+        SysAdmin login = TaleUtils.getLoginAdmin(request);
 
         dto.setId(login.getId());
         dto.setPassword(dto.getNewPwd());

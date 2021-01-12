@@ -1,6 +1,6 @@
 package com.my.attence;
 
-import com.my.attence.modal.Vo.UserVo;
+import com.my.attence.modal.response.UserVo;
 import com.my.attence.utils.TaleUtils;
 
 /**

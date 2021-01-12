@@ -1,7 +1,7 @@
 package com.my.attence.utils;
 
 
-import com.my.attence.modal.Vo.MetaVo;
+import com.my.attence.modal.response.MetaVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

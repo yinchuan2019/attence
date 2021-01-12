@@ -14,6 +14,17 @@ public class PasswordUtils {
 
 	/**
 	 * 匹配密码
+	 * @param rawPass 明文
+	 * @param encPass 密文
+	 * @return 是否匹配
+	 */
+	public static boolean matchesNoSalt(String rawPass, String encPass) {
+		return rawPass.equals(encPass);
+	}
+
+
+	/**
+	 * 匹配密码
 	 * @param salt 盐
 	 * @param rawPass 明文 
 	 * @param encPass 密文

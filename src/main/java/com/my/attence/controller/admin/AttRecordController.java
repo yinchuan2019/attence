@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.DataResult;
 import com.my.attence.entity.AttRecord;
-import com.my.attence.modal.Dto.AttRecordDto;
+import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.service.AttRecordService;
 import com.my.attence.service.AttStudentService;
 import io.swagger.annotations.ApiOperation;

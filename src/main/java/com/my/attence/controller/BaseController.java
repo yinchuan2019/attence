@@ -40,7 +40,7 @@ public abstract class BaseController {
      * @return
      */
     public SysAdmin user(HttpServletRequest request) {
-        return TaleUtils.getLoginUser(request);
+        return TaleUtils.getLoginAdmin(request);
     }
 
 

@@ -1,6 +1,5 @@
-package com.my.attence.modal.Dto;
+package com.my.attence.modal.request;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.my.attence.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SysUserDto extends BaseEntity {
+public class SysAdminDto extends BaseEntity {
 
     private Long id;
 

@@ -1,4 +1,4 @@
-package com.my.attence.modal.Dto;
+package com.my.attence.modal.request;
 
 import com.my.attence.entity.BaseEntity;
 import lombok.Data;

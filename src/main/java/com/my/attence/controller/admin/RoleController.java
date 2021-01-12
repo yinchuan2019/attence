@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.DataResult;
 import com.my.attence.entity.SysRole;
-import com.my.attence.modal.Dto.SysRoleDto;
+import com.my.attence.modal.request.SysRoleDto;
 import com.my.attence.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
