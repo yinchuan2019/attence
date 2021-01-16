@@ -15,6 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,8 +56,9 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        if (uri.contains("/user") && !uri.contains("/login") && null == baseUser) {
-            response.sendRedirect(request.getContextPath() + "/user/login");
+        if (uri.contains("/user") && !uri.contains("/1280.html") && null == baseUser) {
+            RequestDispatcher requestDispatcher=request.getRequestDispatcher("/user/1280.html");
+            requestDispatcher.forward(request,response);
             return false;
         }
 
