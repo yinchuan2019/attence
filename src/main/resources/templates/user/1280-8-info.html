@@ -9,10 +9,12 @@
 
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 
-	<script src="/js/bootstrap-datetimepicker.js"></script>
-
 	<script src="/js/bootstrap.min.js"></script>
-<style>
+	<script src="/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="/js/moment.js"></script>
+
+
+	<style>
 
 </style>
 
@@ -67,13 +69,17 @@
 		location.href = "1280-8-info.html";
 	});
 
-	$('#time').datepicker({
-		format:'hh:ii',
-		startView: 1,
-		minView: 0,
-		autoclose: true,
+	 $(function () {
+		$('#time').datetimepicker({
+			format:'hh:ii',
+			language:'zh-CN',
+			startView: 1,
+			minView: 0,
+			autoclose: true,
 
-	});
+		});
+	 });
+
 
 </script>
 </body>
