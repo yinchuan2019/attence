@@ -1,6 +1,6 @@
 package com.my.attence.controller.admin;
 
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.service.AdminRoleService;
 import com.my.attence.vo.req.AdminRoleOperationReqVO;
 import io.swagger.annotations.Api;
@@ -29,8 +29,8 @@ public class AdminRoleController {
 
     @PostMapping("/user/role")
     @ApiOperation(value = "修改或者新增用户角色接口")
-    public DataResult operationUserRole(@RequestBody @Valid AdminRoleOperationReqVO vo) {
+    public R operationUserRole(@RequestBody @Valid AdminRoleOperationReqVO vo) {
         adminRoleService.addUserRoleInfo(vo);
-        return DataResult.success();
+        return R.success();
     }
 }

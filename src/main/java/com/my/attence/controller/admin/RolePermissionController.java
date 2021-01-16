@@ -1,12 +1,10 @@
 package com.my.attence.controller.admin;
 
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.service.RolePermissionService;
 import com.my.attence.vo.req.RolePermissionOperationReqVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +29,8 @@ public class RolePermissionController {
 
     @PostMapping("/role/permission")
     @ApiOperation(value = "修改或者新增角色菜单权限接口")
-    public DataResult operationRolePermission(@RequestBody @Valid RolePermissionOperationReqVO vo) {
+    public R operationRolePermission(@RequestBody @Valid RolePermissionOperationReqVO vo) {
         rolePermissionService.addRolePermission(vo);
-        return DataResult.success();
+        return R.success();
     }
 }

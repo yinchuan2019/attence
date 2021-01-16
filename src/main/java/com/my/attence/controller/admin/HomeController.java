@@ -1,6 +1,6 @@
 package com.my.attence.controller.admin;
 
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.service.HomeService;
 import com.my.attence.utils.TaleUtils;
@@ -31,9 +31,9 @@ public class HomeController {
 
     @GetMapping("/home")
     @ApiOperation(value = "获取首页数据接口")
-    public DataResult getHomeInfo(HttpServletRequest request) {
+    public R getHomeInfo(HttpServletRequest request) {
         SysAdmin login = TaleUtils.getLoginAdmin(request);
-        DataResult result = DataResult.success();
+        R result = R.success();
         HomeVO homeInfo = homeService.getHomeInfo(login.getId());
         result.setData(homeInfo);
         return result;

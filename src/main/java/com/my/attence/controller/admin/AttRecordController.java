@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.entity.AttRecord;
 import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.service.AttRecordService;
@@ -38,44 +38,44 @@ public class AttRecordController {
 
     @PostMapping("/record")
     @ApiOperation(value = "新增接口")
-    public DataResult add(@RequestBody @Valid AttRecordDto dto) {
+    public R add(@RequestBody @Valid AttRecordDto dto) {
         AttRecord entity = new AttRecord();
         BeanUtil.copyProperties(dto,entity);
         attRecordService.save(entity);
-        return DataResult.success();
+        return R.success();
     }
 
     @DeleteMapping("/record")
     @ApiOperation(value = "删除接口")
-    public DataResult delete(@RequestBody List<Long> ids) {
+    public R delete(@RequestBody List<Long> ids) {
         for (Long id : ids) {
             attRecordService.removeById(id);
         }
-        return DataResult.success();
+        return R.success();
     }
 
     @PutMapping("/record")
     @ApiOperation(value = "更新信息接口")
-    public DataResult update(@RequestBody AttRecordDto dto) {
+    public R update(@RequestBody AttRecordDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return DataResult.fail("id不能为空");
+            return R.fail("id不能为空");
         }
         AttRecord entity = new AttRecord();
         BeanUtil.copyProperties(dto,entity);
         attRecordService.updateById(entity);
-        return DataResult.success();
+        return R.success();
     }
 
     @GetMapping("/record")
     @ApiOperation(value = "查询详情接口")
-    public DataResult detailInfo(@RequestBody Long id) {
+    public R detailInfo(@RequestBody Long id) {
         AttRecord entity = attRecordService.getById(id);
-        return DataResult.success(entity);
+        return R.success(entity);
     }
 
     @PostMapping("/records")
     @ApiOperation(value = "分页获取信息接口")
-    public DataResult pageInfo(@RequestBody AttRecordDto dto) {
+    public R pageInfo(@RequestBody AttRecordDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getAttNo())) {
@@ -95,7 +95,7 @@ public class AttRecordController {
         }
         queryWrapper.orderByDesc(AttRecord::getAttBeginDate);
         IPage<AttRecord> page = attRecordService.page(p, queryWrapper);
-        return DataResult.success(page);
+        return R.success(page);
     }
 }
 

@@ -2,7 +2,7 @@ package com.my.attence.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.entity.SysAdminRole;
@@ -44,9 +44,9 @@ public class AdminController {
 
     @PostMapping(value = "/user/login")
     @ApiOperation(value = "用户登录接口")
-    public DataResult login(@RequestBody @Valid SysAdminDto dto,
-                                                HttpServletRequest request,
-                                                HttpServletResponse response) {
+    public R login(@RequestBody @Valid SysAdminDto dto,
+                   HttpServletRequest request,
+                   HttpServletResponse response) {
         //判断验证码
         /*if (!CaptchaUtil.ver(dto.getCaptcha(), request)) {
             // 清除session中的验证码
@@ -57,77 +57,77 @@ public class AdminController {
         request.getSession().setAttribute(Constant.LOGIN_SESSION_ADMIN, login);
         //String token = TaleUtils.getRandomToken() + "#" + login.getId();
         //login.setAccessToken(token);
-        return DataResult.success(login);
+        return R.success(login);
     }
 
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
-    public DataResult register(@RequestBody @Valid SysAdminDto dto) {
+    public R register(@RequestBody @Valid SysAdminDto dto) {
         adminService.register(dto);
-        return DataResult.success();
+        return R.success();
     }
 
     @GetMapping("/user/unLogin")
     @ApiOperation(value = "引导客户端去登录")
-    public DataResult unLogin() {
-        return DataResult.getResult(1,"请重新登录");
+    public R unLogin() {
+        return R.getResult(1,"请重新登录");
     }
 
     @PutMapping("/user")
     @ApiOperation(value = "更新用户信息接口")
-    public DataResult updateUserInfo(@RequestBody SysAdminDto dto) {
+    public R updateUserInfo(@RequestBody SysAdminDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return DataResult.fail("id不能为空");
+            return R.fail("id不能为空");
         }
         adminService.updateUserInfo(dto);
-        return DataResult.success();
+        return R.success();
     }
 
     @PutMapping("/user/info")
     @ApiOperation(value = "更新用户信息接口")
-    public DataResult updateUserInfoById(@RequestBody SysAdminDto dto) {
-        return DataResult.success();
+    public R updateUserInfoById(@RequestBody SysAdminDto dto) {
+        return R.success();
     }
 
     @GetMapping("/user/{id}")
     @ApiOperation(value = "查询用户详情接口")
-    public DataResult detailInfo(@PathVariable("id") String id) {
-        return DataResult.success(adminService.getById(id));
+    public R detailInfo(@PathVariable("id") String id) {
+        return R.success(adminService.getById(id));
     }
 
     @GetMapping("/user")
     @ApiOperation(value = "查询用户详情接口")
-    public DataResult youSelfInfo() {
+    public R youSelfInfo() {
         String userId = "";
-        return DataResult.success(adminService.getById(userId));
+        return R.success(adminService.getById(userId));
     }
 
     @PostMapping("/users")
     @ApiOperation(value = "分页获取用户列表接口")
-    public DataResult pageInfo(@RequestBody SysAdminDto dto) {
-        return DataResult.success(adminService.pageInfo(dto));
+    public R pageInfo(@RequestBody SysAdminDto dto) {
+        return R.success(adminService.pageInfo(dto));
     }
 
     @PostMapping("/user")
     @ApiOperation(value = "新增用户接口")
-    public DataResult addUser(@RequestBody @Valid SysAdminDto dto) {
+    public R addUser(@RequestBody @Valid SysAdminDto dto) {
         adminService.addUser(dto);
-        return DataResult.success();
+        return R.success();
     }
 
     @GetMapping("/user/logout")
     @ApiOperation(value = "退出接口")
-    public DataResult logout(HttpServletRequest request) {
+    public R logout(HttpServletRequest request) {
         request.getSession().removeAttribute(Constant.LOGIN_SESSION_ADMIN);
-        return DataResult.success();
+        return R.success();
     }
 
     @PutMapping("/user/pwd")
     @ApiOperation(value = "修改密码接口")
-    public DataResult updatePwd(@RequestBody SysAdminDto dto,
-                                HttpServletRequest request) {
+    public R updatePwd(@RequestBody SysAdminDto dto,
+                       HttpServletRequest request) {
         if (StringUtils.isEmpty(dto.getOldPwd()) || StringUtils.isEmpty(dto.getNewPwd())) {
-            return DataResult.fail("旧密码与新密码不能为空");
+            return R.fail("旧密码与新密码不能为空");
         }
         SysAdmin login = TaleUtils.getLoginAdmin(request);
 
@@ -135,24 +135,24 @@ public class AdminController {
         dto.setPassword(dto.getNewPwd());
 
         adminService.updatePwd(dto);
-        return DataResult.success();
+        return R.success();
     }
 
     @DeleteMapping("/user")
     @ApiOperation(value = "删除用户接口")
-    public DataResult deletedUser(@RequestBody @ApiParam(value = "用户id集合") List<String> userIds) {
+    public R deletedUser(@RequestBody @ApiParam(value = "用户id集合") List<String> userIds) {
         //删除用户， 删除redis的绑定的角色跟权限
         httpSessionService.abortUserByUserIds(userIds);
         LambdaQueryWrapper<SysAdmin> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(SysAdmin::getId, userIds);
         adminService.remove(queryWrapper);
-        return DataResult.success();
+        return R.success();
     }
 
     @GetMapping("/user/roles/{userId}")
     @ApiOperation(value = "赋予角色-获取所有角色接口")
-    public DataResult getUserOwnRole(@PathVariable("userId") Long userId) {
-        DataResult result = DataResult.success();
+    public R getUserOwnRole(@PathVariable("userId") Long userId) {
+        R result = R.success();
         AdminOwnRoleVO userOwnRole = adminService.getUserOwnRole(userId);
         result.setData(userOwnRole);
         return result;
@@ -160,7 +160,7 @@ public class AdminController {
 
     @PutMapping("/user/roles/{userId}")
     @ApiOperation(value = "赋予角色-用户赋予角色接口")
-    public DataResult setUserOwnRole(@PathVariable("userId") Long userId, @RequestBody List<Long> roleIds) {
+    public R setUserOwnRole(@PathVariable("userId") Long userId, @RequestBody List<Long> roleIds) {
 
         LambdaQueryWrapper<SysAdminRole> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysAdminRole::getUserId, userId);
@@ -171,6 +171,6 @@ public class AdminController {
             reqVO.setRoleIds(roleIds);
             adminRoleService.addUserRoleInfo(reqVO);
         }
-        return  DataResult.success();
+        return  R.success();
     }
 }

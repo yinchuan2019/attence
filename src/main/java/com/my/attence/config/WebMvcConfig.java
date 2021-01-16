@@ -21,7 +21,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseInterceptor)
                 .addPathPatterns("/**/index/**")
-                .addPathPatterns("/**/user/**")
+                .addPathPatterns("/user/**")
 
         ;
     }

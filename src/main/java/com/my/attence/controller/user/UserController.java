@@ -2,7 +2,7 @@ package com.my.attence.controller.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.AttStudent;
@@ -14,10 +14,7 @@ import com.my.attence.service.AttTeacherService;
 import com.my.attence.utils.PasswordUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +27,7 @@ import javax.validation.Valid;
  * TODO
  */
 @Api(tags = "h5")
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     @Resource
@@ -40,9 +37,9 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登录接口")
-    public DataResult login(@RequestBody @Valid SysAdminDto dto,
-                            HttpServletRequest request,
-                            HttpServletResponse response) {
+    public R login(@RequestBody @Valid SysAdminDto dto,
+                   HttpServletRequest request,
+                   HttpServletResponse response) {
         if(dto.getUsername().startsWith("T")){
             LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery().eq(AttTeacher::getTeaId, dto.getUsername());
             AttTeacher one = attTeacherService.getOne(eq);
@@ -58,7 +55,9 @@ public class UserController {
                 throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
             }
             request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one);
+        }else {
+            return R.fail("用户名不存在");
         }
-        return null;
+        return R.success();
     }
 }

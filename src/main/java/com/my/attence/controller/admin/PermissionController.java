@@ -1,7 +1,7 @@
 package com.my.attence.controller.admin;
 
 
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.entity.SysPermission;
 import com.my.attence.exception.BusinessException;
 import com.my.attence.service.PermissionService;
@@ -30,25 +30,25 @@ public class PermissionController {
 
     @PostMapping("/permission")
     @ApiOperation(value = "新增菜单权限接口")
-    public DataResult addPermission(@RequestBody @Valid SysPermission vo) {
+    public R addPermission(@RequestBody @Valid SysPermission vo) {
         //verifyFormPid(vo);
         vo.setStatus(1);
         permissionService.save(vo);
-        return DataResult.success();
+        return R.success();
     }
 
     @DeleteMapping("/permission/{id}")
     @ApiOperation(value = "删除菜单权限接口")
-    public DataResult deleted(@PathVariable("id") Long id) {
+    public R deleted(@PathVariable("id") Long id) {
         permissionService.deleted(id);
-        return DataResult.success();
+        return R.success();
     }
 
     @PutMapping("/permission")
     @ApiOperation(value = "更新菜单权限接口")
-    public DataResult updatePermission(@RequestBody @Valid SysPermission vo) {
+    public R updatePermission(@RequestBody @Valid SysPermission vo) {
         if (StringUtils.isEmpty(vo.getId())) {
-            return DataResult.fail("id不能为空");
+            return R.fail("id不能为空");
         }
         SysPermission sysPermission = permissionService.getById(vo.getId());
         if (null == sysPermission) {
@@ -59,32 +59,32 @@ public class PermissionController {
             //verifyFormPid(vo);
         }
         permissionService.updateById(vo);
-        return DataResult.success();
+        return R.success();
     }
 
     @GetMapping("/permission/{id}")
     @ApiOperation(value = "查询菜单权限接口")
-    public DataResult detailInfo(@PathVariable("id") String id) {
-        return DataResult.success(permissionService.getById(id));
+    public R detailInfo(@PathVariable("id") String id) {
+        return R.success(permissionService.getById(id));
 
     }
 
     @GetMapping("/permissions")
     @ApiOperation(value = "获取所有菜单权限接口")
-    public DataResult getAllMenusPermission() {
-        return DataResult.success(permissionService.selectAll());
+    public R getAllMenusPermission() {
+        return R.success(permissionService.selectAll());
     }
 
     @GetMapping("/permission/tree")
     @ApiOperation(value = "获取所有目录菜单树接口")
-    public DataResult getAllMenusPermissionTree(@RequestParam(required = false) Long permissionId) {
-        return DataResult.success(permissionService.selectAllMenuByTree(permissionId));
+    public R getAllMenusPermissionTree(@RequestParam(required = false) Long permissionId) {
+        return R.success(permissionService.selectAllMenuByTree(permissionId));
     }
 
     @GetMapping("/permission/tree/all")
     @ApiOperation(value = "获取所有目录菜单树接口")
-    public DataResult getAllPermissionTree() {
-        return DataResult.success(permissionService.selectAllByTree());
+    public R getAllPermissionTree() {
+        return R.success(permissionService.selectAllByTree());
     }
 
     /**

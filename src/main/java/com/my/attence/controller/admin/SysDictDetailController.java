@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.my.attence.common.DataResult;
+import com.my.attence.common.R;
 import com.my.attence.entity.SysDictDetailEntity;
 import com.my.attence.service.SysDictDetailService;
 import io.swagger.annotations.Api;
@@ -35,59 +35,59 @@ public class SysDictDetailController {
     @ApiOperation(value = "新增")
     @PostMapping("/add")
     @RequiresPermissions("sysDict:add")
-    public DataResult add(@RequestBody SysDictDetailEntity sysDictDetail) {
+    public R add(@RequestBody SysDictDetailEntity sysDictDetail) {
         if (StringUtils.isEmpty(sysDictDetail.getValue())) {
-            return DataResult.fail("字典值不能为空");
+            return R.fail("字典值不能为空");
         }
         LambdaQueryWrapper<SysDictDetailEntity> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysDictDetailEntity::getValue, sysDictDetail.getValue());
         queryWrapper.eq(SysDictDetailEntity::getDictId, sysDictDetail.getDictId());
         SysDictDetailEntity q = sysDictDetailService.getOne(queryWrapper);
         if (q != null) {
-            return DataResult.fail("字典名称-字典值已存在");
+            return R.fail("字典名称-字典值已存在");
         }
         sysDictDetailService.save(sysDictDetail);
-        return DataResult.success();
+        return R.success();
     }
 
     @ApiOperation(value = "删除")
     @DeleteMapping("/delete")
     @RequiresPermissions("sysDict:delete")
-    public DataResult delete(@RequestBody @ApiParam(value = "id集合") List<String> ids) {
+    public R delete(@RequestBody @ApiParam(value = "id集合") List<String> ids) {
         sysDictDetailService.removeByIds(ids);
-        return DataResult.success();
+        return R.success();
     }
 
     @ApiOperation(value = "更新")
     @PutMapping("/update")
     @RequiresPermissions("sysDict:update")
-    public DataResult update(@RequestBody SysDictDetailEntity sysDictDetail) {
+    public R update(@RequestBody SysDictDetailEntity sysDictDetail) {
         if (StringUtils.isEmpty(sysDictDetail.getValue())) {
-            return DataResult.fail("字典值不能为空");
+            return R.fail("字典值不能为空");
         }
         LambdaQueryWrapper<SysDictDetailEntity> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysDictDetailEntity::getValue, sysDictDetail.getValue());
         queryWrapper.eq(SysDictDetailEntity::getDictId, sysDictDetail.getDictId());
         SysDictDetailEntity q = sysDictDetailService.getOne(queryWrapper);
         if (q != null && !q.getId().equals(sysDictDetail.getId())) {
-            return DataResult.fail("字典名称-字典值已存在");
+            return R.fail("字典名称-字典值已存在");
         }
 
         sysDictDetailService.updateById(sysDictDetail);
-        return DataResult.success();
+        return R.success();
     }
 
 
     @ApiOperation(value = "查询列表数据")
     @PostMapping("/listByPage")
     @RequiresPermissions("sysDict:list")
-    public DataResult findListByPage(@RequestBody SysDictDetailEntity sysDictDetail) {
+    public R findListByPage(@RequestBody SysDictDetailEntity sysDictDetail) {
         Page page = new Page(sysDictDetail.getPage(), sysDictDetail.getLimit());
         if (StringUtils.isEmpty(sysDictDetail.getDictId())) {
-            return DataResult.success();
+            return R.success();
         }
         IPage<SysDictDetailEntity> iPage = sysDictDetailService.listByPage(page, sysDictDetail.getDictId());
-        return DataResult.success(iPage);
+        return R.success(iPage);
     }
 
 }
