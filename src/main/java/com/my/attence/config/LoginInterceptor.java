@@ -57,8 +57,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        if (uri.contains("/user") && !uri.contains("/login") && !uri.contains("/user/1280.html") && null == baseUser) {
-            RequestDispatcher requestDispatcher=request.getRequestDispatcher("/user/1280.html");
+        if (uri.contains("/user") && !uri.contains("/login") && !uri.contains("/user/user_login.html") && null == baseUser) {
+            RequestDispatcher requestDispatcher=request.getRequestDispatcher("/user/user_login.html");
             requestDispatcher.forward(request,response);
             return false;
         }
