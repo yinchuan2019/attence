@@ -220,7 +220,7 @@ public class TaleUtils {
         if (null == session) {
             return null;
         }
-        return session.getAttribute(Constant.LOGIN_SESSION_USER).toString();
+        return (String) session.getAttribute(Constant.LOGIN_SESSION_USER);
     }
 
 
