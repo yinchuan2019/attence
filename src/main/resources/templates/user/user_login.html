@@ -7,7 +7,6 @@
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
 <body>
@@ -66,9 +65,9 @@
 			success: function (res) {
 				if (res.code == 0) {
 					if(userName.substring(0,1) == "S") {
-						location.href = "1280-7.html";
+						window.location.href = "1280-7.html";
 					}else if(userName.substring(0,1) == "T"){
-						location.href = "1280-2.html";
+						window.location.href = "1280-2.html";
 					}
 					return true;
 				}else {
