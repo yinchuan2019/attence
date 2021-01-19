@@ -78,7 +78,7 @@
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function (res) {
-                    if (res.code == 1) {
+                    if (res.code == 0) {
                         layer.msg('登录成功', {time: 100}, function () {
                             window.location = '/index/home';
                         });

@@ -45,14 +45,14 @@ public class R {
 
 
     public R() {
-        this.code=1;
+        this.code=0;
         this.msg="操作成功";
         this.data=null;
     }
 
     public R(Object data) {
         this.data = data;
-        this.code= 1;
+        this.code= 0;
         this.msg="操作成功";
     }
 
@@ -74,7 +74,7 @@ public class R {
      * 操作失败 data 不为null
      */
     public static R fail(String msg){
-        return new R(0,msg);
+        return new R(1,msg);
     }
     /**
      *  自定义返回  data为null
