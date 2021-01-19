@@ -25,11 +25,6 @@ public class AttStudentDto extends BaseEntity {
     private Integer id;
 
     /**
-     * 登録ID/登陆ID
-     */
-    private String stuId;
-
-    /**
      * パスワード/密码
      */
     private String stuPwd;

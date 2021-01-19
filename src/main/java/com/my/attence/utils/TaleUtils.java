@@ -1,6 +1,7 @@
 package com.my.attence.utils;
 
 import com.my.attence.constant.Constant;
+import com.my.attence.entity.AttStudent;
 import com.my.attence.entity.BaseEntity;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.exception.BusinessException;

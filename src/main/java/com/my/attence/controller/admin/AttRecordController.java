@@ -11,6 +11,7 @@ import com.my.attence.entity.AttRecord;
 import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.service.AttRecordService;
 import com.my.attence.service.AttStudentService;
+import com.my.attence.service.AttTeacherService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,8 @@ public class AttRecordController {
     private AttRecordService attRecordService;
     @Resource
     private AttStudentService attStudentService;
+    @Resource
+    private AttTeacherService attTeacherService;
 
 
     @PostMapping("/record")
@@ -78,22 +81,22 @@ public class AttRecordController {
     public R pageInfo(@RequestBody AttRecordDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(dto.getAttNo())) {
-            queryWrapper.like(AttRecord::getAttNo, dto.getAttNo());
+        if (!StringUtils.isEmpty(dto.getStuNo())) {
+            queryWrapper.like(AttRecord::getStuNo, dto.getStuNo());
         }
-        if (!StringUtils.isEmpty(dto.getAttName())) {
-            queryWrapper.like(AttRecord::getAttName, dto.getAttName());
+        if (!StringUtils.isEmpty(dto.getStuName())) {
+            queryWrapper.like(AttRecord::getStuName, dto.getStuName());
         }
-        if (!StringUtils.isEmpty(dto.getAttBeginDate())) {
-            queryWrapper.gt(AttRecord::getAttBeginDate, dto.getAttBeginDate());
+        if (!StringUtils.isEmpty(dto.getBeginDate())) {
+            queryWrapper.gt(AttRecord::getBeginDate, dto.getBeginDate());
         }
-        if (!StringUtils.isEmpty(dto.getAttEndDate())) {
-            queryWrapper.lt(AttRecord::getAttEndDate, dto.getAttEndDate());
+        if (!StringUtils.isEmpty(dto.getEndDate())) {
+            queryWrapper.lt(AttRecord::getEndDate, dto.getEndDate());
         }
         if (!StringUtils.isEmpty(dto.getAttType())) {
             queryWrapper.eq(AttRecord::getAttType, dto.getAttType());
         }
-        queryWrapper.orderByDesc(AttRecord::getAttBeginDate);
+        queryWrapper.orderByDesc(AttRecord::getBeginDate);
         IPage<AttRecord> page = attRecordService.page(p, queryWrapper);
         return R.success(page);
     }

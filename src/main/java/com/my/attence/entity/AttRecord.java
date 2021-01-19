@@ -25,19 +25,25 @@ public class AttRecord extends BaseEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String attNo;
+    private String stuNo;
 
-    private String attName;
+    private String stuName;
+
+    private String teaNo;
+
+    private String teaName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date attBeginDate;
+    private Date beginDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date attEndDate;
+    private Date endDate;
+
+    private String courseType;
 
     private Integer attType;
 
-    private String attRemarks;
+    private String remarks;
 
 
 }

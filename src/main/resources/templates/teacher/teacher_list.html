@@ -17,9 +17,9 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <div class="layui-form-label ">[[#{tea_id}]]</div>
+                <div class="layui-form-label ">[[#{login_id}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="loginId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -102,7 +102,7 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="teaId" class="layui-input" autocomplete="off" placeholder="请输入编号">
+                <input type="text" id="loginId" class="layui-input" autocomplete="off" placeholder="请输入编号">
             </div>
             <div class="layui-input-inline">
                 <input type="text" id="teaNmKanji" class="layui-input" autocomplete="off" placeholder="请输入姓名">
@@ -164,7 +164,7 @@
     var cols = [
         [
             {type: 'radio', fixed: 'left'},
-            {field: 'teaId', title: '[[#{tea_id}]]', width: 130},
+            {field: 'loginId', title: '[[#{login_id}]]', width: 130},
             {field: 'teaNmKanji', title: '[[#{tea_nm_kanji}]]', width: 130},
             {field: 'teaNmRoma', title: '[[#{tea_nm_roma}]]', width: 120},
             {field: 'teaEmail', title: '[[#{tea_email}]]', width: 120},
@@ -322,7 +322,7 @@
         //这里以搜索为例
         tableIns1.reload({
             where: { //设定异步数据接口的额外参数，任意设
-                teaId: $("#teaId").val(),
+                loginId: $("#loginId").val(),
                 startTime: startTime,
                 endTime: endTime,
                 stuNmKanji: $("#stuNmKanji").val(),

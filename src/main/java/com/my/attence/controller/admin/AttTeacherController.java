@@ -78,8 +78,8 @@ public class AttTeacherController {
     public R pageInfo(@RequestBody AttTeacherDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttTeacher> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(dto.getTeaId())) {
-            queryWrapper.like(AttTeacher::getTeaId, dto.getTeaId());
+        if (!StringUtils.isEmpty(dto.getLoginId())) {
+            queryWrapper.like(AttTeacher::getLoginId, dto.getLoginId());
         }
         if (!StringUtils.isEmpty(dto.getTeaNmKanji())) {
             queryWrapper.like(AttTeacher::getTeaNmKanji, dto.getTeaNmKanji());

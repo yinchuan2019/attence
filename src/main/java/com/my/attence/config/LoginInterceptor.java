@@ -49,7 +49,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         SysAdmin login = TaleUtils.getLoginAdmin(request);
 
         //请求拦截处理
-
         BaseEntity baseUser = TaleUtils.getLoginUser(request);
 
         if (uri.contains("/index") && !uri.contains("/login") && null == login) {

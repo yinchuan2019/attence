@@ -19,10 +19,7 @@ public class AttTeacherDto extends BaseEntity {
 
     private Integer id;
 
-    /**
-     * 登録ID/登陆ID
-     */
-    private String teaId;
+
 
     /**
      * パスワード/密码

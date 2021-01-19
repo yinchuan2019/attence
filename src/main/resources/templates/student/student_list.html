@@ -17,9 +17,9 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <div class="layui-form-label ">[[#{stu_id}]]</div>
+                <div class="layui-form-label ">[[#{login_id}]]</div>
                 <div class="layui-input-block">
-                    <input name="stuId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="loginId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -299,7 +299,7 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="stuId" class="layui-input" autocomplete="off" th:placeholder="#{stu_id}">
+                <input type="text" id="loginId" class="layui-input" autocomplete="off" th:placeholder="#{login_id}">
             </div>
             <div class="layui-input-inline">
                 <input type="text" id="stuNmKanji" class="layui-input" autocomplete="off" th:placeholder="#{stu_nm_kanji}">
@@ -363,7 +363,7 @@
     var cols = [
         [
             {type: 'radio', fixed: 'left'},
-            {field: 'stuId', title: '[[#{stu_id}]]', width: 130},
+            {field: 'loginId', title: '[[#{login_id}]]', width: 130},
             {field: 'stuNmKanji', title: '[[#{stu_nm_kanji}]]', width: 130},
             {field: 'stuNmRoma', title: '[[#{stu_nm_roma}]]', width: 130},
             {field: 'stuKokuseki', title: '[[#{stu_kokuseki}]]', width: 130},
@@ -588,7 +588,7 @@
         //这里以搜索为例
         tableIns1.reload({
             where: { //设定异步数据接口的额外参数，任意设
-                stuId: $("#stuId").val(),
+                loginId: $("#loginId").val(),
                 startTime: startTime,
                 endTime: endTime,
                 stuNmKanji: $("#stuNmKanji").val(),
