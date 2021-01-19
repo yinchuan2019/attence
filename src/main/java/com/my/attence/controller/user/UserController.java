@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
 import com.my.attence.constant.Constant;
+import com.my.attence.entity.AttRecord;
 import com.my.attence.entity.AttStudent;
 import com.my.attence.entity.AttTeacher;
-import com.my.attence.entity.BaseEntity;
 import com.my.attence.exception.BusinessException;
 import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.modal.request.SysAdminDto;
@@ -18,6 +18,8 @@ import com.my.attence.utils.PasswordUtils;
 import com.my.attence.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +54,7 @@ public class UserController {
             if (!PasswordUtils.matchesNoSalt(one.getTeaPwd(), dto.getPassword())) {
                 throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
             }
-            request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one);
+            request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
 
         }else if(dto.getUsername().startsWith("S")){
             LambdaQueryWrapper<AttStudent> eq = Wrappers.<AttStudent>lambdaQuery().eq(AttStudent::getLoginId, dto.getUsername());
@@ -60,7 +62,7 @@ public class UserController {
             if (!PasswordUtils.matchesNoSalt(one.getStuPwd(), dto.getPassword())) {
                 throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
             }
-            request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one);
+            request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
         }else {
             return R.fail("用户名不存在");
         }
@@ -70,11 +72,30 @@ public class UserController {
 
     @PostMapping(value = "/record")
     public R record(@RequestBody @Valid AttRecordDto dto,HttpServletRequest request){
-        BaseEntity baseUser = TaleUtils.getLoginUser(request);
-        if(baseUser == null){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
             return R.fail("请先登陆");
         }
+        AttRecord record = new AttRecord();
+        BeanUtils.copyProperties(dto,record);
+        if(loginId.startsWith("T")){
+            record.setAttType(1);
+            AttTeacher teacher = attTeacherService.findByLoginId(loginId);
+            record.setTeaName(teacher.getTeaNmKanji());
+            if(dto.getStuNo() != null){
+                AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
+                record.setStuName(student.getStuNmKanji());
+            }
 
+             attRecordService.save(record);
+        }else if(loginId.startsWith("S")){
+            record.setAttType(2);
+            AttStudent student = attStudentService.findByLoginId(loginId);
+            record.setStuName(student.getStuNmKanji());
+            attRecordService.save(record);
+        }else {
+            return R.fail("用户名不存在");
+        }
 
 
 

@@ -30,6 +30,11 @@ public class AttStudent extends BaseEntity {
 
 
     /**
+     * 登録ID/登陆ID
+     */
+    private String loginId;
+
+    /**
      * パスワード/密码
      */
     private String stuPwd;

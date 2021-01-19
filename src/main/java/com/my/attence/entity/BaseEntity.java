@@ -16,10 +16,6 @@ import java.util.List;
 @Data
 public class BaseEntity implements Serializable {
 
-    /**
-     * 登録ID/登陆ID
-     */
-    private String loginId;
 
     @TableField(exist = false)
     private int page = 1;

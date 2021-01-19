@@ -15,4 +15,5 @@ import com.my.attence.entity.AttTeacher;
  */
 public interface AttTeacherService extends IService<AttTeacher> {
 
+    AttTeacher findByLoginId(String loginId);
 }

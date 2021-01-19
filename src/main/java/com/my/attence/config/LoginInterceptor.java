@@ -1,13 +1,13 @@
 package com.my.attence.config;
 
 
-import com.my.attence.entity.BaseEntity;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.service.AdminService;
 import com.my.attence.utils.AdminCommons;
 import com.my.attence.utils.IPKit;
 import com.my.attence.utils.MapCache;
 import com.my.attence.utils.TaleUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -49,14 +49,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         SysAdmin login = TaleUtils.getLoginAdmin(request);
 
         //请求拦截处理
-        BaseEntity baseUser = TaleUtils.getLoginUser(request);
+        String loginId = TaleUtils.getLoginUser(request);
 
         if (uri.contains("/index") && !uri.contains("/login") && null == login) {
             response.sendRedirect(request.getContextPath() + "/index/login");
             return false;
         }
 
-        if (uri.contains("/user") && !uri.contains("/login") && !uri.contains("/user/user_login.html") && null == baseUser) {
+        if (uri.contains("/user") && !uri.contains("/login") && !uri.contains("/user/user_login.html") && Strings.isBlank(loginId)) {
             RequestDispatcher requestDispatcher=request.getRequestDispatcher("/user/user_login.html");
             requestDispatcher.forward(request,response);
             return false;

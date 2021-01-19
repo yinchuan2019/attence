@@ -15,4 +15,7 @@ import com.my.attence.entity.AttStudent;
  */
 public interface AttStudentService extends IService<AttStudent> {
 
+    AttStudent findByLoginId(String loginId);
+
+
 }
