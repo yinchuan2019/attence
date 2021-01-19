@@ -79,7 +79,7 @@
                 contentType: "application/json",
                 success: function (res) {
                     if (res.code == 1) {
-                        layer.msg('登录成功', {time: 1000}, function () {
+                        layer.msg('登录成功', {time: 100}, function () {
                             window.location = '/index/home';
                         });
                     } else {

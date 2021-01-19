@@ -37,7 +37,7 @@ var CoreUtil = (function () {
             },
             success: function (res) {
                 top.layer.close(loadIndex);
-                if (res.code==0){
+                if (res.code==1){
                     if(ft!=null&&ft!=undefined){
                         ft(res);
                     }
