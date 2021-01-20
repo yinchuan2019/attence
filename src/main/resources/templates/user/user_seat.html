@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>UserSeat</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/css/common.css" rel="stylesheet"/>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap-datetimepicker.js"></script>
+
+</head>
+<body>
+<div class="wrapper fadeInDown">
+	<div id="formContent">
+		<!-- Tabs Titles -->
+
+		<!-- Icon -->
+		<div class="fadeIn first">
+			<img src="/images/logo.gif" id="icon" alt="User Icon" />
+		</div>
+
+		<!-- Form -->
+		<form>
+			<legend>座位选择</legend>
+			<img src="/images/logo.gif" id="icon" alt="User Icon" />
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default">席1</button>
+				<button type="button" class="btn btn-default">席2</button>
+				<button type="button" class="btn btn-default">席3</button>
+				<button type="button" class="btn btn-default">席4</button>
+				<button type="button" class="btn btn-default">席5</button>
+				<button type="button" class="btn btn-default">席6</button>
+			</div>
+			<div class="row">
+				<input type="submit" name="button1" value="确认" class="btn btn-primary btn-wide" />
+			</div>
+		</form>
+
+		<div id="formFooter">
+			<p>功能选择 -> 预约课程 -> 时间选择 -> <span class="label label-danger">座位选择</span> -> 确认</p>
+		</div>
+
+	</div>
+</div>
+<script>
+	$('#line1 .btn').on('click', function(){
+		$('#line2 .active').removeClass('active');
+	});
+</script>
+</body>
+
+</html>
