@@ -1,11 +1,7 @@
 package com.my.attence.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.my.attence.entity.AttRecord;
-import com.my.attence.entity.AttStudent;
-import com.my.attence.entity.AttTeacher;
 import com.my.attence.mapper.AttRecordMapper;
 import com.my.attence.service.AttRecordService;
 import org.springframework.stereotype.Service;

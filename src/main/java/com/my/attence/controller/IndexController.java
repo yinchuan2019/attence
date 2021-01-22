@@ -71,6 +71,11 @@ public class IndexController {
         return "record/record_list" ;
     }
 
+    @GetMapping("/appointment")
+    public String appointmentList(Model model) {
+        return "appointment/appointment_list" ;
+    }
+
     @GetMapping("/403")
     public String error403() {
         return "error/403" ;

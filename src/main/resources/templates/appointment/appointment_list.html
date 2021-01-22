@@ -23,28 +23,28 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">姓名</div>
+                <div class="layui-form-label ">学生姓名</div>
                 <div class="layui-input-block">
                     <input name="stuName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">签到开始时间</div>
+                <div class="layui-form-label ">预约开始时间</div>
                 <div class="layui-input-block">
                     <input type="text" name="beginDate" readonly class="layui-input" id="beginDate" placeholder="签到开始时间">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">签到结束时间</div>
+                <div class="layui-form-label ">预约结束时间</div>
                 <div class="layui-input-block">
                     <input type="text" name="endDate" readonly class="layui-input" id="endDate" placeholder="签到结束时间">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">签到类型</label>
+                <label class="layui-form-label">预约类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="attType" value="1" title="社内" checked="">
-                    <input type="radio" name="attType" value="0" title="社外">
+                    <input type="radio" name="attType" value="1" title="老师预约" checked="">
+                    <input type="radio" name="attType" value="2" title="学生预约">
                 </div>
             </div>
 
@@ -71,9 +71,9 @@
             </div>
             <div class="layui-input-inline layui-form">
                 <select id="attType">
-                    <option value="">请选择账号状态</option>
-                    <option value="1">社内</option>
-                    <option value="0">社外</option>
+                    <option value="">请选择预约类型</option>
+                    <option value="1">老师预约</option>
+                    <option value="0">学生预约</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
@@ -88,9 +88,9 @@
 <div id="roles" class="demo-transfer" style="display: none"></div>
 </body>
 <script type="text/html" id="toolbar">
-    <div class="layui-btn-container">
+    <!--<div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="addAtt" shiro:hasPermission="sys:user:add">人工补签</button>
-    </div>
+    </div>-->
 </script>
 <script type="text/html" id="tool">
     <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">编辑</a>
@@ -116,7 +116,7 @@
             elem: '#user_table'
             , contentType: 'application/json'
             , page: true //开启分页
-            , url: '/attence/records' //数据接口
+            , url: '/attence/appointments' //数据接口
             , method: 'POST'
             , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
                 return {
@@ -130,16 +130,17 @@
                 [
                     {type: 'checkbox', fixed: 'left'},
                     {field: 'stuNo', title: '学号', width: 130},
-                    {field: 'stuName', title: '姓名', width: 130},
+                    {field: 'stuName', title: '学生姓名', width: 130},
+                    {field: 'teaName', title: '讲师姓名', width: 130},
                     {field: 'beginDate', title: '开始签到时间', width: 160},
                     {field: 'endDate', title: '结束签到时间', width: 160},
                     {
-                        field: 'attType', title: '签到类型', width: 100, templet: function (item) {
+                        field: 'attType', title: '预约类型', width: 100, templet: function (item) {
                             if (item.attType === 1) {
-                                return "社内";
+                                return "教师预约";
                             }
-                            if (item.attType === 0) {
-                                return "社外";
+                            if (item.attType === 2) {
+                                return "老师预约";
                             }
                         }
                     },
@@ -237,7 +238,7 @@
                 content: '确定要更新' + username + "用户么?",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendPut("/attence/record", userIds, function (res) {
+                    CoreUtil.sendPut("/attence/appointment", userIds, function (res) {
                         layer.msg(res.msg);
                         search()
                     });
@@ -250,7 +251,7 @@
                 content: '确定要删除' + username + "么?",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendDelete("/attence/record", userIds, function (res) {
+                    CoreUtil.sendDelete("/attence/appointment", userIds, function (res) {
                         layer.msg(res.msg);
                         search()
                     });
@@ -260,13 +261,13 @@
 
         form.on('submit(submit)', function (data) {
             if (data.field.id === undefined || data.field.id === null || data.field.id === "") {
-                CoreUtil.sendPost("/attence/record", data.field, function (res) {
+                CoreUtil.sendPost("/attence/appointment", data.field, function (res) {
                     $(".user_table_div").show();
                     $(".operation_user").hide();
                     search()
                 });
             } else {
-                CoreUtil.sendPut("/attence/record", data.field, function (res) {
+                CoreUtil.sendPut("/attence/appointment", data.field, function (res) {
                     $(".user_table_div").show();
                     $(".operation_user").hide();
                     search()

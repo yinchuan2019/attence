@@ -1,7 +1,7 @@
 package com.my.attence.mapper;
 
+import com.my.attence.entity.AttAppointment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.my.attence.entity.AttRecord;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.my.attence.entity.AttRecord;
  * @author abel
  * @since 2020-12-08
  */
-public interface AttRecordMapper extends BaseMapper<AttRecord> {
+public interface AttAppointmentMapper extends BaseMapper<AttAppointment> {
 
 }

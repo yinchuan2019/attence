@@ -7,10 +7,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
-import com.my.attence.entity.AttRecord;
+import com.my.attence.entity.AttAppointment;
 import com.my.attence.modal.request.AttAppointmentDto;
-import com.my.attence.modal.request.AttRecordDto;
-import com.my.attence.service.AttRecordService;
+import com.my.attence.service.AttAppointmentService;
 import com.my.attence.service.AttStudentService;
 import com.my.attence.service.AttTeacherService;
 import io.swagger.annotations.ApiOperation;
@@ -31,74 +30,74 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/attence")
-public class AttRecordController {
+public class AttAppointmentController {
     @Resource
-    private AttRecordService attRecordService;
+    private AttAppointmentService attAppointmentService;
     @Resource
     private AttStudentService attStudentService;
     @Resource
     private AttTeacherService attTeacherService;
 
 
-    @PostMapping("/record")
+    @PostMapping("/appointment")
     @ApiOperation(value = "新增接口")
-    public R add(@RequestBody @Valid AttRecordDto dto) {
-        AttRecord entity = new AttRecord();
+    public R add(@RequestBody @Valid AttAppointmentDto dto) {
+        AttAppointment entity = new AttAppointment();
         BeanUtil.copyProperties(dto,entity);
-        attRecordService.save(entity);
+        attAppointmentService.save(entity);
         return R.success();
     }
 
-    @DeleteMapping("/record")
+    @DeleteMapping("/appointment")
     @ApiOperation(value = "删除接口")
     public R delete(@RequestBody List<Long> ids) {
         for (Long id : ids) {
-            attRecordService.removeById(id);
+            attAppointmentService.removeById(id);
         }
         return R.success();
     }
 
-    @PutMapping("/record")
+    @PutMapping("/appointment")
     @ApiOperation(value = "更新信息接口")
-    public R update(@RequestBody AttRecordDto dto) {
+    public R update(@RequestBody AttAppointmentDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
             return R.fail("id不能为空");
         }
-        AttRecord entity = new AttRecord();
+        AttAppointment entity = new AttAppointment();
         BeanUtil.copyProperties(dto,entity);
-        attRecordService.updateById(entity);
+        attAppointmentService.updateById(entity);
         return R.success();
     }
 
-    @GetMapping("/record")
+    @GetMapping("/appointment")
     @ApiOperation(value = "查询详情接口")
     public R detailInfo(@RequestBody Long id) {
-        AttRecord entity = attRecordService.getById(id);
+        AttAppointment entity = attAppointmentService.getById(id);
         return R.success(entity);
     }
 
-    @PostMapping("/records")
+    @PostMapping("/appointments")
     @ApiOperation(value = "分页获取信息接口")
     public R pageInfo(@RequestBody AttAppointmentDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
-        LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
+        LambdaQueryWrapper<AttAppointment> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getStuNo())) {
-            queryWrapper.like(AttRecord::getStuNo, dto.getStuNo());
+            queryWrapper.like(AttAppointment::getStuNo, dto.getStuNo());
         }
         if (!StringUtils.isEmpty(dto.getStuName())) {
-            queryWrapper.like(AttRecord::getStuName, dto.getStuName());
+            queryWrapper.like(AttAppointment::getStuName, dto.getStuName());
         }
         if (!StringUtils.isEmpty(dto.getBeginDate())) {
-            queryWrapper.gt(AttRecord::getBeginDate, dto.getBeginDate());
+            queryWrapper.gt(AttAppointment::getBeginDate, dto.getBeginDate());
         }
         if (!StringUtils.isEmpty(dto.getEndDate())) {
-            queryWrapper.lt(AttRecord::getEndDate, dto.getEndDate());
+            queryWrapper.lt(AttAppointment::getEndDate, dto.getEndDate());
         }
         if (!StringUtils.isEmpty(dto.getAttType())) {
-            queryWrapper.eq(AttRecord::getAttType, dto.getAttType());
+            queryWrapper.eq(AttAppointment::getAttType, dto.getAttType());
         }
-        queryWrapper.orderByDesc(AttRecord::getBeginDate);
-        IPage<AttRecord> page = attRecordService.page(p, queryWrapper);
+        queryWrapper.orderByDesc(AttAppointment::getBeginDate);
+        IPage<AttAppointment> page = attAppointmentService.page(p, queryWrapper);
         return R.success(page);
     }
 }
