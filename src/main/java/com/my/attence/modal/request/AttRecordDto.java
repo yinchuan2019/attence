@@ -25,10 +25,6 @@ public class AttRecordDto extends BaseEntity {
 
     private Integer id;
 
-    private String stuNo;
-
-    private String stuName;
-
     private String teaNo;
 
     private String teaName;
@@ -39,7 +35,7 @@ public class AttRecordDto extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date endDate;
 
-    private String courseType;
+    private String workType;
 
     private Integer attType;
 

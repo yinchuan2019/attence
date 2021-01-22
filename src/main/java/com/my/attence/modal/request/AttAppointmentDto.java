@@ -39,7 +39,9 @@ public class AttAppointmentDto extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date endDate;
 
-    private String courseType;
+    private String classRoom;
+
+    private String classType;
 
     private Integer attType;
 

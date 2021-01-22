@@ -82,12 +82,6 @@ public class AttRecordController {
     public R pageInfo(@RequestBody AttAppointmentDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(dto.getStuNo())) {
-            queryWrapper.like(AttRecord::getStuNo, dto.getStuNo());
-        }
-        if (!StringUtils.isEmpty(dto.getStuName())) {
-            queryWrapper.like(AttRecord::getStuName, dto.getStuName());
-        }
         if (!StringUtils.isEmpty(dto.getBeginDate())) {
             queryWrapper.gt(AttRecord::getBeginDate, dto.getBeginDate());
         }
