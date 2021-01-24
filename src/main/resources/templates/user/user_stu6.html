@@ -64,6 +64,46 @@
 	$('#return').click(function (){
 		location.href = "/user/user_stu5.html";
 	});
+
+	$(function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+		let object = {
+		}
+		let data = JSON.stringify(object);
+		$.ajax({
+			type: "POST",
+			url: "/user/findAppointment",
+			dataType: "json",
+			data:data,
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+
+			success: function (res) {
+				if (res.code == 0) {
+					var groupTable = $('#group');
+
+					for(var i = 0;i<res.data.length;i++){
+						groupTable.append('<tr> ' +
+								'<td class="tdClass">' + res.data[i].classRoom + '</td>' +
+								'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
+								'<td class="tdClass">' + res.data[i].endDate + '</td>' +
+								'</tr>')
+					}
+					noApplicationRecord.innerHTML = html
+
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
+	});
+
+
 </script>
 </body>
 

@@ -25,11 +25,12 @@
 			<legend>预约课程信息确认</legend>
 
 			<div class="row">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="group">
 					<caption>➡️VIP作品集研究计划</caption>
 					<thead>
 						<tr>
 							<th>学生番号</th>
+							<th>学生</th>
 							<th>座位</th>
 							<th>日期</th>
 							<th>时间</th>
@@ -37,10 +38,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>XXX01</td>
-							<td>席1</td>
-							<td>2020年12月30日</td>
-							<td>From xx:xx TO XX:XX</td>
+
 						</tr>
 					</tbody>
 				</table>
@@ -61,6 +59,46 @@
 <script>
 	$('#icon').click(function (){
 		location.href = "/user/user_tea1.html";
+	});
+
+	$(function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+		let object = {
+		}
+		let data = JSON.stringify(object);
+		$.ajax({
+			type: "POST",
+			url: "/user/findAppointment",
+			dataType: "json",
+			data:data,
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+
+			success: function (res) {
+				if (res.code == 0) {
+					var groupTable = $('#group');
+
+					for(var i = 0;i<res.data.length;i++){
+						groupTable.append('<tr> ' +
+								'<td class="tdClass">' + res.data[i].stuNo + '</td>' +
+								'<td class="tdClass">' + res.data[i].stuName + '</td>' +
+								'<td class="tdClass">' + res.data[i].classRoom + '</td>' +
+								'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
+								'<td class="tdClass">' + res.data[i].endDate + '</td>' +
+								'</tr>')
+					}
+					noApplicationRecord.innerHTML = html
+
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
 	});
 </script>
 </body>

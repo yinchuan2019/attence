@@ -50,7 +50,13 @@
 </div>
 <script>
 	$('#icon').click(function (){
-		location.href = "/user/user_stu1.html";
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+		if(userName.startsWith("S")){
+			location.href = "/user/user_stu1.html";
+		}else{
+			location.href = "/user/user_tea1.html";
+		}
+
 	});
 	$(function(){
 		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据

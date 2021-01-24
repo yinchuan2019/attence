@@ -19,9 +19,7 @@
 		<div class="fadeIn first">
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 		</div>
-		let object = {
-		}
-		let data = JSON.stringify(object);
+
 		<!-- Form -->
 		<form onclick="return false">
 			<legend>预约信息确认</legend>
@@ -54,15 +52,23 @@
 	</div>
 </div>
 <script>
+	$('#icon').click(function (){
+		location.href = "/user/user_stu1.html";
+	});
+
+	$('#return').click(function (){
+		location.href = "/user/user_stu5.html";
+	});
 	$(function(){
 		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
-
+		let object = {
+		}
+		let data = JSON.stringify(object);
 		$.ajax({
 			type: "POST",
 			url: "/user/findAppointment",
-			data: data,
 			dataType: "json",
-			data:{},
+			data:data,
 			contentType: 'application/json; charset=UTF-8',
 			cache: false,
 			async: false,

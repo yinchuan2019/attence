@@ -51,7 +51,34 @@
 		if(workType == "CLASS_VIP"){
 			location.href = "/user/user_tea4.html?workType=" + workType + "&company=" + company ;
 		}else{
-			location.href = "/user/user_tea5.html?workType=" + workType + "&company=" + company ;
+			var workType = getQueryVariable("workType");
+
+			let object = {
+				workType:workType,
+				attType:company
+			}
+			let data = JSON.stringify(object)
+
+			$.ajax({
+				type: "POST",
+				url: "/user/signIn",
+				data: data,
+				dataType: "json",
+				contentType: 'application/json; charset=UTF-8',
+				cache: false,
+				async: false,
+				success: function (res) {
+					if (res.code == 0) {
+						location.href = "/user/user_tea5.html?id=" + res.data.id;
+					}else {
+						alert(res.msg);
+						$("#userName").val("");
+						$("#passWord").val("");
+						$("#userName").focus();
+						return false;
+					}
+				}
+			})
 		}
 	}
 

@@ -98,6 +98,7 @@ public class UserController {
         if(loginId.startsWith("T")){
             entity.setAttType(1);
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
+            entity.setTeaNo(loginId);
             entity.setTeaName(teacher.getTeaNmKanji());
             /**学生**/
             if(dto.getStuNo() != null){

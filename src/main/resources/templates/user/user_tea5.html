@@ -51,6 +51,7 @@
 	});
 
 	$(function(){
+		var workType = getQueryVariable("workType");
 		let id = getQueryVariable("id");
 
 
@@ -69,9 +70,24 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					$("#attType").html(res.data.attType);
+					if(res.data.attType== "1"){
+						$("#attType").html("社内");
+					} else if(res.data.attType== "2"){
+						$("#attType").html("社外");
+					}
+
 					$("#workType").html(res.data.workType);
-					$("#stuNo").html(res.data.stuNo);
+					if(res.data.stuNo != "" && res.data.stuNo != null){
+						$("#stuNo").show();
+						$("#stuNo").html("学生番号:  " + res.data.stuNo);
+						$("#p1").show();
+						$("#p2").hide();
+					}else{
+						$("#stuNo").hide();
+						$("#p1").hide();
+						$("#p2").show();
+					}
+
 					$("#beginDate").html(res.data.beginDate);
 				}else {
 					alert(res.msg);
@@ -82,7 +98,6 @@
 				}
 			}
 		})
-
 	});
 </script>
 </body>
