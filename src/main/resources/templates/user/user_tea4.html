@@ -8,7 +8,7 @@
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/bootstrap-datetimepicker.min.js"></script>
-
+	<script src="/js/common.js"></script>
 </head>
 <body>
 <div class="wrapper fadeInDown">
@@ -33,7 +33,7 @@
 				</div>
 
 				<div class="row row1">
-					<input type="submit" name="button1" value="确认" class="btn btn-primary btn-wide" />
+					<input type="submit" name="comfirm" value="确认" class="btn btn-primary btn-wide" />
 				</div>
 			</fieldset>
 
@@ -41,14 +41,23 @@
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>出勤地 -> 功能选择 -> 工作内容 -> <span class="label label-danger">VIP作品集研究计划</span></p>
+			<p>功能选择 -> 出勤地 -> 工作内容 -> <span class="label label-danger">VIP作品集研究计划</span></p>
 
 		</div>
 
 	</div>
 </div>
 <script>
+	$('#comfirm').click(function (){
 
+		var work = getQueryVariable("work");
+		var company = getQueryVariable("company");
+		var time = getQueryVariable("time");
+		var stuNo = $('#stuNo').val();
+
+		// TODO 提交端口
+		location.href = "/user/user_tea4.html?work=" + work + "&company=" + company + "&time=" + time; + "&stuNo" + stuNo;
+	});
 </script>
 <style>
 	input[type=text] {

@@ -26,12 +26,13 @@
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 
 			<div class="btn-group">
-				<button type="button" class="btn btn-default">席1</button>
-				<button type="button" class="btn btn-default">席2</button>
-				<button type="button" class="btn btn-default">席3</button>
-				<button type="button" class="btn btn-default">席4</button>
-				<button type="button" class="btn btn-default">席5</button>
-				<button type="button" class="btn btn-default">席6</button>
+				<button type="button" id="seat1" class="btn btn-default">席1</button>
+				<button type="button" id="seat2" class="btn btn-default">席2</button>
+				<button type="button" id="seat3" class="btn btn-default">席3</button>
+				<button type="button" id="seat4" class="btn btn-default">席4</button>
+				<button type="button" id="seat5" class="btn btn-default">席5</button>
+				<button type="button" id="seat6" class="btn btn-default">席6</button>
+				<input type="hidden" id="seat" value="">
 			</div>
 			<div class="row">
 				<input type="submit" name="button1" value="确认" class="btn btn-primary btn-wide" />
@@ -45,9 +46,18 @@
 	</div>
 </div>
 <script>
-	$('#line1 .btn').on('click', function(){
-		$('#line2 .active').removeClass('active');
+	$('#seat1').click(function (){
+		$('#seat1').val("seat1")
 	});
+	$('#seat1').click(function (){
+		$('#seat1').val("seat1")
+	});
+	$('#seat1').click(function (){
+		$('#seat1').val("seat1")
+	});$('#seat1').click(function (){
+		$('#seat1').val("seat1")
+	});
+
 </script>
 </body>
 

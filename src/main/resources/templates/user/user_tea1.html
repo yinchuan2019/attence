@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher1</title>
+<title>UserTeacher2</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,26 +22,39 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-		<legend>出勤地选择</legend>
-			<button type="button" id="inCompany" class="btn btn-primary btn-lg btn-block">社内</button>
-			<button type="button" id="outCompany" class="btn btn-primary btn-lg btn-block">社外</button>
+		<legend>功能选择</legend>
+			<button type="button" id="onJob" class="btn btn-primary btn-lg btn-block">出勤</button>
+			<button type="button" id="outJob" class="btn btn-primary btn-lg btn-block">退勤</button>
+			<button type="button" id="reserve" class="btn btn-primary btn-lg btn-block">预约</button>
+			<button type="button" id="confimation" class="btn btn-primary btn-lg btn-block">信息确认</button>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p><span class="label label-danger">出勤地</span></p>
+			<p><span class="label label-danger">功能选择</span></p>
+
 		</div>
 
 	</div>
 </div>
 <script>
-	$('#inCompany').click(function (){
-		location.href = "/user/user_tea2.html?company=inCompany";
+	$('#onJob').click(function (){
+		location.href = "/user/user_tea2.html";
 	});
 
-	$('#outCompany').click(function (){
-		location.href = "/user/user_tea2.html?company=inCompany";
+	// TODO 可能需要确认画面
+	// $('#outJob').click(function (){
+	// 	location.href = "/user/user_tea.html?company=inCompany&function=onJob";
+	// });
+
+	$('#reserve').click(function (){
+		location.href = "/user/user_tea6.html";
 	});
+	$('#confimation').click(function (){
+		location.href = "/user/user_tea9.html";
+	});
+
+
 
 </script>
 </body>

@@ -8,7 +8,7 @@
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/bootstrap-datetimepicker.min.js"></script>
-
+	<script src="/js/common.js"></script>
 </head>
 <body>
 <div class="wrapper fadeInDown">
@@ -24,32 +24,47 @@
 		<form onclick="return false">
 			<legend>确认</legend>
 			<div class="row">
-				<label class="control-label">社内</label>
+				<label class="control-label" id="company"></label>
 			</div>
 			<div class="row">
-				<label class="control-label">VIP作品集研究计划</label>
+				<label class="control-label" id="work"></label>
 			</div>
 			<div class="row">
-				<label class="control-label">学生番号：xxxx</label>
+				<label class="control-label" id="stuNo"></label>
 			</div>
 			<div class="row">
-				<label class="control-label">xx:xx开始</label>
+				<label class="control-label" id="startTime"></label>
 			</div>
-			<div class="row">
-					<input type="submit" name="button1" value="确认" class="btn btn-primary btn-wide" />
-			</div>
+
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>出勤地 -> 功能选择 -> 工作内容 -> VIP作品集研究计划 -> <span class="label label-danger">确认</span></p>
-			<p>出勤地 -> 功能选择 -> 工作内容 -> <span class="label label-danger">确认</span></p>
+			<p id="p1">功能选择 -> 工作内容 -> 出勤地 -> VIP作品集研究计划 -> <span class="label label-danger">确认</span></p>
+			<p id="p2">功能选择 -> 工作内容 -> 出勤地 -> <span class="label label-danger">确认</span></p>
 
 		</div>
 	</div>
 </div>
 <script>
+	$(function(){
+		var company = getQueryVariable("company");
+		var work = getQueryVariable("work");
+		var time = getQueryVariable("time");
 
+		$("#company").html(company);
+		$("#work").html(work);
+		if(work == "vip"){
+			var stuNo = getQueryVariable("stuNo");
+			$("#stuNo").show();
+			$("#stuNo").html("学生番号：" + stuNo);
+		}else{
+			$("#stuNo").hide();
+		}
+
+		$("#startTime").html(time);
+
+	});
 </script>
 </body>
 
