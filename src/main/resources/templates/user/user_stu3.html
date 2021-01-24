@@ -20,11 +20,6 @@
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 		</div>
 
-		<!-- fotter -->
-		<div id="formHeader">
-
-		</div>
-
 		<!-- Form -->
 		<form onclick="return false">
 			<legend>确认</legend>
@@ -50,6 +45,9 @@
 	</div>
 </div>
 <script>
+	$('#icon').click(function (){
+		location.href = "/user/user_stu1.html";
+	});
 	$(function(){
 		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
 
