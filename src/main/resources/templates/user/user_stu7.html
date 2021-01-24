@@ -19,27 +19,24 @@
 		<div class="fadeIn first">
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 		</div>
-
-
+		let object = {
+		}
+		let data = JSON.stringify(object);
 		<!-- Form -->
 		<form onclick="return false">
 			<legend>预约信息确认</legend>
 			<div class="row">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="group">
 					<caption>➡️课题制作</caption>
 					<thead>
 						<tr>
-							<th>位置</th>
-							<th>日期</th>
-							<th>时间</th>
+							<th>座位</th>
+							<th>开始时间</th>
+							<th>结束时间</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>席1</td>
-							<td>2020年12月30日</td>
-							<td>From xx:xx TO XX:XX</td>
-						</tr>
+
 					</tbody>
 				</table>
 			</div>
@@ -63,16 +60,23 @@
 		$.ajax({
 			type: "POST",
 			url: "/user/findAppointment",
+			data: data,
 			dataType: "json",
 			data:{},
 			contentType: 'application/json; charset=UTF-8',
 			cache: false,
 			async: false,
+
 			success: function (res) {
 				if (res.code == 0) {
-					var html = ''
+					var groupTable = $('#group');
+
 					for(var i = 0;i<res.data.length;i++){
-						html += setDiv(res.data[i])
+						groupTable.append('<tr> ' +
+								'<td class="tdClass">' + res.data[i].classRoom + '</td>' +
+								'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
+								'<td class="tdClass">' + res.data[i].endDate + '</td>' +
+								'</tr>')
 					}
 					noApplicationRecord.innerHTML = html
 
@@ -86,22 +90,6 @@
 			}
 		})
 	});
-
-	//绘制单个div
-	function setDiv(item){
-		var div = '<div class="body-no-list"><div class="body-no-list-header" ><div class="body-no-list-header-title">'
-				+ item.business
-				+ '</div><div class="body-no-list-header-txt">消费金额:&nbsp;'
-				+ item.count
-				+ '元<br>消费单号:&nbsp;'
-				+ item.num
-				+ '<br>提交时间:&nbsp;'
-				+ item.time
-				+ '</div></div><div class="body-no-list-bottom"><div class="body-no-list-bottom-vehicl">'
-				+ item.license
-				+ '</div><div><button>撤销</button><button> 修改</button></div></div></div> '
-		return div
-	}
 
 </script>
 </body>
