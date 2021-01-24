@@ -67,6 +67,49 @@
 		margin-right: 0px;
 	}
 </style>
+
+<script>
+	$('#confirm').on('click', function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+
+		let beginDate = getQueryVariable("beginDate").replace("%20"," ");
+		let endDate = getQueryVariable("endDate").replace("%20"," ");
+		let classRoom = getQueryVariable("classRoom").replace("%20"," ");
+		let classType = getQueryVariable("classType").replace("%20"," ");
+
+
+		let object = {
+			beginDate:beginDate,
+			endDate:endDate,
+			classRoom:classRoom,
+			classType:classType
+		}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/appointment",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					if(userName.substring(0,1) == "T") {
+						location.href = "/user/user_tea7.html?id=" + res.data.id;
+					}
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
+	});
+</script>
 </body>
 
 </html>

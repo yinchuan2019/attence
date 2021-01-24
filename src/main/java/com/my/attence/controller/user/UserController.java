@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
+import com.my.attence.constant.ClassType;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.AttAppointment;
 import com.my.attence.entity.AttRecord;
@@ -91,6 +92,8 @@ public class UserController {
         }
         AttAppointment entity = new AttAppointment();
         BeanUtils.copyProperties(dto,entity);
+        ClassType classType = ClassType.valueOf(dto.getClassType());
+        entity.setClassType(classType.getName());
         if(loginId.startsWith("T")){
             entity.setAttType(1);
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
@@ -149,6 +152,11 @@ public class UserController {
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
             return R.fail("请先登陆");
+        }
+
+        if(dto.getId() != null){
+            AttAppointment entity = attAppointmentService.getById(dto.getId());
+            return R.success(entity);
         }
 
         List<AttAppointment> list;

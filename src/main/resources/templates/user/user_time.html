@@ -94,6 +94,7 @@
 	});
 
 	$('#comfire').click(function (){
+		let classType = getQueryVariable("classType");
 		const dtp_input1 = $("#dtp_input1").val().toString();
 		const dtp_input2 = $("#dtp_input2").val().toString();
 		const dtp_input3 = $("#dtp_input3").val().toString();
@@ -106,7 +107,7 @@
 			alert("时间不能为空");
 			return false;
 		}
-		location.href = "/user/user_seat.html?beginDate=" + beginDate + "&endDate=" + endDate;
+		location.href = "/user/user_seat.html?beginDate=" + beginDate + "&endDate=" + endDate + "&classType=" + classType;
 	});
 </script>
 <style>
