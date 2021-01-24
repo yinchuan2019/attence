@@ -23,16 +23,16 @@
 		<form onclick="return false">
 			<legend>确认</legend>
 			<div class="row">
-				<label class="control-label" id="company"></label>
+				<label class="control-label" id="attType"></label>
 			</div>
 			<div class="row">
-				<label class="control-label" id="work"></label>
+				<label class="control-label" id="workType"></label>
 			</div>
 			<div class="row">
 				<label class="control-label" id="stuNo"></label>
 			</div>
 			<div class="row">
-				<label class="control-label" id="startTime"></label>
+				<label class="control-label" id="beginDate"></label>
 			</div>
 
 		</form>
@@ -51,38 +51,37 @@
 	});
 
 	$(function(){
-		var company = getQueryVariable("company");
-		var work = getQueryVariable("work");
-		var time = getQueryVariable("time");
+		let id = getQueryVariable("id");
 
-		if(company == "in"){
-			$("#company").html("社内");
-		}else if(company == "out"){
-			$("#company").html("社外");
+
+		let object = {
+			id:id
 		}
+		let data = JSON.stringify(object)
 
-		if(work == "vip"){
-			$("#work").html("VIP作品集研究计划);
-		}else if(work == "someThing"){
-			$("#work").html("事务工作");
-		}else if(work == "other"){
-			$("#work").html("其他");
-		}
-
-
-		if(work == "vip"){
-			var stuNo = getQueryVariable("stuNo");
-			$("#stuNo").show();
-			$("#p1").show();
-			$("#p2").hide();
-			$("#stuNo").html("学生番号：" + stuNo);
-		}else{
-			$("#stuNo").hide();
-			$("#p1").hide();
-			$("#p2").show();
-		}
-
-		$("#startTime").html(time);
+		$.ajax({
+			type: "POST",
+			url: "/user/findRecord",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					$("#attType").html(res.data.attType);
+					$("#workType").html(res.data.workType);
+					$("#stuNo").html(res.data.stuNo);
+					$("#beginDate").html(res.data.beginDate);
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
 
 	});
 </script>

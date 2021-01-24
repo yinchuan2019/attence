@@ -29,6 +29,10 @@ public class AttRecord extends BaseEntity {
 
     private String teaName;
 
+    private String stuNo;
+
+    private String stuName;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date beginDate;
 

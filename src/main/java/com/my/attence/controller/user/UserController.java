@@ -22,6 +22,7 @@ import com.my.attence.utils.PasswordUtils;
 import com.my.attence.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -120,10 +121,10 @@ public class UserController {
 
     /**
      * Created by abel on 2021/1/22
-     * 考勤
+     * 考勤签到
      */
-    @PostMapping(value = "/record")
-    public R record(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
+    @PostMapping(value = "/signIn")
+    public R signIn(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
             return R.fail("请先登陆");
@@ -131,6 +132,39 @@ public class UserController {
         AttRecord entity = new AttRecord();
         BeanUtils.copyProperties(dto,entity);
         if(loginId.startsWith("T")){
+            ClassType classType = ClassType.valueOf(dto.getWorkType());
+            entity.setWorkType(classType.getName());
+            entity.setBeginDate(new Date());
+            AttTeacher teacher = attTeacherService.findByLoginId(loginId);
+            entity.setTeaName(teacher.getTeaNmKanji());
+            entity.setTeaNo(loginId);
+            if(StringUtils.isNotEmpty(dto.getStuNo())){
+                AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
+                entity.setStuName(student.getStuNmKanji());
+            }
+            attRecordService.save(entity);
+        }else{
+            return R.fail("用户名不存在");
+        }
+        return R.success(entity);
+    }
+
+    /**
+     * Created by abel on 2021/1/22
+     * 考勤签退
+     */
+    @PostMapping(value = "/signOut")
+    public R signOut(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
+            return R.fail("请先登陆");
+        }
+        AttRecord entity = new AttRecord();
+        BeanUtils.copyProperties(dto,entity);
+        if(loginId.startsWith("T")){
+            ClassType classType = ClassType.valueOf(dto.getWorkType());
+            entity.setWorkType(classType.getName());
+            entity.setBeginDate(new Date());
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaName(teacher.getTeaNmKanji());
 
@@ -185,6 +219,11 @@ public class UserController {
         if(Strings.isBlank(loginId)){
             return R.fail("请先登陆");
         }
+        if(dto.getId() != null){
+            AttRecord entity = attRecordService.getById(dto.getId());
+            return R.success(entity);
+        }
+
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo, loginId);
         List<AttRecord> list = attRecordService.list(eq);

@@ -34,30 +34,24 @@
 	</div>
 </div>
 <script>
-	$('#icon').click(function (){
-		location.href = "/user/user_tea1.html";
-	});
+	var workType = getQueryVariable("workType");
 
 	$('#inCompany').click(function (){
-		var work = getQueryVariable("work");
-		doWork("in" ,work);
+		doWork("1" ,workType);
 
 	});
 
 	$('#outCompany').click(function (){
-		var work = getQueryVariable("work");
-		doWork("out" ,work);
+		doWork("2" ,workType);
 	});
 
-	function doWork(company , work)
-	{
+	function doWork(company , workType){
 		var dt = new Date();
-		var time = zeroFill(dt.getHours()) + ":" + zeroFill(dt.getMinutes());
 
-		if(work == "vip"){
-			location.href = "/user/user_tea4.html?work=" + work + "&company=" + company + "&time=" + time;
+		if(workType == "CLASS_VIP"){
+			location.href = "/user/user_tea4.html?workType=" + workType + "&company=" + company ;
 		}else{
-			location.href = "/user/user_tea5.html?work=" + work + "&company=" + company  + "&time=" + time;
+			location.href = "/user/user_tea5.html?workType=" + workType + "&company=" + company ;
 		}
 	}
 
