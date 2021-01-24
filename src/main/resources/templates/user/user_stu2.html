@@ -21,8 +21,8 @@
 		</div>
 
 		<!-- Form -->
-		<form>
-
+		<form onclick="return false">
+			<legend>预约课程</legend>
 			<button type="button" id="projectProduction" class="btn btn-primary btn-lg btn-block">课题制作</button>
 			<button type="button" id="oneToManyReservation" class="btn btn-primary btn-lg btn-block">一对多课程预约</button>
 		</form>
@@ -35,6 +35,13 @@
 	</div>
 </div>
 <script>
+	$('#projectProduction').click(function (){
+		location.href = "/user/user_time.html?class=projectProduction";
+	});
+
+	$('#oneToManyReservation').click(function (){
+		location.href = "/user/user_stu4.html";
+	});
 
 </script>
 </body>

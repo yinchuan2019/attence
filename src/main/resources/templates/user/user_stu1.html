@@ -7,7 +7,6 @@
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/bootstrap-datetimepicker.min.js"></script>
 
 </head>
 <body>
@@ -21,10 +20,10 @@
 		</div>
 
 		<!-- Form -->
-		<form>
-
-			<button type="button" id="reserve" class="btn btn-primary btn-lg btn-block">预约</button>
-			<button type="button" id="confimation" class="btn btn-primary btn-lg btn-block">信息确认</button>
+		<form onclick="return false">
+			<legend>功能选择</legend>
+			<button type="submit" id="reserve" class="btn btn-primary btn-lg btn-block">预约</button>
+			<button type="submit" id="confimation" class="btn btn-primary btn-lg btn-block" >信息确认</button>
 		</form>
 
 		<!-- fotter -->
@@ -35,8 +34,19 @@
 	</div>
 </div>
 <script>
+	$('#reserve').click(function (){
+		location.href = "/user/user_stu2.html";
+	});
+
+	$('#confimation').click(function (){
+		location.href = "/user/user_stu5.html";
+	});
 
 </script>
+<style>
+
+</style>
+
 </body>
 
 </html>

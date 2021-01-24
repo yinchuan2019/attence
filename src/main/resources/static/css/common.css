@@ -9,6 +9,17 @@ body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
 }
+.btn{
+    background-color: #56baed;
+    border: none;
+    color: white;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 
 a {
     color: #92badd;
