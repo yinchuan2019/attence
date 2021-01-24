@@ -95,17 +95,19 @@ public class UserController {
             entity.setAttType(1);
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaName(teacher.getTeaNmKanji());
+            entity.setStuNo(loginId);
             /**学生**/
             if(dto.getStuNo() != null){
                 AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
                 entity.setStuName(student.getStuNmKanji());
+                entity.setStuNo(student.getLoginId());
             }
-
             attAppointmentService.save(entity);
         }else if(loginId.startsWith("S")){
             entity.setAttType(2);
             AttStudent student = attStudentService.findByLoginId(loginId);
             entity.setStuName(student.getStuNmKanji());
+            entity.setStuNo(loginId);
             attAppointmentService.save(entity);
         }else {
             return R.fail("用户名不存在");
