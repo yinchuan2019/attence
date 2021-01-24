@@ -57,13 +57,52 @@
 	</div>
 </div>
 <script>
-	$('#icon').click(function (){
-		location.href = "/user/user_stu1.html";
+	$(function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+
+
+		$.ajax({
+			type: "POST",
+			url: "/user/findAppointment",
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					var html = ''
+					for(var i = 0;i<res.data.length;i++){
+						html += setDiv(res.data[i])
+					}
+					noApplicationRecord.innerHTML = html
+
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
 	});
 
-	$('#return').click(function (){
-		location.href = "/user/user_stu5.html";
-	});
+	//绘制单个div
+	function setDiv(item){
+		var div = '<div class="body-no-list"><div class="body-no-list-header" ><div class="body-no-list-header-title">'
+				+ item.business
+				+ '</div><div class="body-no-list-header-txt">消费金额:&nbsp;'
+				+ item.count
+				+ '元<br>消费单号:&nbsp;'
+				+ item.num
+				+ '<br>提交时间:&nbsp;'
+				+ item.time
+				+ '</div></div><div class="body-no-list-bottom"><div class="body-no-list-bottom-vehicl">'
+				+ item.license
+				+ '</div><div><button>撤销</button><button> 修改</button></div></div></div> '
+		return div
+	}
+
 </script>
 </body>
 

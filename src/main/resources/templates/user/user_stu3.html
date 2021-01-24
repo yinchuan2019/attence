@@ -29,11 +29,15 @@
 			<div class="row">
 				<label id="classRoom" class="control-label">席1</label>
 			</div>
+
 			<div class="row">
 				<label id="beginDate" class="control-label">2020年11月20日</label>
 			</div>
 			<div class="row">
 				<label id="endDate" class="control-label">From xx:xx TO xx:xx</label>
+			</div>
+			<div class="row">
+				<label id="stuNo" class="control-label">学生番号：xxxx</label>
 			</div>
 		</form>
 
@@ -70,10 +74,14 @@
 			success: function (res) {
 				if (res.code == 0) {
 					$("#classType").html(res.data.classType);
-					$("#classRoom").html(res.data.classRoom);
+					$("#classRoom").html("席:" + res.data.classRoom);
 					$("#beginDate").html(res.data.beginDate);
 					$("#endDate").html(res.data.endDate);
-
+					if(userName.substring(0,1) == "S") {
+						$("#stuNo").hide();
+					}else{
+						$("#stuNo").html("学生番号:" + res.data.stuNo);
+					}
 				}else {
 					alert(res.msg);
 					$("#userName").val("");
