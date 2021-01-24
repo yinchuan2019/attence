@@ -26,8 +26,8 @@
 		</div>
 
 		<!-- Form -->
-		<form>
-
+		<form onclick="return false">
+			<legend>预约信息确认</legend>
 			<div class="row">
 				<table class="table table-bordered">
 					<caption>➡️课题制作</caption>
@@ -49,7 +49,7 @@
 			</div>
 
 			<div class="row">
-					<input type="submit" name="button1" value="返回" class="btn btn-primary btn-wide" />
+					<input type="submit" id="return" value="返回" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
@@ -61,7 +61,9 @@
 	</div>
 </div>
 <script>
-
+	$('#return').click(function (){
+		location.href = "/user/user_stu5.html";
+	});
 </script>
 </body>
 
