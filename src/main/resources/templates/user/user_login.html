@@ -20,7 +20,7 @@
 		</div>
 
 		<!-- Login Form -->
-		<form>
+		<form onclick="return false">
 			<input type="text" id="userName" class="fadeIn second" name="login" placeholder="login">
 			<input type="text" id="passWord" class="fadeIn third" name="login" placeholder="password">
 			<input type="submit" id="login" class="fadeIn fourth" value="Log In">
@@ -61,15 +61,14 @@
 			dataType: "json",
 			contentType: 'application/json; charset=UTF-8',
 			cache: false,
-			async: true,
+			async: false,
 			success: function (res) {
 				if (res.code == 0) {
 					if(userName.substring(0,1) == "S") {
-						window.location.href = "1280-7.html";
+						location.href = "/user/user_stu1.html";
 					}else if(userName.substring(0,1) == "T"){
-						window.location.href = "1280-2.html";
+						location.href = "/user/user_tea1.html";
 					}
-					return true;
 				}else {
 					alert(res.msg);
 					$("#userName").val("");
