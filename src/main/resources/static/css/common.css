@@ -9,6 +9,12 @@ body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
 }
+
+.row {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 .btn{
     background-color: #56baed;
     border: none;

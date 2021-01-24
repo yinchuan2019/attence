@@ -9,7 +9,6 @@
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="/js/locales/bootstrap-datetimepicker.en.js" charset="UTF-8"></script>
 	<script src="/js/common.js"></script>
 
 </head>
@@ -91,6 +90,10 @@
 		forceParse: 0,
 		minuteStep: 15,
 		hoursDisabled: [0, 1, 2, 3, 4, 5, 6, 7, 8, 19, 20, 21, 22, 23]
+	});
+
+	$('#icon').click(function (){
+		location.href = "/user/user_tea1.html";
 	});
 
 	$('#comfire').click(function (){

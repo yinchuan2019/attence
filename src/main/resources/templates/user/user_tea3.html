@@ -34,26 +34,38 @@
 	</div>
 </div>
 <script>
+	$('#icon').click(function (){
+		location.href = "/user/user_tea1.html";
+	});
+
 	$('#inCompany').click(function (){
 		var work = getQueryVariable("work");
-		doWork(company ,work);
+		doWork("in" ,work);
 
 	});
 
 	$('#outCompany').click(function (){
 		var work = getQueryVariable("work");
-		doWork(company ,work);
+		doWork("out" ,work);
 	});
 
 	function doWork(company , work)
 	{
 		var dt = new Date();
-		var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+		var time = zeroFill(dt.getHours()) + ":" + zeroFill(dt.getMinutes());
 
 		if(work == "vip"){
-			location.href = "/user/user_tea4.html?work=" + work + "&company" + company + "&time=" + time;
+			location.href = "/user/user_tea4.html?work=" + work + "&company=" + company + "&time=" + time;
 		}else{
 			location.href = "/user/user_tea5.html?work=" + work + "&company=" + company  + "&time=" + time;
+		}
+	}
+
+	function zeroFill(i){
+		if (i >= 0 && i <= 9) {
+			return "0" + i;
+		} else {
+			return i;
 		}
 	}
 

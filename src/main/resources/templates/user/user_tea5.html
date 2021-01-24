@@ -46,19 +46,40 @@
 	</div>
 </div>
 <script>
+	$('#icon').click(function (){
+		location.href = "/user/user_tea1.html";
+	});
+
 	$(function(){
 		var company = getQueryVariable("company");
 		var work = getQueryVariable("work");
 		var time = getQueryVariable("time");
 
-		$("#company").html(company);
-		$("#work").html(work);
+		if(company == "in"){
+			$("#company").html("社内");
+		}else if(company == "out"){
+			$("#company").html("社外");
+		}
+
+		if(work == "vip"){
+			$("#work").html("VIP作品集研究计划);
+		}else if(work == "someThing"){
+			$("#work").html("事务工作");
+		}else if(work == "other"){
+			$("#work").html("其他");
+		}
+
+
 		if(work == "vip"){
 			var stuNo = getQueryVariable("stuNo");
 			$("#stuNo").show();
+			$("#p1").show();
+			$("#p2").hide();
 			$("#stuNo").html("学生番号：" + stuNo);
 		}else{
 			$("#stuNo").hide();
+			$("#p1").hide();
+			$("#p2").show();
 		}
 
 		$("#startTime").html(time);

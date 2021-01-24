@@ -32,7 +32,7 @@
 				</div>
 
 				<div class="row row1">
-					<input type="submit" name="comfirm" value="确认" class="btn btn-primary btn-wide" />
+					<input type="submit" id="confirm" value="确认" class="btn btn-primary btn-wide" />
 				</div>
 			</fieldset>
 
@@ -47,7 +47,11 @@
 	</div>
 </div>
 <script>
-	$('#comfirm').click(function (){
+	$('#icon').click(function (){
+		location.href = "/user/user_tea1.html";
+	});
+
+	$('#confirm').click(function (){
 
 		var work = getQueryVariable("work");
 		var company = getQueryVariable("company");
@@ -55,8 +59,9 @@
 		var stuNo = $('#stuNo').val();
 
 		// TODO 提交端口
-		location.href = "/user/user_tea4.html?work=" + work + "&company=" + company + "&time=" + time; + "&stuNo" + stuNo;
+		location.href = "/user/user_tea5.html?work=" + work + "&company=" + company + "&time=" + time + "&stuNo=" + stuNo;
 	});
+
 </script>
 <style>
 	input[type=text] {
