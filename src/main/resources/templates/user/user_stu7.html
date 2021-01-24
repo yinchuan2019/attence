@@ -60,11 +60,11 @@
 	$(function(){
 		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
 
-
 		$.ajax({
 			type: "POST",
 			url: "/user/findAppointment",
 			dataType: "json",
+			data:{},
 			contentType: 'application/json; charset=UTF-8',
 			cache: false,
 			async: false,
