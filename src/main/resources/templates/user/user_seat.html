@@ -7,7 +7,9 @@
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap-datetimepicker.js"></script>
 	<script src="/js/common.js"></script>
+
 
 </head>
 <body>
@@ -26,16 +28,15 @@
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 
 			<div class="btn-group">
-				<button type="button" id="seat1" class="btn btn-default">席1</button>
-				<button type="button" id="seat2" class="btn btn-default">席2</button>
-				<button type="button" id="seat3" class="btn btn-default">席3</button>
-				<button type="button" id="seat4" class="btn btn-default">席4</button>
-				<button type="button" id="seat5" class="btn btn-default">席5</button>
-				<button type="button" id="seat6" class="btn btn-default">席6</button>
-				<input type="hidden" id="seat" value="">
+				<button type="button" value="席1" class="btn btn-default">席1</button>
+				<button type="button" value="席2" class="btn btn-default">席2</button>
+				<button type="button" value="席3" class="btn btn-default">席3</button>
+				<button type="button" value="席4" class="btn btn-default">席4</button>
+				<button type="button" value="席5" class="btn btn-default">席5</button>
+				<button type="button" value="席6" class="btn btn-default">席6</button>
 			</div>
 			<div class="row">
-				<input type="submit" name="button1" value="确认" class="btn btn-primary btn-wide" />
+				<input type="submit" name="button1" id="confirm" value="确认" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
@@ -46,17 +47,58 @@
 	</div>
 </div>
 <script>
-	$('#seat1').click(function (){
-		$('#seat1').val("seat1")
+	$('#line1 .btn').on('click', function(){
+		$('#line2 .active').removeClass('active');
 	});
-	$('#seat1').click(function (){
-		$('#seat1').val("seat1")
+
+	$('#confirm').on('click', function(){
+		const userName = sessionStorage.obj;
+
+		let beginDate = getQueryVariable("beginDate").replace("%20"," ");
+		let endDate = getQueryVariable("endDate").replace("%20"," ");
+
+		let classRoom= $(".btn-default:checked").val();
+
+		if(userName.substring(0,1) == "T"){
+			location.href = "/user/user_tea7.html?beginDate=" + beginDate + "&endDate=" + endDate + "&classRoom=" + classRoom;
+			return true;
+		}
+
+		if(typeof classRoom == "undefined" ||  classRoom == ""){
+			alert("座位不能为空！");
+		}
+
+		let object = {
+			beginDate:beginDate,
+			endDate:endDate,
+			classRoom:classRoom
+		}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/appointment",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					if(userName.substring(0,1) == "S") {
+						location.href = "/user/user_stu3.html";
+					}
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
 	});
-	$('#seat1').click(function (){
-		$('#seat1').val("seat1")
-	});$('#seat1').click(function (){
-		$('#seat1').val("seat1")
-	});
+
 
 </script>
 </body>

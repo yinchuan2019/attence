@@ -70,6 +70,9 @@
 					}else if(userName.substring(0,1) == "T"){
 						location.href = "/user/user_tea1.html";
 					}
+					var obj = {userName:userName};
+					var str = JSON.stringify(obj);
+					sessionStorage.obj = str;
 				}else {
 					alert(res.msg);
 					$("#userName").val("");

@@ -94,7 +94,19 @@
 	});
 
 	$('#comfire').click(function (){
-		location.href = "/user/user_seat.html";
+		const dtp_input1 = $("#dtp_input1").val().toString();
+		const dtp_input2 = $("#dtp_input2").val().toString();
+		const dtp_input3 = $("#dtp_input3").val().toString();
+
+		const beginDate = dtp_input1 + " " + dtp_input2;
+		const endDate = dtp_input1 + " " + dtp_input3;
+
+
+		if (dtp_input1 == "" || dtp_input2 == "" || dtp_input3 == "") {
+			alert("时间不能为空");
+			return false;
+		}
+		location.href = "/user/user_seat.html?beginDate=" + beginDate + "&endDate=" + endDate;
 	});
 </script>
 <style>
