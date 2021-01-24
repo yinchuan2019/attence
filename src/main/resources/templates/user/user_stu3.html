@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserStundent3</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>UserStundent3</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -29,19 +29,16 @@
 		<form onclick="return false">
 			<legend>确认</legend>
 			<div class="row">
-				<label class="control-label">课题制作</label>
+				<label id="classType" class="control-label">课题制作</label>
 			</div>
 			<div class="row">
-				<label class="control-label">席1</label>
+				<label id="classRoom" class="control-label">席1</label>
 			</div>
 			<div class="row">
-				<label class="control-label">2020年11月20日</label>
+				<label id="beginDate" class="control-label">2020年11月20日</label>
 			</div>
 			<div class="row">
-				<label class="control-label">From xx:xx TO xx:xx</label>
-			</div>
-			<div class="row">
-					<input type="submit" name="button1" value="登陆" class="btn btn-primary btn-wide" />
+				<label id="endDate" class="control-label">From xx:xx TO xx:xx</label>
 			</div>
 		</form>
 
@@ -53,7 +50,42 @@
 	</div>
 </div>
 <script>
+	$(function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
 
+		let id = getQueryVariable("id");
+
+
+		let object = {
+			id:id
+		}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/findAppointment",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					$("#classType").html(res.data.classType);
+					$("#classRoom").html(res.data.classRoom);
+					$("#beginDate").html(res.data.beginDate);
+					$("#endDate").html(res.data.endDate);
+
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
+	});
 </script>
 </body>
 
