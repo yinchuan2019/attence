@@ -50,16 +50,49 @@
 	$('#icon').click(function (){
 		location.href = "/user/user_tea1.html";
 	});
-
-	$('#confirm').click(function (){
+	$('#confirm').on('click', function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
 
 		var work = getQueryVariable("work");
 		var company = getQueryVariable("company");
 		var time = getQueryVariable("time");
 		var stuNo = $('#stuNo').val();
 
-		// TODO 提交端口
-		location.href = "/user/user_tea5.html?work=" + work + "&company=" + company + "&time=" + time + "&stuNo=" + stuNo;
+
+		if(typeof stuNo == "undefined" ||  stuNo == ""){
+			alert("学生番号不能为空");
+		}
+
+		let object = {
+			workType:work,
+			attType:company,
+			beginDate:time,
+			stuNo:stuNo
+		}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/record",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					if(userName.substring(0,1) == "S") {
+						location.href = "/user/user_tea5.html?id=" + res.data.id;
+					}
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
 	});
 
 </script>
