@@ -1,6 +1,7 @@
 package com.my.attence.controller.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
@@ -160,20 +161,18 @@ public class UserController {
         if(Strings.isBlank(loginId)){
             return R.fail("请先登陆");
         }
-        AttRecord entity = new AttRecord();
-        BeanUtils.copyProperties(dto,entity);
-        if(loginId.startsWith("T")){
-            ClassType classType = ClassType.valueOf(dto.getWorkType());
-            entity.setWorkType(classType.getName());
-            entity.setBeginDate(new Date());
-            AttTeacher teacher = attTeacherService.findByLoginId(loginId);
-            entity.setTeaName(teacher.getTeaNmKanji());
-
-            attRecordService.save(entity);
+        LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                 .eq(AttRecord::getTeaNo,loginId).isNull(AttRecord::getEndDate)
+                .orderByDesc(AttRecord::getBeginDate);
+        List<AttRecord> list = attRecordService.list(eq);
+        if(CollectionUtils.isNotEmpty(list)){
+            AttRecord attRecord = list.get(0);
+            attRecord.setEndDate(new Date());
+            attRecordService.updateById(attRecord);
+            return R.success(attRecord);
         }else{
-            return R.fail("用户名不存在");
+            return R.fail("未存在签到信息");
         }
-        return R.success(entity);
     }
 
 
