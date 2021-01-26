@@ -1,6 +1,7 @@
 package com.my.attence.controller.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
@@ -150,7 +151,29 @@ public class UserController {
         return R.success(entity);
     }
 
-
+    /**
+     * Created by abel on 2021/1/22
+     * 考勤签退
+     */
+    @PostMapping(value = "/signOut")
+    public R signOut(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
+            return R.fail("请先登陆");
+        }
+        LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                 .eq(AttRecord::getTeaNo,loginId).isNull(AttRecord::getEndDate)
+                .orderByDesc(AttRecord::getBeginDate);
+        List<AttRecord> list = attRecordService.list(eq);
+        if(CollectionUtils.isNotEmpty(list)){
+            AttRecord attRecord = list.get(0);
+            attRecord.setEndDate(new Date());
+            attRecordService.updateById(attRecord);
+            return R.success(attRecord);
+        }else{
+            return R.fail("未存在签到信息");
+        }
+    }
 
 
     /**
