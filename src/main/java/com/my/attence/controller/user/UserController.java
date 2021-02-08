@@ -19,6 +19,7 @@ import com.my.attence.service.AttAppointmentService;
 import com.my.attence.service.AttRecordService;
 import com.my.attence.service.AttStudentService;
 import com.my.attence.service.AttTeacherService;
+import com.my.attence.utils.DateUtils;
 import com.my.attence.utils.PasswordUtils;
 import com.my.attence.utils.TaleUtils;
 import io.swagger.annotations.Api;
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,6 +57,7 @@ public class UserController {
     private AttAppointmentService attAppointmentService;
     @Resource
     private AttRecordService attRecordService;
+
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登录接口")
@@ -97,6 +99,16 @@ public class UserController {
         ClassType classType = ClassType.valueOf(dto.getClassType());
         entity.setClassType(classType.getName());
         if(loginId.startsWith("T")){
+            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
+                    .eq(AttAppointment::getAttType, 1)
+                    .eq(AttAppointment::getClassRoom,dto.getClassRoom())
+                    .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
+                    .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(30));
+            List<AttAppointment> list = attAppointmentService.list(eq);
+            if(CollectionUtils.isNotEmpty(list)){
+                return R.fail("已经被预约");
+            }
+
             entity.setAttType(1);
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaNo(loginId);
@@ -104,11 +116,24 @@ public class UserController {
             /**学生**/
             if(dto.getStuNo() != null){
                 AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
+                if(student == null){
+                    return R.fail("学号不存在");
+                }
                 entity.setStuName(student.getStuNmKanji());
                 entity.setStuNo(student.getLoginId());
             }
             attAppointmentService.save(entity);
         }else if(loginId.startsWith("S")){
+            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
+                    .eq(AttAppointment::getAttType, 2)
+                    .eq(AttAppointment::getClassRoom,dto.getClassRoom())
+                    .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
+                    .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(10));
+            List<AttAppointment> list = attAppointmentService.list(eq);
+            if(CollectionUtils.isNotEmpty(list)){
+                return R.fail("已经被预约");
+            }
+
             entity.setAttType(2);
             AttStudent student = attStudentService.findByLoginId(loginId);
             entity.setStuName(student.getStuNmKanji());
@@ -136,7 +161,7 @@ public class UserController {
         if(loginId.startsWith("T")){
             ClassType classType = ClassType.valueOf(dto.getWorkType());
             entity.setWorkType(classType.getName());
-            entity.setBeginDate(new Date());
+            entity.setBeginDate(LocalDateTime.now());
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaName(teacher.getTeaNmKanji());
             entity.setTeaNo(loginId);
@@ -167,7 +192,7 @@ public class UserController {
         List<AttRecord> list = attRecordService.list(eq);
         if(CollectionUtils.isNotEmpty(list)){
             AttRecord attRecord = list.get(0);
-            attRecord.setEndDate(new Date());
+            attRecord.setEndDate(LocalDateTime.now());
             attRecordService.updateById(attRecord);
             return R.success(attRecord);
         }else{
@@ -195,12 +220,16 @@ public class UserController {
         List<AttAppointment> list;
         if(loginId.startsWith("T")){
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getTeaNo, loginId);
-             list = attAppointmentService.list(eq);
+                    .eq(AttAppointment::getTeaNo, loginId)
+                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin(26));
+
+            list = attAppointmentService.list(eq);
 
         }else if(loginId.startsWith("S")){
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getStuNo, loginId);
+                    .eq(AttAppointment::getStuNo, loginId)
+                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin(26));
+
             list = attAppointmentService.list(eq);
         }else {
             return R.fail("用户名不存在");
@@ -225,7 +254,8 @@ public class UserController {
         }
 
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
-                .eq(AttRecord::getTeaNo, loginId);
+                .eq(AttRecord::getTeaNo, loginId)
+                .ge(AttRecord::getBeginDate, DateUtils.getTodayBegin(26));
         List<AttRecord> list = attRecordService.list(eq);
         Map<String, List<AttRecord>> collect = list.stream().collect(Collectors.groupingBy(AttRecord::getWorkType));
 
@@ -246,7 +276,7 @@ public class UserController {
         LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
                 .eq(AttAppointment::getAttType, 1)
                 .eq(AttAppointment::getClassType, dto.getWorkType())
-                .ge(AttAppointment::getBeginDate,new Date())
+                .ge(AttAppointment::getBeginDate,LocalDateTime.now())
                 .orderByDesc(AttAppointment::getBeginDate)
                 .last("limit 1");
 

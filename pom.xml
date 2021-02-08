@@ -8,7 +8,7 @@
     <!-- now -->
     <version>1.0.0-SNAPSHOT</version>
 
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>my-attence</name>
     <description>My Java Attence project for Spring Boot</description>

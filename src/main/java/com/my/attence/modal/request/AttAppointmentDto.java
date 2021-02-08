@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -34,10 +34,10 @@ public class AttAppointmentDto extends BaseEntity {
     private String teaName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
-    private Date beginDate;
+    private LocalDateTime beginDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
-    private Date endDate;
+    private LocalDateTime endDate;
 
     private String classRoom;
 

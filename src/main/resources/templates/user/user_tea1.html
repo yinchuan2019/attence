@@ -45,10 +45,9 @@
 		location.href = "/user/user_tea2.html";
 	});
 
-	// TODO 可能需要确认画面
-	// $('#outJob').click(function (){
-	// 	location.href = "/user/user_tea.html?company=inCompany&function=onJob";
-	// });
+	 $('#outJob').click(function (){
+		 signOut();
+	 });
 
 	$('#reserve').click(function (){
 		location.href = "/user/user_tea6.html";
@@ -57,7 +56,26 @@
 		location.href = "/user/user_tea9.html";
 	});
 
-
+	function signOut(){
+		let object = {}
+		let data = JSON.stringify(object)
+		$.ajax({
+			type: "POST",
+			url: "/user/signOut",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					location.href = "/user/user_tea5.html?id=" + res.data.id;
+				}else {
+					return false;
+				}
+			}
+		})
+	}
 
 </script>
 </body>

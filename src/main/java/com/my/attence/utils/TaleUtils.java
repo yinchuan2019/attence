@@ -20,7 +20,6 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
-import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -429,7 +428,7 @@ public class TaleUtils {
     }
 
     public static String getFileKey(String name) {
-        String prefix = "/upload/" + DateKit.dateFormat(new Date(), "yyyy/MM");
+        String prefix = "/upload/";
 
         name = StringUtils.trimToNull(name);
         if (name == null) {
