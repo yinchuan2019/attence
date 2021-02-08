@@ -35,7 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -94,21 +96,17 @@ public class UserController {
         if(Strings.isBlank(loginId)){
             return R.fail("请先登陆");
         }
+        List<AttAppointment> attAppointments = judgeAppointment(dto);
+        if(CollectionUtils.isNotEmpty(attAppointments)){
+            return R.fail("已经被预约");
+        }
+
         AttAppointment entity = new AttAppointment();
         BeanUtils.copyProperties(dto,entity);
         ClassType classType = ClassType.valueOf(dto.getClassType());
         entity.setClassType(classType.getName());
-        if(loginId.startsWith("T")){
-            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getAttType, 1)
-                    .eq(AttAppointment::getClassRoom,dto.getClassRoom())
-                    .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
-                    .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(30));
-            List<AttAppointment> list = attAppointmentService.list(eq);
-            if(CollectionUtils.isNotEmpty(list)){
-                return R.fail("已经被预约");
-            }
 
+        if(loginId.startsWith("T")){
             entity.setAttType(1);
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaNo(loginId);
@@ -124,16 +122,6 @@ public class UserController {
             }
             attAppointmentService.save(entity);
         }else if(loginId.startsWith("S")){
-            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getAttType, 2)
-                    .eq(AttAppointment::getClassRoom,dto.getClassRoom())
-                    .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
-                    .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(10));
-            List<AttAppointment> list = attAppointmentService.list(eq);
-            if(CollectionUtils.isNotEmpty(list)){
-                return R.fail("已经被预约");
-            }
-
             entity.setAttType(2);
             AttStudent student = attStudentService.findByLoginId(loginId);
             entity.setStuName(student.getStuNmKanji());
@@ -143,6 +131,21 @@ public class UserController {
             return R.fail("用户名不存在");
         }
         return R.success(entity);
+    }
+
+    /**
+     * Created by abel on 2021/1/22
+     * 判断该时间段该教室是否被占用
+     */
+    public List<AttAppointment> judgeAppointment(@RequestBody @Valid AttAppointmentDto dto){
+
+        LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
+                .eq(AttAppointment::getClassRoom,dto.getClassRoom())
+                .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
+                .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(30));
+        List<AttAppointment> list = attAppointmentService.list(eq);
+
+        return list;
     }
 
 
@@ -285,6 +288,60 @@ public class UserController {
         return R.success(one.getStuNo());
     }
 
+    /**
+     * Created by abel on 2021/2/8
+     * 老师出勤信息确认
+     */
+    @PostMapping(value = "/record-info")
+    public R recordInfo(HttpServletRequest request){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
+            return R.fail("请先登陆");
+        }
 
+        LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                .eq(AttRecord::getTeaNo,loginId)
+                .ge(AttRecord::getBeginDate,DateUtils.getTodayBegin(26))
+                .isNotNull(AttRecord::getEndDate)
+                .orderByDesc(AttRecord::getBeginDate);
 
+        List<AttRecord> list = attRecordService.list(eq);
+        Map<String, Map<Integer, Long>> collect = list.stream().collect(Collectors.groupingBy(AttRecord::getWorkType,
+                Collectors.groupingBy(AttRecord::getAttType,
+                        Collectors.summingLong(e ->{
+                            long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
+                            return l;
+                        }))));
+
+        return R.success(collect);
+    }
+
+    /**
+     * Created by abel on 2021/2/8
+     * 社内出勤信息
+     */
+    @PostMapping(value = "/record-type")
+    public R recordType(HttpServletRequest request){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
+            return R.fail("请先登陆");
+        }
+
+        LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                .eq(AttRecord::getTeaNo,loginId)
+                .eq(AttRecord::getAttType,1)
+                .ge(AttRecord::getBeginDate,DateUtils.getTodayBegin(26))
+                .isNotNull(AttRecord::getEndDate)
+                .orderByDesc(AttRecord::getBeginDate);
+
+        List<AttRecord> list = attRecordService.list(eq);
+
+        Map<String, Long> collect = list.stream().collect(Collectors.groupingBy(e -> {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String format = df.format(e.getBeginDate());
+            return format;
+        }, Collectors.counting()));
+
+        return R.success(collect);
+    }
 }

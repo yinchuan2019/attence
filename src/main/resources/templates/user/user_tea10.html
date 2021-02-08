@@ -24,7 +24,7 @@
 		<form onclick="return false">
 			<legend>出勤信息确认</legend>
 			<div class="row">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="group">
 					<caption>➡️出勤信息</caption>
 					<thead>
 						<tr>
@@ -34,7 +34,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<!--<tr>
 							<td rowspan="2">VIP作品集研究计划</td>
 							<td>社内</td>
 							<td>16小时</td>
@@ -43,43 +43,22 @@
 						<tr>
 							<td>社外</td>
 							<td>21小时</td>
-						</tr>
-						<tr>
-							<td rowspan="2">事务工作</td>
-							<td>社内</td>
-							<td>4小时</td>
-						</tr>
-						<tr>
-							<td>社外</td>
-							<td>5小时</td>
-						</tr>
-						<tr>
-							<td rowspan="2">其他</td>
-							<td>社内</td>
-							<td>6小时</td>
-						</tr>
-						<tr>
-							<td>社外</td>
-							<td>7小时</td>
-						</tr>
+						</tr>-->
 					</tbody>
 				</table>
 			</div>
 
 			<div class="row">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="group1">
 					<caption>➡️交通费</caption>
 					<thead>
 					<tr>
-						<th>社内出勤时间</th>
-						<th>总计</th>
+						<th>社内出勤日期</th>
+						<th>次数</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<td>16小时</td>
-						<td>2308</td>
-					</tr>
+
 					</tbody>
 				</table>
 			</div>
@@ -99,6 +78,58 @@
 <script>
 	$('#icon').click(function (){
 		location.href = "/user/user_tea1.html";
+	});
+
+	$(function(){
+		let object = {}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/record-info",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					let map = res.data;
+					for(let key in map){
+						var trVar = '<tr>' + '<td rowspan="2">'+ key + '</td>';
+						for(let k in map[key]){
+							let k1 =  map[key][k];
+							k == 1 ? k = "社内" : k = "社外";
+							trVar = trVar + '<td>' + k + '</td>' + '<td>' + k1 + '</td>' + '</tr>';
+						}
+						$('#group').append(trVar);
+					}
+				}
+			}
+		});
+
+		$.ajax({
+			type: "POST",
+			url: "/user/record-type",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					let map = res.data;
+					for(let key in map){
+						$('#group1').append('<tr> ' +
+								'<td>' + key + '</td>' +
+								'<td>' + map[key] + '</td>' +
+								'</tr>')
+					}
+				}
+			}
+		})
+
+
 	});
 </script>
 </body>

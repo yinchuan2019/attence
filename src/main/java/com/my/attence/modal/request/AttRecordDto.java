@@ -33,10 +33,10 @@ public class AttRecordDto extends BaseEntity {
 
     private String stuName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private LocalDateTime beginDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private LocalDateTime endDate;
 
     private String workType;
