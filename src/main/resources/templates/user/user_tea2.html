@@ -38,18 +38,55 @@
 	$('#icon').click(function (){
 		location.href = "/user/user_tea1.html";
 	});
+	var flag = getQueryVariable("signOut");
 
 	$('#vip').click(function (){
-		location.href = "/user/user_tea3.html?workType=CLASS_VIP";
+		if(flag == 1){
+			let object = {workType:"CLASS_VIP"};
+			signOut(object);
+		}else{
+			location.href = "/user/user_tea3.html?workType=CLASS_VIP";
+		}
 	});
 
 	$('#someThing').click(function (){
-		location.href = "/user/user_tea3.html?workType=WORK";
+		if(flag == 1){
+			let object = {workType:"WORK"};
+			signOut(object);
+
+		}else {
+			location.href = "/user/user_tea3.html?workType=WORK";
+		}
 	});
 
 	$('#other').click(function (){
-		location.href = "/user/user_tea3.html?workType=OTHER";
+		if(flag == 1){
+			let object = {workType:"OTHER"};
+			signOut(object);
+		}else {
+			location.href = "/user/user_tea3.html?workType=OTHER";
+		}
 	});
+
+	function signOut(object){
+		let data = JSON.stringify(object)
+		$.ajax({
+			type: "POST",
+			url: "/user/signOut",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					location.href = "/user/user_tea5.html?id=" + res.data.id;
+				}else {
+					return false;
+				}
+			}
+		})
+	}
 </script>
 </body>
 

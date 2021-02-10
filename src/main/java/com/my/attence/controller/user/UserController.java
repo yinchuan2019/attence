@@ -190,11 +190,18 @@ public class UserController {
             return R.fail("请先登陆");
         }
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                 .eq(AttRecord::getWorkType,ClassType.valueOf(dto.getWorkType()).getName())
                  .eq(AttRecord::getTeaNo,loginId).isNull(AttRecord::getEndDate)
                 .orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(eq);
         if(CollectionUtils.isNotEmpty(list)){
+            AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             AttRecord attRecord = list.get(0);
+            if(dto.getWorkType().equals(ClassType.CLASS_VIP.name())){
+                attRecord.setSalary(teacher.getTeaWage());
+            }else if(dto.getWorkType().equals(ClassType.WORK.name())){
+                attRecord.setSalary(teacher.getTeaOtherWage());
+            }
             attRecord.setEndDate(LocalDateTime.now());
             attRecordService.updateById(attRecord);
             return R.success(attRecord);

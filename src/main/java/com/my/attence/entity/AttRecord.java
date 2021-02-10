@@ -43,7 +43,8 @@ public class AttRecord extends BaseEntity {
 
     private Integer attType;
 
-    private String remarks;
+    private String salary;
 
+    private String remarks;
 
 }

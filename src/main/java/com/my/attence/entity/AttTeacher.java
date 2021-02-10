@@ -79,7 +79,7 @@ public class AttTeacher extends BaseEntity {
     /**
      * 面談·ミーティング·特別·事務給/其他时薪
      */
-    private String teaOteherWage;
+    private String teaOtherWage;
 
     /**
      * 交通費/通勤费

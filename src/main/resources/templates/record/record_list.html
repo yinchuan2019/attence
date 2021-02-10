@@ -61,10 +61,10 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="stuNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
+                <input type="text" id="teaNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="stuName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
+                <input type="text" id="teaName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
             </div>
             <div class="layui-input-inline">
                 <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
@@ -133,6 +133,8 @@
                     {field: 'teaName', title: '姓名', width: 130},
                     {field: 'beginDate', title: '开始签到时间', width: 160},
                     {field: 'endDate', title: '结束签到时间', width: 160},
+                    {field: 'workType', title: '类型', width: 160},
+
                     {
                         field: 'attType', title: '签到类型', width: 100, templet: function (item) {
                             if (item.attType === 1) {
