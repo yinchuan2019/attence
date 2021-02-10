@@ -105,6 +105,9 @@ public class AttSalaryController {
         if (!StringUtils.isEmpty(dto.getTeaName())) {
             queryWrapper.eq(AttRecord::getTeaName, dto.getTeaName());
         }
+        if (!StringUtils.isEmpty(dto.getWorkType())) {
+            queryWrapper.eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+        }
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(queryWrapper);
         //讲师姓名 - 工作类型 - 出勤类型 - 总工资

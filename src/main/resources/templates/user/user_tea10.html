@@ -96,7 +96,9 @@
 				if (res.code == 0) {
 					let map = res.data;
 					for(let key in map){
-						var trVar = '<tr>' + '<td rowspan="2">'+ key + '</td>';
+						let length = Object.keys(map[key]).length;
+
+						var trVar = '<tr>' + '<td rowspan="' + length +'">'+ key + '</td>';
 						for(let k in map[key]){
 							let k1 =  map[key][k];
 							k == 1 ? k = "社内" : k = "社外";
