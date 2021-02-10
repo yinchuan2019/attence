@@ -94,7 +94,7 @@ public class AttSalaryController {
     public R salarys(@RequestBody AttRecordDto dto) {
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getBeginDate())) {
-            queryWrapper.gt(AttRecord::getBeginDate, DateUtils.getTodayBegin(26));
+            queryWrapper.gt(AttRecord::getBeginDate, DateUtils.getTodayBegin());
         }
         if (!StringUtils.isEmpty(dto.getEndDate())) {
             queryWrapper.lt(AttRecord::getEndDate, dto.getEndDate());

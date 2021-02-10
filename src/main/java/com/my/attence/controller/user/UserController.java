@@ -232,14 +232,14 @@ public class UserController {
         if(loginId.startsWith("T")){
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
                     .eq(AttAppointment::getTeaNo, loginId)
-                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin(26));
+                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
 
             list = attAppointmentService.list(eq);
 
         }else if(loginId.startsWith("S")){
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
                     .eq(AttAppointment::getStuNo, loginId)
-                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin(26));
+                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
 
             list = attAppointmentService.list(eq);
         }else {
@@ -266,7 +266,7 @@ public class UserController {
 
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo, loginId)
-                .ge(AttRecord::getBeginDate, DateUtils.getTodayBegin(26));
+                .ge(AttRecord::getBeginDate, DateUtils.getTodayBegin());
         List<AttRecord> list = attRecordService.list(eq);
         Map<String, List<AttRecord>> collect = list.stream().collect(Collectors.groupingBy(AttRecord::getWorkType));
 
@@ -309,7 +309,7 @@ public class UserController {
 
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo,loginId)
-                .ge(AttRecord::getBeginDate,DateUtils.getTodayBegin(26))
+                .ge(AttRecord::getBeginDate,DateUtils.getTodayBegin())
                 .isNotNull(AttRecord::getEndDate)
                 .orderByDesc(AttRecord::getBeginDate);
 
@@ -345,7 +345,7 @@ public class UserController {
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo,loginId)
                 .eq(AttRecord::getAttType,1)
-                .ge(AttRecord::getBeginDate,DateUtils.getTodayBegin(26))
+                .ge(AttRecord::getBeginDate,DateUtils.getTodayBegin())
                 .isNotNull(AttRecord::getEndDate)
                 .orderByDesc(AttRecord::getBeginDate);
 
