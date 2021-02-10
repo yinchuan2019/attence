@@ -117,7 +117,7 @@ public class AttSalaryController {
                                     Collectors.summingLong(e -> {
                                         if(e.getWorkType().equals(ClassTypeEnum.CLASS_ORDER.getName()) ){
                                             return Integer.parseInt(e.getSalary());
-                                        }else if(e.getWorkType().equals(ClassTypeEnum.CLASS_ORDER.getName()) ){
+                                        }else if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
                                             return Integer.parseInt(e.getSalary());
                                         }else{
                                             long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();

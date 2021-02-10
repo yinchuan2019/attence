@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,6 +54,12 @@ public class AttRecordController {
         }
         entity.setTeaName(teacher.getTeaNmKanji());
         entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+
+        if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.getName()) ){
+            entity.setSalary(teacher.getTeaWage());
+        }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.getName()) ){
+            entity.setTeaName(teacher.getTeaOtherWage());
+        }
         attRecordService.save(entity);
         return R.success();
     }
