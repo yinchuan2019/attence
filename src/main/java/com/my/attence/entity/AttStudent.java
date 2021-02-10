@@ -67,12 +67,12 @@ public class AttStudent extends BaseEntity {
     /**
      * 残り授業時間/还剩课程时间
      */
-    private Integer stuLeftTime;
+    private String stuCourse0;
 
     /**
      * コース/课程
      */
-    private String stuCourse;
+    private String stuCourse1;
 
     /**
      * 専攻/专业
