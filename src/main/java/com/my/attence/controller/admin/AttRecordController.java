@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
 import com.my.attence.constant.ClassTypeEnum;
 import com.my.attence.entity.AttRecord;
+import com.my.attence.entity.AttTeacher;
 import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.service.AttRecordService;
 import com.my.attence.service.AttStudentService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -45,6 +47,12 @@ public class AttRecordController {
     public R add(@RequestBody @Valid AttRecordDto dto) {
         AttRecord entity = new AttRecord();
         BeanUtil.copyProperties(dto,entity);
+        AttTeacher teacher = attTeacherService.findByLoginId(dto.getTeaNo());
+        if(Objects.isNull(teacher)){
+            return R.fail("讲师不存在");
+        }
+        entity.setTeaName(teacher.getTeaNmKanji());
+        entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
         attRecordService.save(entity);
         return R.success();
     }

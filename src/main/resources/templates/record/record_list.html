@@ -19,13 +19,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">学号</label>
                 <div class="layui-input-block">
-                    <input name="stuNo" placeholder="请输入学号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-form-label ">姓名</div>
-                <div class="layui-input-block">
-                    <input name="stuName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                    <input name="teaNo" placeholder="请输入学号" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -41,10 +35,21 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                    <select name="workType">
+                        <option value="">请选择类型</option>
+                        <option value="CLASS_MAKE">VIP作品集研究计划</option>
+                        <option value="CLASS_WORK">事务工作</option>
+                        <option value="CLASS_OTHER">其他</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">签到类型</label>
                 <div class="layui-input-block">
                     <input type="radio" name="attType" value="1" title="社内" checked="">
-                    <input type="radio" name="attType" value="0" title="社外">
+                    <input type="radio" name="attType" value="2" title="社外">
                 </div>
             </div>
 
@@ -81,7 +86,7 @@
                 <select id="attType">
                     <option value="">请选择账号状态</option>
                     <option value="1">社内</option>
-                    <option value="0">社外</option>
+                    <option value="2">社外</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
@@ -148,7 +153,7 @@
                             if (item.attType === 1) {
                                 return "社内";
                             }
-                            if (item.attType === 0) {
+                            if (item.attType === 2) {
                                 return "社外";
                             }
                         }
