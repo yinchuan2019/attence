@@ -40,6 +40,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -314,7 +315,13 @@ public class UserController {
 
         List<AttRecord> list = attRecordService.list(eq);
         Map<String, Map<Integer, Long>> collect = list.stream().filter(e -> e.getEndDate() != null)
-                .collect(Collectors.groupingBy(AttRecord::getWorkType,
+                .collect(Collectors.groupingBy(o -> {
+                            if(Objects.nonNull(o.getRemarks())){
+                                return o.getWorkType() +"-"+ o.getRemarks();
+                            }else {
+                                return o.getWorkType();
+                            }
+                        },
                     Collectors.groupingBy(AttRecord::getAttType,
                         Collectors.summingLong(e ->{
                             long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
