@@ -313,8 +313,9 @@ public class UserController {
                 .orderByDesc(AttRecord::getBeginDate);
 
         List<AttRecord> list = attRecordService.list(eq);
-        Map<String, Map<Integer, Long>> collect = list.stream().collect(Collectors.groupingBy(AttRecord::getWorkType,
-                Collectors.groupingBy(AttRecord::getAttType,
+        Map<String, Map<Integer, Long>> collect = list.stream().filter(e -> e.getEndDate() != null)
+                .collect(Collectors.groupingBy(AttRecord::getWorkType,
+                    Collectors.groupingBy(AttRecord::getAttType,
                         Collectors.summingLong(e ->{
                             long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
                             return l;

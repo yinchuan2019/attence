@@ -48,7 +48,9 @@
 	function doWork(company , workType){
 		if(workType == "CLASS_VIP"){
 			location.href = "/user/user_tea4.html?workType=" + workType + "&company=" + company ;
-		}else{
+		}else if(workType == "OTHER"){
+			location.href = "/user/user_tea12.html?workType=" + workType + "&company=" + company ;
+		}else if(workType == "WORK"){
 			var workType = getQueryVariable("workType");
 
 			let object = {

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>UserTeacher4</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/css/common.css" rel="stylesheet"/>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/common.js"></script>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+	<div id="formContent">
+		<!-- Tabs Titles -->
+
+		<!-- Icon -->
+		<div class="fadeIn first">
+			<img src="/images/logo.gif" id="icon" alt="User Icon" />
+		</div>
+
+		<!-- Form -->
+		<form onclick="return false">
+			<fieldset>
+				<legend>其他</legend>
+				<div class="row content">
+					<label  class="col-md-3 control-label">特别工作</label>
+					<div class="col-md-8">
+						<input class="form-control" type="text" id="remarks">
+					</div>
+					<br/>
+
+				</div>
+				<div class="row content">
+					<label  class="col-md-3 control-label">薪资</label>
+					<div class="col-md-8">
+						<input class="form-control" type="text" id="salary">
+					</div>
+					<br/>
+
+				</div>
+
+				<div class="row row1">
+					<input type="submit" id="confirm" value="确认" class="btn btn-primary btn-wide" />
+				</div>
+			</fieldset>
+
+		</form>
+
+		<!-- fotter -->
+		<div id="formFooter">
+			<p>功能选择 -> 出勤地 -> 工作内容 -> <span class="label label-danger">其他</span></p>
+
+		</div>
+
+	</div>
+</div>
+<script>
+	$('#icon').click(function (){
+		location.href = "/user/user_tea1.html";
+	});
+	$('#confirm').on('click', function(){
+
+		var workType = getQueryVariable("workType");
+		var company = getQueryVariable("company");
+		var remarks = $('#remarks').val();
+		var salary = $('#salary').val();
+
+		if(typeof remarks == "undefined" ||  remarks == ""){
+			alert("备注不能为空");
+		}
+
+		let object = {
+			workType:workType,
+			attType:company,
+			remarks:remarks,
+			salary:salary
+		}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/signIn",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+						location.href = "/user/user_tea5.html?id=" + res.data.id;
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
+	});
+
+</script>
+<style>
+	input[type=text] {
+		margin-top: 0px;
+		border-top-width: 0px;
+		border-bottom-width: 0px;
+	}
+	label {
+		left: 40px;
+		margin-top: 5px;
+	}
+
+	.row {
+		margin-top: 25px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+</style>
+</body>
+
+</html>

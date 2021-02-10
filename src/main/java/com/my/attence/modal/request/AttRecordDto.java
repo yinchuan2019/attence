@@ -47,4 +47,5 @@ public class AttRecordDto extends BaseEntity {
 
     private String remarks;
 
+
 }
