@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
-import com.my.attence.constant.ClassType;
+import com.my.attence.constant.ClassTypeEnum;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.AttAppointment;
 import com.my.attence.entity.AttRecord;
@@ -104,7 +104,7 @@ public class UserController {
 
         AttAppointment entity = new AttAppointment();
         BeanUtils.copyProperties(dto,entity);
-        ClassType classType = ClassType.valueOf(dto.getClassType());
+        ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getClassType());
         entity.setClassType(classType.getName());
 
         if(loginId.startsWith("T")){
@@ -163,7 +163,7 @@ public class UserController {
         AttRecord entity = new AttRecord();
         BeanUtils.copyProperties(dto,entity);
         if(loginId.startsWith("T")){
-            ClassType classType = ClassType.valueOf(dto.getWorkType());
+            ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getWorkType());
             entity.setWorkType(classType.getName());
             entity.setBeginDate(LocalDateTime.now());
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
@@ -191,16 +191,16 @@ public class UserController {
             return R.fail("请先登陆");
         }
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
-                 .eq(AttRecord::getWorkType,ClassType.valueOf(dto.getWorkType()).getName())
+                 .eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName())
                  .eq(AttRecord::getTeaNo,loginId).isNull(AttRecord::getEndDate)
                 .orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(eq);
         if(CollectionUtils.isNotEmpty(list)){
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             AttRecord attRecord = list.get(0);
-            if(dto.getWorkType().equals(ClassType.CLASS_VIP.name())){
+            if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.name())){
                 attRecord.setSalary(teacher.getTeaWage());
-            }else if(dto.getWorkType().equals(ClassType.WORK.name())){
+            }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.name())){
                 attRecord.setSalary(teacher.getTeaOtherWage());
             }
             attRecord.setEndDate(LocalDateTime.now());

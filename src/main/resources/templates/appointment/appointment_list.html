@@ -70,10 +70,11 @@
                 <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
             </div>
             <div class="layui-input-inline layui-form">
-                <select id="attType">
+                <select id="classType">
                     <option value="">请选择预约类型</option>
-                    <option value="1">老师预约</option>
-                    <option value="0">学生预约</option>
+                    <option value="CLASS_MAKE">课题制作</option>
+                    <option value="CLASS_ORDER">一对多课程预约</option>
+                    <option value="CLASS_VIP">VIP作品集研究计划</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
@@ -289,7 +290,7 @@
                 beginDate: startTime,
                 endDate: endTime,
                 stuName: $("#stuName").val(),
-                attType: $("#attType").val()
+                classType: $("#classType").val()
             }
             , page: {
                 curr: 1 //重新从第 1 页开始

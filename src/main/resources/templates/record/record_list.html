@@ -70,6 +70,15 @@
                 <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
             </div>
             <div class="layui-input-inline layui-form">
+                <select id="workType">
+                    <option value="">请选择预约类型</option>
+                    <option value="CLASS_MAKE">VIP作品集研究计划</option>
+                    <option value="CLASS_WORK">事务工作</option>
+                    <option value="CLASS_OTHER">其他</option>
+
+                </select>
+            </div>
+            <div class="layui-input-inline layui-form">
                 <select id="attType">
                     <option value="">请选择账号状态</option>
                     <option value="1">社内</option>
@@ -145,6 +154,7 @@
                             }
                         }
                     },
+                    {field: 'remarks', title: '备注', minWidth: 120},
                     {field: 'createTime', title: '创建时间', minWidth: 120},
                     {field: 'updateTime', title: '更新时间', minWidth: 120},
                     {width: 300, toolbar: "#tool", title: '操作'}
@@ -287,7 +297,9 @@
                 beginDate: startTime,
                 endDate: endTime,
                 stuName: $("#stuName").val(),
-                attType: $("#attType").val()
+                attType: $("#attType").val(),
+                workType: $("#workType").val()
+
             }
             , page: {
                 curr: 1 //重新从第 1 页开始

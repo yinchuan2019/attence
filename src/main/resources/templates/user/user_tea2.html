@@ -51,7 +51,7 @@
 
 	$('#someThing').click(function (){
 		if(flag == 1){
-			let object = {workType:"WORK"};
+			let object = {workType:"CLASS_WORK"};
 			signOut(object);
 
 		}else {
@@ -61,10 +61,10 @@
 
 	$('#other').click(function (){
 		if(flag == 1){
-			let object = {workType:"OTHER"};
+			let object = {workType:"CLASS_OTHER"};
 			signOut(object);
 		}else {
-			location.href = "/user/user_tea3.html?workType=OTHER";
+			location.href = "/user/user_tea3.html?workType=CLASS_OTHER";
 		}
 	});
 

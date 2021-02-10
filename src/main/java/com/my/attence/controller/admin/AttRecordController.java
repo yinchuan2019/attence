@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
+import com.my.attence.constant.ClassTypeEnum;
 import com.my.attence.entity.AttRecord;
-import com.my.attence.modal.request.AttAppointmentDto;
 import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.service.AttRecordService;
 import com.my.attence.service.AttStudentService;
@@ -79,7 +79,7 @@ public class AttRecordController {
 
     @PostMapping("/records")
     @ApiOperation(value = "分页获取信息接口")
-    public R pageInfo(@RequestBody AttAppointmentDto dto) {
+    public R pageInfo(@RequestBody AttRecordDto dto) {
         Page p = new Page(dto.getPage(), dto.getLimit());
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getBeginDate())) {
@@ -90,6 +90,9 @@ public class AttRecordController {
         }
         if (!StringUtils.isEmpty(dto.getAttType())) {
             queryWrapper.eq(AttRecord::getAttType, dto.getAttType());
+        }
+        if (!StringUtils.isEmpty(dto.getWorkType())) {
+            queryWrapper.eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName());
         }
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         IPage<AttRecord> page = attRecordService.page(p, queryWrapper);

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
+import com.my.attence.constant.ClassTypeEnum;
 import com.my.attence.entity.AttAppointment;
 import com.my.attence.modal.request.AttAppointmentDto;
 import com.my.attence.service.AttAppointmentService;
@@ -93,8 +94,8 @@ public class AttAppointmentController {
         if (!StringUtils.isEmpty(dto.getEndDate())) {
             queryWrapper.lt(AttAppointment::getEndDate, dto.getEndDate());
         }
-        if (!StringUtils.isEmpty(dto.getAttType())) {
-            queryWrapper.eq(AttAppointment::getAttType, dto.getAttType());
+        if (!StringUtils.isEmpty(dto.getClassType())) {
+            queryWrapper.eq(AttAppointment::getClassType, ClassTypeEnum.valueOf(dto.getClassType()).getName());
         }
         queryWrapper.orderByDesc(AttAppointment::getBeginDate);
         IPage<AttAppointment> page = attAppointmentService.page(p, queryWrapper);
