@@ -1,7 +1,6 @@
 package com.my.attence.config;
 
 import com.my.attence.common.R;
-import com.my.attence.common.code.BaseResponseCode;
 import com.my.attence.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;
@@ -28,7 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public R handleException(Exception e) {
         log.error("Exception,exception:{}", e, e);
-        return R.fail(BaseResponseCode.SYSTEM_BUSY.getMsg());
+        return R.fail("系统繁忙，请稍候再试");
     }
 
     /**
@@ -46,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AuthorizationException.class)
     public R errorPermission(AuthorizationException e) {
         log.error("Exception,exception:{}", e, e);
-        return R.fail(BaseResponseCode.UNAUTHORIZED_ERROR.getMsg());
+        return R.fail("方法参数校验异常");
 
     }
 

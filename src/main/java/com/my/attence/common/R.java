@@ -1,7 +1,10 @@
 package com.my.attence.common;
 
+import com.my.attence.utils.MessageUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.MissingResourceException;
 
 /**
  * Created by abel on 2021/1/16
@@ -9,7 +12,6 @@ import lombok.Data;
  */
 @Data
 public class R {
-
     /**
      * 请求响应code，0为成功 其他为失败
      */
@@ -74,7 +76,12 @@ public class R {
      * 操作失败 data 不为null
      */
     public static R fail(String msg){
-        return new R(1,msg);
+        try{
+            String m = MessageUtils.bundle.getString(msg);
+            return new R(1,m);
+        }catch (MissingResourceException e){
+            return new R(1,msg);
+        }
     }
     /**
      *  自定义返回  data为null
