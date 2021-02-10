@@ -56,6 +56,7 @@ public class AttSalaryController {
         }
         entity.setTeaName(teacher.getTeaNmKanji());
         entity.setWorkType(ClassType.CLASS_ORDER.getName());
+        entity.setAttType(1);
         attRecordService.save(entity);
         return R.success();
     }
