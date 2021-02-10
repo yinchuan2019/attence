@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,7 +49,7 @@ public class AttRecordController {
         BeanUtil.copyProperties(dto,entity);
         AttTeacher teacher = attTeacherService.findByLoginId(dto.getTeaNo());
         if(Objects.isNull(teacher)){
-            return R.fail("讲师不存在");
+            return R.fail("save");
         }
         entity.setTeaName(teacher.getTeaNmKanji());
         entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
