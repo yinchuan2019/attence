@@ -27,6 +27,20 @@ spring:
       spring.devtools.restart.exclude: WEB-INF/**
   messages:
     basename: messages/message_zh_CN
+  mail:
+    host: smtp.gmail.com
+    username: jupiterqiang@gmail.com
+    password: Qiang1234
+    protocol: smtp
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.port: 465
+    properties.mail.display.sendmail: jupiterqiang@gmail.com
+    properties.mail.display.sendname: jupiterqiang@gmail.com
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    from: jupiterqiang@gmail.com
+    default-encoding: utf-8
 # thymeleaf
 thymeleaf:
  prefix: classpath:/templates/
