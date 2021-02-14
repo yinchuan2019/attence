@@ -30,7 +30,7 @@ spring:
   mail:
     host: smtp.gmail.com
     username: jupiterqiang@gmail.com
-    password: Qiang1234
+    password: Qiang
     protocol: smtp
     properties.mail.smtp.auth: true
     properties.mail.smtp.port: 465
