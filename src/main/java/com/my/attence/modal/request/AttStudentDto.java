@@ -60,6 +60,11 @@ public class AttStudentDto extends BaseEntity {
     private LocalDate stuBirthday;
 
     /**
+     * 套餐
+     */
+    private String stuCourse;
+
+    /**
      * 残り授業時間/还剩课程时间
      */
     private String stuCourse0;
@@ -68,6 +73,11 @@ public class AttStudentDto extends BaseEntity {
      * コース/课程
      */
     private String stuCourse1;
+
+    /**
+     * コース/课程
+     */
+    private String stuCourse2;
 
     /**
      * 専攻/专业
