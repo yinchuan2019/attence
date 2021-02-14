@@ -20,8 +20,7 @@
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 		</div>
 
-		<!-- Form -->
-		<form onclick="return false">
+
 			<legend>一对多课程预约</legend>
 			<div class="row">
 				<table class="table table-bordered">
@@ -40,29 +39,87 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="row">
+			<div class="row custom-control form-control-lg custom-checkbox">
 				<table class="table table-bordered">
 					<caption>➡️参加希望课程</caption>
 					<thead>
 					<tr>
-						<th colspan="2">土曜日</th>
-						<th colspan="2">日曜日</th>
+						<th colspan="3">土曜日</th>
+						<th colspan="3">日曜日</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<td>4回（12小时）</td>
-						<td><input type="checkbox" class="form-check-input" value=""></td>
-						<td>4回（12小时）</td>
-						<td><input type="checkbox" class="form-check-input" value=""></td>
-					</tr>
+						<!--第一周-->
+						<tr>
+							<td rowspan="2">12/21</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="custom-control-input" value=""></td>
+							<td rowspan="2">12/22</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="custom-control-input" value=""></td>
+						</tr>
+						<tr>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
+						<!--第二周-->
+						<tr>
+							<td rowspan="2">12/28</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td rowspan="2">12/29</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
+						<tr>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
+						<!--第三周-->
+						<tr>
+							<td rowspan="2">12/28</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td rowspan="2">12/29</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
+						<tr>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
+						<!--第四周-->
+						<tr>
+							<td rowspan="2">12/28</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td rowspan="2">12/29</td>
+							<td>13～16点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
+						<tr>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+							<td>17～20点</td>
+							<td><input type="checkbox" class="form-check-input" value=""></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="row">
 					<input type="submit" name="button1" value="登陆" class="btn btn-primary btn-wide" />
 			</div>
-		</form>
+		<div class="custom-control custom-checkbox">
+			<input type="checkbox" class="custom-control-input" id="customCheckBox1">
+			<label class="custom-control-label" for="customCheckBox1">Check this custom checkbox</label>
+		</div>
+
 
 		<!-- fotter -->
 		<div id="formFooter">
@@ -76,6 +133,11 @@
 		location.href = "/user/user_stu1.html";
 	});
 </script>
+<style>
+	.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+		background-color:red;
+	}
+</style>
 </body>
 
 </html>
