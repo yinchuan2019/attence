@@ -1,5 +1,6 @@
 package com.my.attence.controller.user;
 
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -36,8 +37,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -358,5 +361,31 @@ public class UserController {
         }, Collectors.counting()));
 
         return R.success(collect);
+    }
+
+    /**
+     * Created by abel on 2021/2/18
+     * TODO
+     */
+    @PostMapping(value = "/course")
+    public R course(HttpServletRequest request){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
+            return R.fail("请先登陆");
+        }
+
+        HashMap<Object, Object> res = MapUtil.newHashMap(3);
+        AttStudent student = attStudentService.findByLoginId(loginId);
+        res.put("student",student);
+
+        LocalDate now = LocalDate.now();
+        now.plusMonths(2);
+        List<LocalDate> saturday = DateUtils.querySaturday(now.getYear(), now.getMonth());
+        List<LocalDate> sunday = DateUtils.querySunday(now.getYear(), now.getMonth());
+
+        res.put("saturday",saturday);
+        res.put("sunday",sunday);
+
+        return R.success(res);
     }
 }
