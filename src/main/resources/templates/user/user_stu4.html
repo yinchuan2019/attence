@@ -33,8 +33,8 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><span id="course0"></span></td>
-							<td><span id="course1"></span></td>
+							<td><span id="course0"></span><span>小时</span></td>
+							<td><span id="course1"></span><span>小时</span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -53,61 +53,61 @@
 						<tr>
 							<td rowspan="2"><span id="sa1"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="custom-control-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="custom-control-input" value="13:00:00" id="saAmCheck1" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su1"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="custom-control-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="custom-control-input" value="13:00:00" id="suAmCheck1" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="saPmCheck1" onclick="course0Onclick(this)"></td>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="suPmCheck1" onclick="course1Onclick(this)"></td>
 						</tr>
 						<!--第二周-->
 						<tr>
 							<td rowspan="2"><span id="sa2"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="form-check-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="13:00:00" id="saAmCheck2" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su2"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="form-check-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="13:00:00" id="suAmCheck2" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="saPmCheck2" onclick="course0Onclick(this)"></td>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="suPmCheck2" onclick="course1Onclick(this)"></td>
 						</tr>
 						<!--第三周-->
 						<tr>
 							<td rowspan="2"><span id="sa3"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="form-check-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="13:00:00" id="saAmCheck3" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su3"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="form-check-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="13:00:00" id="suAmCheck3" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="saPmCheck3" onclick="course0Onclick(this)"></td>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="suPmCheck3" onclick="course1Onclick(this)"></td>
 						</tr>
 						<!--第四周-->
 						<tr>
 							<td rowspan="2"><span id="sa4"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="form-check-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="13:00:00" id="saAmCheck4" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su4"></span></td>
 							<td>13～16点</td>
-							<td><input type="checkbox" class="form-check-input" value="13:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="13:00:00" id="suAmCheck4" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="saPmCheck4" onclick="course0Onclick(this)"></td>
 							<td>17～20点</td>
-							<td><input type="checkbox" class="form-check-input" value="17:00:00"></td>
+							<td><input type="checkbox" class="form-check-input" value="17:00:00" id="suPmCheck4" onclick="course1Onclick(this)"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -115,12 +115,6 @@
 			<div class="row">
 					<input id="confirm" type="submit" name="button1" value="登陆" class="btn btn-primary btn-wide" />
 			</div>
-		<div class="custom-control custom-checkbox">
-			<input type="checkbox" class="custom-control-input" id="customCheckBox1">
-			<label class="custom-control-label" for="customCheckBox1">Check this custom checkbox</label>
-		</div>
-
-
 		<!-- fotter -->
 		<div id="formFooter">
 			<p>功能选择 -> 预约课程 -> <span class="label label-danger">一对多课程预约</span></p>
@@ -153,25 +147,23 @@
 					let saturday = map["saturday"];
 					let sunday = map["sunday"];
 
-					$('#course0').html(student.stuCourse0 + "小时");
-					$('#course1').html(student.stuCourse1 + "小时");
+					$('#course0').html(student.stuCourse0);
+					$('#course1').html(student.stuCourse1);
+					$('#course0').val(student.stuCourse0);
+					$('#course1').val(student.stuCourse1);
 
-					if(student.stuCourse0 > 3){
-						$('#sa1').html(saturday[0]);
-						$('#sa2').html(saturday[1]);
-						$('#sa3').html(saturday[2]);
-						$('#sa4').html(saturday[3]);
-					}
+					$('#sa1').html(saturday[0]);
+					$('#sa2').html(saturday[1]);
+					$('#sa3').html(saturday[2]);
+					$('#sa4').html(saturday[3]);
 
-					if(student.stuCourse1 > 3){
-						$('#su1').html(sunday[0]);
-						$('#su2').html(sunday[1]);
-						$('#su3').html(sunday[2]);
-						$('#su4').html(sunday[3]);
-					}
+					$('#su1').html(sunday[0]);
+					$('#su2').html(sunday[1]);
+					$('#su3').html(sunday[2]);
+					$('#su4').html(sunday[3]);
 
-
-					$('#group').append(trVar);
+					// $('#group').append(trVar);
+					courseCheck();
 				}else {
 					alert(res.msg);
 					$("#userName").val("");
@@ -216,11 +208,82 @@
 			}
 		})
 	});
+
+	function courseCheck() {
+		if($('#course0').val() < 4){
+			for (var i = 1; i < 5; i++) {
+				if(!$("#saAmCheck" + i).is(':checked')){
+					$("#saAmCheck" + i).attr('disabled', 'disabled');
+				}
+				if(!$("#saPmCheck" + i).is(':checked')){
+					$("#saPmCheck" + i).attr('disabled', 'disabled');
+				}
+			}
+		}
+		if($('#course0').val() > 4){
+			for (var i = 1; i < 5; i++) {
+				if(!$("#saAmCheck" + i).is(':checked')){
+					$("#saAmCheck" + i).removeAttr('disabled');
+				}
+				if(!$("#saPmCheck" + i).is(':checked')){
+					$("#saPmCheck" + i).removeAttr('disabled');
+				}
+			}
+		}
+		if($('#course1').val() < 4){
+			for (var i = 1; i < 5; i++) {
+				if(!$("#suAmCheck" + i).is(':checked')){
+					$("#suAmCheck" + i).attr('disabled', 'disabled');
+				}
+				if(!$("#suPmCheck" + i).is(':checked')){
+					$("#suPmCheck" + i).attr('disabled', 'disabled');
+				}
+			}
+		}
+		if($('#course1').val() > 4){
+			for (var i = 1; i < 5; i++) {
+				if(!$("#suAmCheck" + i).is(':checked')){
+					$("#suAmCheck" + i).removeAttr('disabled');
+				}
+				if(!$("#suPmCheck" + i).is(':checked')){
+					$("#suPmCheck" + i).removeAttr('disabled');
+				}
+			}
+		}
+	}
+
+	function course0Onclick(checkbox) {
+		if (checkbox.checked == true) {
+			var course0 = $('#course0').val() - 4;
+			$('#course0').html(course0);
+			$('#course0').val(course0);
+
+		} else {
+			var course0 = parseInt($('#course0').val()) + 4;
+			$('#course0').html(course0);
+			$('#course0').val(course0);
+		}
+		courseCheck();
+	};
+
+	function course1Onclick(checkbox) {
+		if (checkbox.checked == true) {
+			var course1 = $('#course1').val() - 4;
+			$('#course1').html(course1);
+			$('#course1').val(course1);
+
+		} else {
+			var course1 = parseInt($('#course1').val()) + 4;
+			$('#course1').html(course1);
+			$('#course1').val(course1);
+		}
+		courseCheck();
+	};
+
+
+
 </script>
 <style>
-	.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-		background-color:red;
-	}
 </style>
 </body>
 
