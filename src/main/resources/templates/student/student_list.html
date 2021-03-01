@@ -54,6 +54,12 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{stu_course}]]</div>
+                <div class="layui-input-block">
+                    <input name="stuCourse" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_course0}]]</div>
                 <div class="layui-input-block">
                     <input name="stuCourse0" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
@@ -63,6 +69,12 @@
                 <div class="layui-form-label ">[[#{stu_course1}]]</div>
                 <div class="layui-input-block">
                     <input name="stuCourse1" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{stu_course2}]]</div>
+                <div class="layui-input-block">
+                    <input name="stuCourse2" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -378,8 +390,10 @@
                 }
             },
             {field: 'stuBirthday', title: '[[#{stu_birthday}]]', width: 130},
+            {field: 'stuCourse', title: '[[#{stu_course}]]', width: 130},
             {field: 'stuCourse0', title: '[[#{stu_course0}]]', width: 130},
             {field: 'stuCourse1', title: '[[#{stu_course1}]]', width: 130},
+            {field: 'stuCourse2', title: '[[#{stu_course2}]]', width: 130},
             {field: 'stuMajor', title: '[[#{stu_major}]]', width: 130},
             {field: 'stuUniversity', title: '[[#{stu_university}]]', width: 130},
             {field: 'stuDecision', title: '[[#{stu_decision}]]', width: 130},
