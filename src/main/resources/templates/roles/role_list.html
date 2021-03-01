@@ -59,9 +59,7 @@
             <div class="layui-input-inline">
                 <input type="text" id="roleName" class="layui-input" autocomplete="off" placeholder="请输入角色名称">
             </div>
-            <div class="layui-input-inline">
-                <input type="text" readonly class="layui-input" id="createTime" th:placeholder="#{login.user}">
-            </div>
+
             <div class="layui-input-inline layui-form">
                 <select id="status">
                     <option value="">请选择角色状态</option>
@@ -105,7 +103,7 @@
     var cols = [
         [
             {type: 'checkbox', fixed: 'left'},
-            {field: 'name', title: "[[#{common.edit}]]", width: 200},
+            {field: 'name', title: '角色名称', width: 200},
             {field: 'createTime', title: '创建时间', minWidth: 120},
             {field: 'updateTime', title: '更新时间', minWidth: 120},
             {
