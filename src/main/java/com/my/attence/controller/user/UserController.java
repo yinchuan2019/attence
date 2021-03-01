@@ -4,6 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Lists;
 import com.my.attence.common.R;
 import com.my.attence.common.code.BaseResponseCode;
 import com.my.attence.constant.ClassTypeEnum;
@@ -132,11 +133,11 @@ public class UserController {
                 entity.setStuName(student.getStuNmKanji());
                 entity.setStuNo(loginId);
                 attAppointmentService.save(entity);
-                if("20".equals(dto.getClassRoom())){
+                if(classType.equals(ClassTypeEnum.CLASS_COURSE0)){
                     int i = Integer.parseInt(student.getStuCourse0()) - 3;
                     student.setStuCourse0(String.valueOf(i));
                     attStudentService.updateById(student);
-                }else if("21".equals(dto.getClassRoom())){
+                }else if(classType.equals(ClassTypeEnum.CLASS_COURSE1)){
                     int i = Integer.parseInt(student.getStuCourse1()) - 3;
                     student.setStuCourse1(String.valueOf(i));
                     attStudentService.updateById(student);
@@ -242,20 +243,30 @@ public class UserController {
             return R.success(entity);
         }
 
-        List<AttAppointment> list;
-        if(loginId.startsWith("T")){
-            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getTeaNo, loginId)
-                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
+        List<String> classTypeList = Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(dto.getClassTypes())){
+            for (String e : dto.getClassTypes()) {
+                ClassTypeEnum classTypeEnum = ClassTypeEnum.valueOf(e);
+                classTypeList.add(classTypeEnum.getName());
+            }
+        }
 
-            list = attAppointmentService.list(eq);
+        List<AttAppointment> list;
+        LambdaQueryWrapper<AttAppointment> wrapper = Wrappers.<AttAppointment>lambdaQuery();
+        if(CollectionUtils.isNotEmpty(classTypeList)){
+            wrapper.in(AttAppointment::getClassType,classTypeList);
+        }
+        wrapper.ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
+
+        if(loginId.startsWith("T")){
+            wrapper.eq(AttAppointment::getTeaNo, loginId);
+
+            list = attAppointmentService.list(wrapper);
 
         }else if(loginId.startsWith("S")){
-            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getStuNo, loginId)
-                    .ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
+            wrapper.eq(AttAppointment::getStuNo, loginId);
 
-            list = attAppointmentService.list(eq);
+            list = attAppointmentService.list(wrapper);
         }else {
             return R.fail("用户名不存在");
         }
@@ -389,9 +400,9 @@ public class UserController {
         res.put("student",student);
 
         LocalDate now = LocalDate.now();
-        now.plusMonths(2);
-        List<LocalDate> sa = DateUtils.querySaturday(now.getYear(), now.getMonth());
-        List<LocalDate> su = DateUtils.querySunday(now.getYear(), now.getMonth());
+        LocalDate localDate = now.plusMonths(1);
+        List<LocalDate> sa = DateUtils.querySaturday(localDate.getYear(), localDate.getMonth());
+        List<LocalDate> su = DateUtils.querySunday(localDate.getYear(), localDate.getMonth());
 
         List<String> saturday = sa.stream().map(e -> e.toString()).collect(Collectors.toList());
         List<String> sunday = su.stream().map(e -> e.toString()).collect(Collectors.toList());

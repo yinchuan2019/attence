@@ -11,7 +11,9 @@ public enum ClassTypeEnum {
     CLASS_VIP(3,"VIP作品集研究计划"),
 
     CLASS_WORK(4,"事务工作"),
-    CLASS_OTHER(5,"其他");
+    CLASS_OTHER(5,"其他"),
+    CLASS_COURSE0(7,"小论文"),
+    CLASS_COURSE1(8,"模拟面接");
 
 
 
