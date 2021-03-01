@@ -26,15 +26,19 @@
 		<form onclick="return false">
 			<legend>座位选择</legend>
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
+			<input type="hidden" id="btn-group" value="" /><br/>
 			<div class="row">
 				<div class="btn-group" data-toggle="buttons">
 					<button type="button" class="btn-default" name="level_select" value="1">　1　</button>
 					<button type="button" class="btn-default" name="level_select" value="2">　2　</button>
 					<button type="button" class="btn-default" name="level_select" value="3">　3　</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="btn-group" data-toggle="buttons">
 					<button type="button" class="btn-default" name="level_select" value="4">　4　</button>
 					<button type="button" class="btn-default" name="level_select" value="5">　5　</button>
 					<button type="button" class="btn-default" name="level_select" value="6">　6　</button>
-					<input type="hidden" id="btn-group" value="" /><br/>
 				</div>
 			</div>
 			<div class="row">
@@ -113,6 +117,17 @@
 
 
 </script>
+<style>
+	.row {
+		margin-top: 15px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	.btn-default {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+</style>
 </body>
 
 </html>
