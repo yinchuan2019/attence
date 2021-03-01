@@ -254,7 +254,7 @@
 	});
 
 	function courseCheck() {
-		if($('#course0').val() < 4){
+		if($('#course0').val() < 3){
 			for (var i = 1; i < 5; i++) {
 				if(!$("#saAmCheck" + i).is(':checked')){
 					$("#saAmCheck" + i).attr('disabled', 'disabled');
@@ -264,7 +264,7 @@
 				}
 			}
 		}
-		if($('#course0').val() > 4){
+		if($('#course0').val() > 3){
 			for (var i = 1; i < 5; i++) {
 				if(!$("#saAmCheck" + i).is(':checked')){
 					$("#saAmCheck" + i).removeAttr('disabled');
@@ -274,7 +274,7 @@
 				}
 			}
 		}
-		if($('#course1').val() < 4){
+		if($('#course1').val() < 3){
 			for (var i = 1; i < 5; i++) {
 				if(!$("#suAmCheck" + i).is(':checked')){
 					$("#suAmCheck" + i).attr('disabled', 'disabled');
@@ -284,7 +284,7 @@
 				}
 			}
 		}
-		if($('#course1').val() > 4){
+		if($('#course1').val() > 3){
 			for (var i = 1; i < 5; i++) {
 				if(!$("#suAmCheck" + i).is(':checked')){
 					$("#suAmCheck" + i).removeAttr('disabled');
