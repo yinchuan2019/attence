@@ -95,44 +95,55 @@ public class UserController {
      * 预约
      */
     @PostMapping(value = "/appointment")
-    public R appointment(@RequestBody @Valid AttAppointmentDto dto, HttpServletRequest request){
-        String loginId = TaleUtils.getLoginUser(request);
-        if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
-        }
-        List<AttAppointment> attAppointments = judgeAppointment(dto);
-        if(CollectionUtils.isNotEmpty(attAppointments)){
-            return R.fail("已经被预约");
-        }
-
+    public R appointment(@RequestBody @Valid List<AttAppointmentDto> list, HttpServletRequest request){
         AttAppointment entity = new AttAppointment();
-        BeanUtils.copyProperties(dto,entity);
-        ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getClassType());
-        entity.setClassType(classType.getName());
-
-        if(loginId.startsWith("T")){
-            entity.setAttType(1);
-            AttTeacher teacher = attTeacherService.findByLoginId(loginId);
-            entity.setTeaNo(loginId);
-            entity.setTeaName(teacher.getTeaNmKanji());
-            /**学生**/
-            if(dto.getStuNo() != null){
-                AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
-                if(student == null){
-                    return R.fail("学号不存在");
-                }
-                entity.setStuName(student.getStuNmKanji());
-                entity.setStuNo(student.getLoginId());
+        for (AttAppointmentDto dto : list) {
+            String loginId = TaleUtils.getLoginUser(request);
+            if (Strings.isBlank(loginId)) {
+                return R.fail("请先登陆");
             }
-            attAppointmentService.save(entity);
-        }else if(loginId.startsWith("S")){
-            entity.setAttType(2);
-            AttStudent student = attStudentService.findByLoginId(loginId);
-            entity.setStuName(student.getStuNmKanji());
-            entity.setStuNo(loginId);
-            attAppointmentService.save(entity);
-        }else {
-            return R.fail("用户名不存在");
+            List<AttAppointment> attAppointments = judgeAppointment(dto);
+            if (CollectionUtils.isNotEmpty(attAppointments)) {
+                return R.fail("已经被预约");
+            }
+
+            BeanUtils.copyProperties(dto, entity);
+            ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getClassType());
+            entity.setClassType(classType.getName());
+
+            if (loginId.startsWith("T")) {
+                entity.setAttType(1);
+                AttTeacher teacher = attTeacherService.findByLoginId(loginId);
+                entity.setTeaNo(loginId);
+                entity.setTeaName(teacher.getTeaNmKanji());
+                /**学生**/
+                if (dto.getStuNo() != null) {
+                    AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
+                    if (student == null) {
+                        return R.fail("学号不存在");
+                    }
+                    entity.setStuName(student.getStuNmKanji());
+                    entity.setStuNo(student.getLoginId());
+                }
+                attAppointmentService.save(entity);
+            } else if (loginId.startsWith("S")) {
+                entity.setAttType(2);
+                AttStudent student = attStudentService.findByLoginId(loginId);
+                entity.setStuName(student.getStuNmKanji());
+                entity.setStuNo(loginId);
+                attAppointmentService.save(entity);
+                if("20".equals(dto.getClassRoom())){
+                    int i = Integer.parseInt(student.getStuCourse0()) - 3;
+                    student.setStuCourse0(String.valueOf(i));
+                    attStudentService.updateById(student);
+                }else if("21".equals(dto.getClassRoom())){
+                    int i = Integer.parseInt(student.getStuCourse1()) - 3;
+                    student.setStuCourse1(String.valueOf(i));
+                    attStudentService.updateById(student);
+                }
+            } else {
+                return R.fail("用户名不存在");
+            }
         }
         return R.success(entity);
     }
@@ -248,7 +259,6 @@ public class UserController {
         }else {
             return R.fail("用户名不存在");
         }
-
         return R.success(list);
     }
 
@@ -380,8 +390,11 @@ public class UserController {
 
         LocalDate now = LocalDate.now();
         now.plusMonths(2);
-        List<LocalDate> saturday = DateUtils.querySaturday(now.getYear(), now.getMonth());
-        List<LocalDate> sunday = DateUtils.querySunday(now.getYear(), now.getMonth());
+        List<LocalDate> sa = DateUtils.querySaturday(now.getYear(), now.getMonth());
+        List<LocalDate> su = DateUtils.querySunday(now.getYear(), now.getMonth());
+
+        List<String> saturday = sa.stream().map(e -> e.toString()).collect(Collectors.toList());
+        List<String> sunday = su.stream().map(e -> e.toString()).collect(Collectors.toList());
 
         res.put("saturday",saturday);
         res.put("sunday",sunday);

@@ -36,9 +36,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>12小时</td>
-							<td>24小时</td>
-							<td>16小时</td>
+							<td><span id="course2"></span><span>小时</span></td>
+							<td><span id="course0"></span><span>小时</span></td>
+							<td><span id="course1"></span><span>小时</span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -72,7 +72,7 @@
 		let data = JSON.stringify(object);
 		$.ajax({
 			type: "POST",
-			url: "/user/findAppointment",
+			url: "/user/course",
 			dataType: "json",
 			data:data,
 			contentType: 'application/json; charset=UTF-8',
@@ -81,16 +81,12 @@
 
 			success: function (res) {
 				if (res.code == 0) {
-					var groupTable = $('#group');
+					let map = res.data;
+					let student = map["student"];
 
-					for(var i = 0;i<res.data.length;i++){
-						groupTable.append('<tr> ' +
-								'<td class="tdClass">' + res.data[i].classRoom + '</td>' +
-								'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
-								'<td class="tdClass">' + res.data[i].endDate + '</td>' +
-								'</tr>')
-					}
-					noApplicationRecord.innerHTML = html
+					$('#course0').html(student.stuCourse0);
+					$('#course1').html(student.stuCourse1);
+					$('#course2').html(student.stuCourse2);
 
 				}else {
 					alert(res.msg);

@@ -84,12 +84,13 @@
 			classRoom:classRoom,
 			classType:classType
 		}
-		let data = JSON.stringify(object)
+		var arr = new Array();
+		arr.push(object)
 
 		$.ajax({
 			type: "POST",
 			url: "/user/appointment",
-			data: data,
+			data: JSON.stringify(arr),
 			dataType: "json",
 			contentType: 'application/json; charset=UTF-8',
 			cache: false,
