@@ -131,7 +131,7 @@ public class AdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> impl
         SysAdmin sysAdmin = new SysAdmin();
         BeanUtil.copyProperties(dto, sysAdmin);
         sysAdmin.setSalt(PasswordUtils.getSalt());
-        String encode = PasswordUtils.encode(dto.getPassword(), dto.getSalt());
+        String encode = PasswordUtils.encode(dto.getPassword(), sysAdmin.getSalt());
         sysAdmin.setPassword(encode);
         sysAdmin.setStatus(1);
         sysAdmin.setCreateWhere(1);
