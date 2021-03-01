@@ -66,9 +66,6 @@
             <div class="layui-input-inline">
                 <input type="text" id="stuName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
             </div>
-            <div class="layui-input-inline">
-                <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
-            </div>
             <div class="layui-input-inline layui-form">
                 <select id="classType">
                     <option value="">请选择预约类型</option>
@@ -144,7 +141,7 @@
                                 return "教师预约";
                             }
                             if (item.attType === 2) {
-                                return "老师预约";
+                                return "学生预约";
                             }
                         }
                     },
