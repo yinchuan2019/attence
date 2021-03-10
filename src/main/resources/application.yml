@@ -28,9 +28,9 @@ spring:
   messages:
     basename: messages/message_zh_CN
   mail:
-    host: smtp.shangyistudiotokyo.com
+    host: smtp.gmail.com
     username: office@shangyistudiotokyo.com
-    password: yushima3314
+    password: 3314yushima
     protocol: smtp
     properties.mail.smtp.auth: true
     properties.mail.smtp.port: 465
