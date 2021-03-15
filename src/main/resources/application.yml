@@ -9,7 +9,7 @@ spring:
     active: jdbc
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/attence?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
+    url: jdbc:mysql://35.72.73.240:3306/attence?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
     username: root
     password: Syougeisyainf1
   jackson:
