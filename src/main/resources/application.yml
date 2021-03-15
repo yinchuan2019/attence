@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://35.72.73.240:3306/attence?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true
     username: root
-    password: Syougeisyainf1
+    password: Syougeisyainfo1
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
