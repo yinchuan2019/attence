@@ -117,7 +117,7 @@ public class EmailController {
     }
 
     //@Scheduled(cron="0/5 * * * * ?")
-    @Scheduled(cron="0 0 0 26 * ? *")
+    @Scheduled(cron="0 0 0 26 * ? ")
     public void scheduledTask1() {
         LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery()
                 .eq(AttTeacher::getTeaStatus, 1);
