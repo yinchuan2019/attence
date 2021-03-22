@@ -2,6 +2,7 @@ package com.my.attence.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.my.attence.common.R;
 import com.my.attence.controller.admin.AttSalaryController;
@@ -11,6 +12,7 @@ import com.my.attence.service.AttTeacherService;
 import com.my.attence.service.MailService;
 import com.my.attence.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -115,17 +117,39 @@ public class EmailController {
     }
 
     //@Scheduled(cron="0/5 * * * * ?")
+    @Scheduled(cron="0 0 0 26 * ? *")
     public void scheduledTask1() {
         LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery()
                 .eq(AttTeacher::getTeaStatus, 1);
         List<AttTeacher> list = attTeacherService.list();
         for (AttTeacher e : list) {
             AttRecordDto dto = new AttRecordDto();
-            LocalDate now = LocalDate.now();
             dto.setTeaNo(e.getLoginId());
             dto.setBeginDate(LocalDateTime.of(DateUtils.getTodayBegin(), LocalTime.parse("00:00:00")));
-            R salarys = attSalaryController.salarys(dto);
-            mailService.sendSimpleMail(e.getTeaEmail(), "工资", JSONUtil.toJsonStr(salarys.getData()));
+            List<AttRecordDto> attRecordDtos = attSalaryController.findsSalarys(dto);
+            if(CollectionUtils.isEmpty(attRecordDtos)){
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.append("<html>\n");
+            sb.append("<body>\n");
+            sb.append("<table border=\"1\">\n");
+            sb.append("<tr>\n");
+//            sb.append("  <th>签到类型</th>\n");
+            sb.append("  <th>类型</th>\n");
+            sb.append("  <th>薪资</th>\n");
+            sb.append("</tr>\n");
+
+            for (AttRecordDto attRecord :attRecordDtos) {
+                sb.append("<tr>\n");
+                String str = "<td>" + attRecord.getWorkType() + "</td>\n" + "<td>" + attRecord.getSalary() + "</td>\n";
+                sb.append("str");
+                sb.append("</tr>\n");
+            }
+            sb.append("</table>\n");
+            sb.append("</body>\n");
+            sb.append("</html>");
+            mailService.sendSimpleMail(e.getTeaEmail(), "工资",sb.toString());
         }
     }
 }

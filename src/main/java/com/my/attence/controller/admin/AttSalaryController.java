@@ -92,6 +92,11 @@ public class AttSalaryController {
     @PostMapping("/salarys")
     @ApiOperation(value = "分页获取信息接口")
     public R salarys(@RequestBody AttRecordDto dto) {
+        List<AttRecordDto> attRecordDtos = findsSalarys(dto);
+        return R.success(attRecordDtos);
+    }
+
+    public List<AttRecordDto> findsSalarys( AttRecordDto dto){
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getBeginDate())) {
             queryWrapper.gt(AttRecord::getBeginDate, DateUtils.getTodayBegin());
@@ -114,15 +119,15 @@ public class AttSalaryController {
         Map<String, Map<String, Map<Integer, Long>>> map = list.stream().filter(e -> e.getEndDate() != null).collect(Collectors.groupingBy(AttRecord::getTeaNo,
                 Collectors.groupingBy(AttRecord::getWorkType,
                         Collectors.groupingBy(AttRecord::getAttType,
-                                    Collectors.summingLong(e -> {
-                                        if(e.getWorkType().equals(ClassTypeEnum.CLASS_ORDER.getName()) ){
-                                            return Integer.parseInt(e.getSalary());
-                                        }else if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
-                                            return Integer.parseInt(e.getSalary());
-                                        }else{
-                                            long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
-                                            return l * Integer.parseInt(e.getSalary());
-                                        }}
+                                Collectors.summingLong(e -> {
+                                    if(e.getWorkType().equals(ClassTypeEnum.CLASS_ORDER.getName()) ){
+                                        return Integer.parseInt(e.getSalary());
+                                    }else if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
+                                        return Integer.parseInt(e.getSalary());
+                                    }else{
+                                        long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
+                                        return l * Integer.parseInt(e.getSalary());
+                                    }}
                                 )))));
 
         List<AttRecordDto> resList = Lists.newArrayList();
@@ -148,8 +153,7 @@ public class AttSalaryController {
                 }
             }
         }
-
-        return R.success(resList);
+        return resList;
     }
 }
 
