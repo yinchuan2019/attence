@@ -35,6 +35,12 @@ public class Constant {
 
     public static String LOGIN_SESSION_USER = "login_user";
 
+    public static String START_WITH_T = "T";
+
+    public static String START_WITH_S = "S";
+
+
+
 
     public static final String USER_IN_COOKIE = "S_L_ID";
 

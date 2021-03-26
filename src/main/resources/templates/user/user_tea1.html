@@ -52,7 +52,7 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					$('#onJob').html("出勤中")
+					$('#onJob').html("出勤中 : " + res.data.workType)
 				}else {
 					return false;
 				}

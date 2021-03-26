@@ -76,9 +76,17 @@ public class R {
      * 操作失败 data 不为null
      */
     public static R fail(String msg){
+        String temp = "";
+        String temp1 = "";
+        String result = "";
         try{
-            String m = MessageUtils.bundle.getString(msg);
-            return new R(1,m);
+            if(msg.contains(":")){
+                temp1 = msg.split(":")[0];
+                temp = msg.split(":")[1];
+            }
+            result = MessageUtils.bundle.getString(temp1);
+            result = result + ":" + temp;
+            return new R(1,result);
         }catch (MissingResourceException e){
             return new R(1,msg);
         }

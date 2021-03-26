@@ -37,6 +37,19 @@
 
 					</tbody>
 				</table>
+				<table class="table table-bordered" id="group1">
+					<caption>➡️一对多</caption>
+					<thead>
+					<tr>
+						<th>座位</th>
+						<th>开始时间</th>
+						<th>结束时间</th>
+					</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
 			</div>
 
 			<div class="row">
@@ -75,17 +88,23 @@
 
 			success: function (res) {
 				if (res.code == 0) {
-					var groupTable = $('#group');
+					for(let i = 0;i<res.data.length;i++){
+						let classRoom = res.data[i].classRoom;
+						if(typeof classRoom == "undefined" ||  classRoom == null){
+							$('#group1').append('<tr> ' +
+									'<td class="tdClass">' + res.data[i].classType + '</td>' +
+									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
+									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
+									'</tr>')
+						}else {
+							$('#group').append('<tr> ' +
+									'<td class="tdClass">' + classRoom + '</td>' +
+									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
+									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
+									'</tr>')
+						}
 
-					for(var i = 0;i<res.data.length;i++){
-						groupTable.append('<tr> ' +
-								'<td class="tdClass">' + res.data[i].classRoom + '</td>' +
-								'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
-								'<td class="tdClass">' + res.data[i].endDate + '</td>' +
-								'</tr>')
 					}
-					noApplicationRecord.innerHTML = html
-
 				}else {
 					alert(res.msg);
 					$("#userName").val("");

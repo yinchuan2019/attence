@@ -69,7 +69,7 @@ public class UserController {
     @PostMapping(value = "/login")
     @ApiOperation(value = "用户登录接口")
     public R login(@RequestBody @Valid SysAdminDto dto,HttpServletRequest request) {
-        if(dto.getUsername().startsWith("T")){
+        if(dto.getUsername().startsWith(Constant.START_WITH_T)){
             LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery().eq(AttTeacher::getLoginId, dto.getUsername());
             AttTeacher one = attTeacherService.getOne(eq);
             if(one == null){
@@ -80,7 +80,7 @@ public class UserController {
             }
             request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
 
-        }else if(dto.getUsername().startsWith("S")){
+        }else if(dto.getUsername().startsWith(Constant.START_WITH_S)){
             LambdaQueryWrapper<AttStudent> eq = Wrappers.<AttStudent>lambdaQuery().eq(AttStudent::getLoginId, dto.getUsername());
             AttStudent one = attStudentService.getOne(eq);
             if(one == null){
@@ -109,16 +109,16 @@ public class UserController {
             if (Strings.isBlank(loginId)) {
                 return R.fail("请先登陆");
             }
-            List<AttAppointment> attAppointments = judgeAppointment(dto);
-            if (CollectionUtils.isNotEmpty(attAppointments)) {
-                return R.fail("已经被预约");
-            }
 
             BeanUtils.copyProperties(dto, entity);
             ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getClassType());
             entity.setClassType(classType.getName());
+            List<AttAppointment> attAppointments = judgeAppointment(dto,loginId);
+            if (CollectionUtils.isNotEmpty(attAppointments)) {
+                return R.fail("已经被预约");
+            }
 
-            if (loginId.startsWith("T")) {
+            if (loginId.startsWith(Constant.START_WITH_T)) {
                 entity.setAttType(1);
                 AttTeacher teacher = attTeacherService.findByLoginId(loginId);
                 entity.setTeaNo(loginId);
@@ -143,11 +143,20 @@ public class UserController {
                     entity.setStuNo(student.getLoginId());
                 }
                 attAppointmentService.save(entity);
-            } else if (loginId.startsWith("S")) {
+            } else if (loginId.startsWith(Constant.START_WITH_S)) {
                 entity.setAttType(2);
                 AttStudent student = attStudentService.findByLoginId(loginId);
                 entity.setStuName(student.getStuNmKanji());
                 entity.setStuNo(loginId);
+                LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
+                        .eq(AttAppointment::getBeginDate,entity.getBeginDate())
+                        .isNull(AttAppointment::getClassRoom);
+
+                final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
+                if(attAppointmentList.size() > 0){
+                    return R.fail("当前时间人数已满 : "+ entity.getBeginDate().toString());
+                }
+
                 attAppointmentService.save(entity);
                 if(classType.equals(ClassTypeEnum.CLASS_COURSE0)){
                     int i = Integer.parseInt(student.getStuCourse0()) - 3;
@@ -169,14 +178,23 @@ public class UserController {
      * Created by abel on 2021/1/22
      * 判断该时间段该教室是否被占用
      */
-    public List<AttAppointment> judgeAppointment(@RequestBody @Valid AttAppointmentDto dto){
+    public List<AttAppointment> judgeAppointment(@RequestBody @Valid AttAppointmentDto dto,String loginId){
+        final String classType = dto.getClassType();
+        List<AttAppointment> list;
+        if(classType.equals(ClassTypeEnum.CLASS_ORDER)){
+            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
+                    .eq(AttAppointment::getBeginDate,dto.getBeginDate())
+                    .eq(AttAppointment::getClassType,ClassTypeEnum.CLASS_ORDER.getName())
+                    .eq(AttAppointment::getStuNo,loginId);
+            list = attAppointmentService.list(eq);
 
-        LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                .eq(AttAppointment::getClassRoom,dto.getClassRoom())
-                .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
-                .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(30));
-        List<AttAppointment> list = attAppointmentService.list(eq);
-
+        }else {
+            LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
+                    .eq(AttAppointment::getClassRoom,dto.getClassRoom())
+                    .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
+                    .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(30));
+            list = attAppointmentService.list(eq);
+        }
         return list;
     }
 
@@ -193,7 +211,7 @@ public class UserController {
         }
         AttRecord entity = new AttRecord();
         BeanUtils.copyProperties(dto,entity);
-        if(loginId.startsWith("T")){
+        if(loginId.startsWith(Constant.START_WITH_T)){
             LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                     .eq(AttRecord::getTeaNo,loginId)
                     .isNull(AttRecord::getEndDate)
@@ -283,12 +301,12 @@ public class UserController {
         }
         wrapper.ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
 
-        if(loginId.startsWith("T")){
+        if(loginId.startsWith(Constant.START_WITH_T)){
             wrapper.eq(AttAppointment::getTeaNo, loginId);
 
             list = attAppointmentService.list(wrapper);
 
-        }else if(loginId.startsWith("S")){
+        }else if(loginId.startsWith(Constant.START_WITH_S)){
             wrapper.eq(AttAppointment::getStuNo, loginId);
 
             list = attAppointmentService.list(wrapper);
