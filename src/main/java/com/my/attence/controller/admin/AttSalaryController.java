@@ -99,7 +99,7 @@ public class AttSalaryController {
     public List<AttRecordDto> findsSalarys( AttRecordDto dto){
         LambdaQueryWrapper<AttRecord> queryWrapper = Wrappers.lambdaQuery();
         if (!StringUtils.isEmpty(dto.getBeginDate())) {
-            queryWrapper.gt(AttRecord::getBeginDate, DateUtils.getTodayBegin());
+            queryWrapper.gt(AttRecord::getBeginDate, dto.getBeginDate());
         }
         if (!StringUtils.isEmpty(dto.getEndDate())) {
             queryWrapper.lt(AttRecord::getEndDate, dto.getEndDate());
