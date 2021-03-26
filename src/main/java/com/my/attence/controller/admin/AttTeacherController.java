@@ -40,6 +40,10 @@ public class AttTeacherController {
         //入职
         entity.setTeaStatus(1);
         entity.setTeaPwd("111111");
+        final AttTeacher teacher = attTeacherService.findByLoginId(dto.getLoginId());
+        if(teacher != null){
+            return R.fail("用户id已经存在");
+        }
 
         attTeacherService.save(entity);
         return R.success();

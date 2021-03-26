@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
 import com.my.attence.entity.AttStudent;
+import com.my.attence.entity.AttTeacher;
 import com.my.attence.modal.request.AttStudentDto;
 import com.my.attence.service.AttStudentService;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +41,10 @@ public class AttStudentController {
         BeanUtil.copyProperties(dto,entity);
         entity.setStuStatus(1);
         entity.setStuPwd("111111");
+        final AttStudent student = attStudentService.findByLoginId(dto.getLoginId());
+        if(student != null){
+            return R.fail("用户id已经存在");
+        }
         attStudentService.save(entity);
         return R.success();
     }
