@@ -123,6 +123,10 @@ public class UserController {
                     if (student == null) {
                         return R.fail("学号不存在");
                     }
+                    if(Integer.parseInt(student.getStuCourse2()) < 1){
+                        return R.fail("学生无剩余时间");
+                    }
+
                     entity.setStuName(student.getStuNmKanji());
                     entity.setStuNo(student.getLoginId());
                 }
@@ -180,7 +184,7 @@ public class UserController {
         if(loginId.startsWith("T")){
             ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getWorkType());
             entity.setWorkType(classType.getName());
-            entity.setBeginDate(LocalDateTime.now());
+            entity.setBeginDate(DateUtils.getCompleteTime(LocalDateTime.now()));
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaName(teacher.getTeaNmKanji());
             entity.setTeaNo(loginId);
@@ -218,7 +222,7 @@ public class UserController {
             }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.name())){
                 attRecord.setSalary(teacher.getTeaOtherWage());
             }
-            attRecord.setEndDate(LocalDateTime.now());
+            attRecord.setEndDate(DateUtils.getCompleteTime(LocalDateTime.now()));
             attRecordService.updateById(attRecord);
             return R.success(attRecord);
         }else{
@@ -411,5 +415,29 @@ public class UserController {
         res.put("sunday",sunday);
 
         return R.success(res);
+    }
+
+
+    /**
+     * Created by abel on 2021/2/18
+     * 查询当前时间老师是否出勤
+     */
+    @PostMapping(value = "/is-teacher")
+    public R isTeacher(HttpServletRequest request){
+        String loginId = TaleUtils.getLoginUser(request);
+        if(Strings.isBlank(loginId)){
+            return R.fail("请先登陆");
+        }
+        LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                .eq(AttRecord::getTeaNo,loginId)
+                .le(AttRecord::getBeginDate,LocalDateTime.now())
+                .isNull(AttRecord::getEndDate)
+                .orderByDesc(AttRecord::getBeginDate);
+
+        List<AttRecord> list = attRecordService.list(eq);
+        if(CollectionUtils.isNotEmpty(list)){
+            return R.fail("该老师正在上课中");
+        }
+        return R.success("");
     }
 }

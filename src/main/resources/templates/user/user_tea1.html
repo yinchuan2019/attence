@@ -37,6 +37,30 @@
 	</div>
 </div>
 <script>
+
+	$(function(){
+		let object = {}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/is-teacher",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					return false;
+				}else {
+					$('#icon').html("出勤中")
+				}
+			}
+		});
+
+	});
+
 	$('#icon').click(function (){
 		location.href = "/user/user_tea1.html";
 	});

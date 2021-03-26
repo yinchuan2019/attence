@@ -1,11 +1,12 @@
 package com.my.attence.utils;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.YearMonth;
+import cn.hutool.core.date.DateUtil;
+
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -49,6 +50,71 @@ public class DateUtils {
                 .limit(4)
                 .filter(localDate -> localDate.getMonth() == month)
                 .collect(Collectors.toList());
+    }
+
+    public static LocalDateTime getCompleteTime(LocalDateTime time) {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String localTime = df.format(time);
+        final String[] s = localTime.split(" ");
+
+        String hour = "00";//小时
+        String minutes = "00";//分钟
+        String outTime = "00:00";
+        StringTokenizer st = new StringTokenizer(s[1], ":");
+        List<String> inTime = new ArrayList<>();
+        while (st.hasMoreElements()) {
+            inTime.add(st.nextToken());
+        }
+        hour = inTime.get(0);
+        minutes = inTime.get(1);
+        if (Integer.parseInt(minutes) > 45) {
+            hour = (Integer.parseInt(hour) + 1) + "";
+            outTime = hour + ":00";
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                outTime = sdf.format(sdf.parse(outTime));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (Integer.parseInt(minutes) > 30) {
+            outTime = hour + ":45";
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                outTime = sdf.format(sdf.parse(outTime));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (Integer.parseInt(minutes) > 15) {
+            outTime = hour + ":30";
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                outTime = sdf.format(sdf.parse(outTime));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (Integer.parseInt(minutes) > 0) {
+            outTime = hour + ":15";
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                outTime = sdf.format(sdf.parse(outTime));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            outTime = hour + ":" + minutes;
+        }
+        final String result = s[0] + " " + outTime + ":00";
+        final LocalDateTime parse = LocalDateTime.parse(result,df);
+        return parse;
+    }
+
+    public static void main(String[] args) {
+        final LocalDateTime now = LocalDateTime.now();
+        System.out.println(now.toString());
+        final LocalDateTime completeTime = getCompleteTime(now);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String localTime = df.format(completeTime);
+        System.out.println(completeTime.toString());
     }
 
 }
