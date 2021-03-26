@@ -256,12 +256,16 @@ public class UserController {
         if(CollectionUtils.isNotEmpty(list)){
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             AttRecord attRecord = list.get(0);
-            if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.name())){
-                attRecord.setSalary(teacher.getTeaWage());
-            }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.name())){
-                attRecord.setSalary(teacher.getTeaOtherWage());
-            }
             attRecord.setEndDate(DateUtils.getCompleteTime(LocalDateTime.now()));
+            final long l = Duration.between(attRecord.getBeginDate(), attRecord.getEndDate()).toMinutes();
+            final long sum = l / 15;
+            if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.name())){
+                final long salary1 = sum * Integer.parseInt(teacher.getTeaWage());
+                attRecord.setSalary(String.valueOf(salary1));
+            }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.name())){
+                final long salary2 = sum * Integer.parseInt(teacher.getTeaOtherWage());
+                attRecord.setSalary(String.valueOf(salary2));
+            }
             attRecordService.updateById(attRecord);
             return R.success(attRecord);
         }else{
@@ -391,7 +395,7 @@ public class UserController {
                         },
                     Collectors.groupingBy(AttRecord::getAttType,
                         Collectors.summingLong(e ->{
-                            long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
+                            long l = Duration.between(e.getBeginDate(), e.getEndDate()).toMinutes();
                             return l;
                         }))));
 

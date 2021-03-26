@@ -125,8 +125,8 @@ public class AttSalaryController {
                                     }else if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
                                         return Integer.parseInt(e.getSalary());
                                     }else{
-                                        long l = Duration.between(e.getBeginDate(), e.getEndDate()).toHours();
-                                        return l * Integer.parseInt(e.getSalary());
+                                        //long l = Duration.between(e.getBeginDate(), e.getEndDate()).toMinutes();
+                                        return Integer.parseInt(e.getSalary());
                                     }}
                                 )))));
 

@@ -115,7 +115,7 @@ public class AttRecordController {
         for (AttRecord e:page.getRecords()) {
             if(e.getEndDate() != null){
                 final Duration between = Duration.between(e.getBeginDate(), e.getEndDate());
-                e.setDuration(String.valueOf(between.toHours()));
+                e.setDuration(String.valueOf(between.toMinutes()));
             }
         }
         return R.success(page);
