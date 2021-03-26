@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>UserTeacher2</title>
@@ -52,9 +52,9 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					return false;
+					$('#onJob').html("出勤中")
 				}else {
-					$('#icon').html("出勤中")
+					return false;
 				}
 			}
 		});

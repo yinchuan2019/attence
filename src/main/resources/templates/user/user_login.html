@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title>Login</title>
@@ -22,7 +22,7 @@
 
 		<!-- Login Form -->
 		<form onclick="return false">
-			<input type="text" id="userName" class="fadeIn second" name="login" placeholder="userId">
+			<input type="text" id="userName" class="fadeIn second" name="login" th:placeholder="#{login.user}">
 			<input type="text" id="passWord" class="fadeIn third" name="login" placeholder="password">
 			<input type="submit" id="login" class="fadeIn fourth" value="Log In">
 		</form>

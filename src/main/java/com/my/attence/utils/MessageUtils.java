@@ -24,8 +24,8 @@ public class MessageUtils {
 
 
     public static void main(String args[]) {
-        String message = bundle.getString("have");
-        //System.out.println(message);
+        String message = bundle.getString("login.user");
+        System.out.println(message);
         //System.out.println(messageSource.getMessage("cancel", null, Locale.getDefault()));
     }
 

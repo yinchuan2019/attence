@@ -72,6 +72,9 @@ public class UserController {
         if(dto.getUsername().startsWith("T")){
             LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery().eq(AttTeacher::getLoginId, dto.getUsername());
             AttTeacher one = attTeacherService.getOne(eq);
+            if(one == null){
+                return R.fail("老师不存在");
+            }
             if (!PasswordUtils.matchesNoSalt(one.getTeaPwd(), dto.getPassword())) {
                 throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
             }
@@ -80,6 +83,9 @@ public class UserController {
         }else if(dto.getUsername().startsWith("S")){
             LambdaQueryWrapper<AttStudent> eq = Wrappers.<AttStudent>lambdaQuery().eq(AttStudent::getLoginId, dto.getUsername());
             AttStudent one = attStudentService.getOne(eq);
+            if(one == null){
+                return R.fail("学生不存在");
+            }
             if (!PasswordUtils.matchesNoSalt(one.getStuPwd(), dto.getPassword())) {
                 throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
             }
@@ -182,6 +188,15 @@ public class UserController {
         AttRecord entity = new AttRecord();
         BeanUtils.copyProperties(dto,entity);
         if(loginId.startsWith("T")){
+            LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
+                    .eq(AttRecord::getTeaNo,loginId)
+                    .isNull(AttRecord::getEndDate)
+                    .orderByDesc(AttRecord::getBeginDate);
+
+            List<AttRecord> list = attRecordService.list(eq);
+            if(CollectionUtils.isNotEmpty(list)){
+                return R.fail("请先退勤");
+            }
             ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getWorkType());
             entity.setWorkType(classType.getName());
             entity.setBeginDate(DateUtils.getCompleteTime(LocalDateTime.now()));
@@ -430,14 +445,13 @@ public class UserController {
         }
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo,loginId)
-                .le(AttRecord::getBeginDate,LocalDateTime.now())
                 .isNull(AttRecord::getEndDate)
                 .orderByDesc(AttRecord::getBeginDate);
 
         List<AttRecord> list = attRecordService.list(eq);
         if(CollectionUtils.isNotEmpty(list)){
-            return R.fail("该老师正在上课中");
+            return R.success(list.get(0));
         }
-        return R.success("");
+        return R.fail("");
     }
 }
