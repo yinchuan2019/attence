@@ -56,8 +56,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        if (uri.contains("/user") && !uri.contains("/login") && !uri.contains("/user/user_login.html") && Strings.isBlank(loginId)) {
-            RequestDispatcher requestDispatcher=request.getRequestDispatcher("/user/user_login.html");
+        if (uri.contains("/user") && !uri.contains("/login") && !uri.contains("/user/user_login") && Strings.isBlank(loginId)) {
+            RequestDispatcher requestDispatcher=request.getRequestDispatcher("/user/user_login");
             requestDispatcher.forward(request,response);
             return false;
         }

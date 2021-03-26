@@ -52,7 +52,7 @@
 </div>
 <script>
 	$('#icon').click(function (){
-		location.href = "/user/user_tea1.html";
+		location.href = "/user/user_tea1";
 	});
 	$('#confirm').on('click', function(){
 
@@ -82,7 +82,7 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-						location.href = "/user/user_tea5.html?id=" + res.data.id;
+						location.href = "/user/user_tea5?id=" + res.data.id;
 				}else {
 					alert(res.msg);
 					$("#userName").val("");

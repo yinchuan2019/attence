@@ -36,7 +36,7 @@
 </div>
 <script>
 	$('#icon').click(function (){
-		location.href = "/user/user_tea1.html";
+		location.href = "/user/user_tea1";
 	});
 	var flag = getQueryVariable("signOut");
 
@@ -45,7 +45,7 @@
 			let object = {workType:"CLASS_VIP"};
 			signOut(object);
 		}else{
-			location.href = "/user/user_tea3.html?workType=CLASS_VIP";
+			location.href = "/user/user_tea3?workType=CLASS_VIP";
 		}
 	});
 
@@ -55,7 +55,7 @@
 			signOut(object);
 
 		}else {
-			location.href = "/user/user_tea3.html?workType=CLASS_WORK";
+			location.href = "/user/user_tea3?workType=CLASS_WORK";
 		}
 	});
 
@@ -64,7 +64,7 @@
 			let object = {workType:"CLASS_OTHER"};
 			signOut(object);
 		}else {
-			location.href = "/user/user_tea3.html?workType=CLASS_OTHER";
+			location.href = "/user/user_tea3?workType=CLASS_OTHER";
 		}
 	});
 
@@ -80,7 +80,7 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					location.href = "/user/user_tea5.html?id=" + res.data.id;
+					location.href = "/user/user_tea5?id=" + res.data.id;
 				}else {
 					alert(res.msg);
 					return false;

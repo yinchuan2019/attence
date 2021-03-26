@@ -66,9 +66,9 @@
 			success: function (res) {
 				if (res.code == 0) {
 					if(userName.substring(0,1) == "S") {
-						location.href = "/user/user_stu1.html";
+						location.href = "/user/user_stu1";
 					}else if(userName.substring(0,1) == "T"){
-						location.href = "/user/user_tea1.html";
+						location.href = "/user/user_tea1";
 					}
 					sessionStorage.setItem('userName', userName)
 				}else {

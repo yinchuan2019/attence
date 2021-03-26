@@ -74,7 +74,7 @@
 		let classRoom= $("#btn-group").val();
 
 		if(userName.substring(0,1) == "T"){
-			location.href = "/user/user_tea7.html?beginDate=" + beginDate + "&endDate=" + endDate + "&classRoom=" + classRoom + "&classType=" + classType ;
+			location.href = "/user/user_tea7?beginDate=" + beginDate + "&endDate=" + endDate + "&classRoom=" + classRoom + "&classType=" + classType ;
 			return true;
 		}
 
@@ -102,7 +102,7 @@
 			success: function (res) {
 				if (res.code == 0) {
 					if(userName.substring(0,1) == "S") {
-						location.href = "/user/user_stu3.html?id=" + res.data.id;
+						location.href = "/user/user_stu3?id=" + res.data.id;
 					}
 				}else {
 					alert(res.msg);

@@ -35,7 +35,7 @@
 </div>
 <script>
 	$('#icon').click(function (){
-		location.href = "/user/user_tea1.html";
+		location.href = "/user/user_tea1";
 	});
 
 	var workType = getQueryVariable("workType");
@@ -51,9 +51,9 @@
 
 	function doWork(company , workType){
 		if(workType == "CLASS_VIP"){
-			location.href = "/user/user_tea4.html?workType=" + workType + "&company=" + company ;
+			location.href = "/user/user_tea4?workType=" + workType + "&company=" + company ;
 		}else if(workType == "CLASS_OTHER"){
-			location.href = "/user/user_tea12.html?workType=" + workType + "&company=" + company ;
+			location.href = "/user/user_tea12?workType=" + workType + "&company=" + company ;
 		}else if(workType == "CLASS_WORK"){
 			var workType = getQueryVariable("workType");
 
@@ -73,7 +73,7 @@
 				async: false,
 				success: function (res) {
 					if (res.code == 0) {
-						location.href = "/user/user_tea5.html?id=" + res.data.id;
+						location.href = "/user/user_tea5?id=" + res.data.id;
 					}else {
 						alert(res.msg);
 						$("#userName").val("");

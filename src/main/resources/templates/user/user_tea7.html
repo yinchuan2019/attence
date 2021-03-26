@@ -54,7 +54,7 @@
 </div>
 <script>
 	$('#icon').click(function (){
-		location.href = "/user/user_tea1.html";
+		location.href = "/user/user_tea1";
 	});
 </script>
 <style>
@@ -109,7 +109,7 @@
 			success: function (res) {
 				if (res.code == 0) {
 					if(userName.substring(0,1) == "T") {
-						location.href = "/user/user_stu3.html?id=" + res.data.id;
+						location.href = "/user/user_stu3?id=" + res.data.id;
 					}
 				}else {
 					alert(res.msg);

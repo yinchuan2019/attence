@@ -65,7 +65,7 @@ public class Index2Controller {
     }
     @GetMapping("/user_tea3")
     public String userTea3(Model model) {
-        return "user/user_tea4" ;
+        return "user/user_tea3" ;
     }
     @GetMapping("/user_tea4")
     public String userTea4(Model model) {

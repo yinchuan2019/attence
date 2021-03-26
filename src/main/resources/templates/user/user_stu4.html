@@ -124,7 +124,7 @@
 </div>
 <script>
 	$('#icon').click(function (){
-		location.href = "/user/user_stu1.html";
+		location.href = "/user/user_stu1";
 	});
 	$(function(){
 		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
@@ -236,7 +236,7 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					location.href = "/user/user_stu3.html?id=" + res.data.id;
+					location.href = "/user/user_stu3?id=" + res.data.id;
 				}else {
 					alert(res.msg);
 					$("#userName").val("");
