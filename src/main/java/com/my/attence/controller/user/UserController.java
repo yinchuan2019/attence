@@ -133,7 +133,7 @@ public class UserController {
                         return R.fail("学生剩余时间");
                     }
                     final Duration between = Duration.between(entity.getBeginDate(), entity.getEndDate());
-                    final long l = Integer.parseInt(student.getStuCourse2()) - between.toMillis();
+                    final long l = Integer.parseInt(student.getStuCourse2()) - between.toMinutes();
                     if(l < 0){
                         return R.fail("学生剩余时间不足");
                     }
@@ -153,7 +153,7 @@ public class UserController {
                         .isNull(AttAppointment::getClassRoom);
 
                 final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
-                if(attAppointmentList.size() > 0){
+                if(attAppointmentList.size() > 19){
                     return R.fail("当前时间人数已满 : "+ entity.getBeginDate().toString());
                 }
 
