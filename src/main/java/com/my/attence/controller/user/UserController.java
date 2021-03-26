@@ -130,9 +130,15 @@ public class UserController {
                         return R.fail("学号不存在");
                     }
                     if(Integer.parseInt(student.getStuCourse2()) < 1){
-                        return R.fail("学生无剩余时间");
+                        return R.fail("学生剩余时间");
                     }
-
+                    final Duration between = Duration.between(entity.getBeginDate(), entity.getEndDate());
+                    final long l = Integer.parseInt(student.getStuCourse2()) - between.toMillis();
+                    if(l < 0){
+                        return R.fail("学生剩余时间不足");
+                    }
+                    student.setStuCourse2(String.valueOf(l));
+                    attStudentService.updateById(student);
                     entity.setStuName(student.getStuNmKanji());
                     entity.setStuNo(student.getLoginId());
                 }

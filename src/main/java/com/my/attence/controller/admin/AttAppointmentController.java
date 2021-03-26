@@ -66,6 +66,7 @@ public class AttAppointmentController {
         }
         AttAppointment entity = new AttAppointment();
         BeanUtil.copyProperties(dto,entity);
+        //entity.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
         attAppointmentService.updateById(entity);
         return R.success();
     }

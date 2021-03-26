@@ -1,6 +1,7 @@
 package com.my.attence.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -46,5 +47,8 @@ public class AttRecord extends BaseEntity {
     private String salary;
 
     private String remarks;
+
+    @TableField(exist = false)
+    private String duration;
 
 }

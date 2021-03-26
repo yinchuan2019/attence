@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +81,7 @@ public class AttRecordController {
         }
         AttRecord entity = new AttRecord();
         BeanUtil.copyProperties(dto,entity);
+        entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
         attRecordService.updateById(entity);
         return R.success();
     }
@@ -110,6 +112,12 @@ public class AttRecordController {
         }
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         IPage<AttRecord> page = attRecordService.page(p, queryWrapper);
+        for (AttRecord e:page.getRecords()) {
+            if(e.getEndDate() != null){
+                final Duration between = Duration.between(e.getBeginDate(), e.getEndDate());
+                e.setDuration(String.valueOf(between.toHours()));
+            }
+        }
         return R.success(page);
     }
 }
