@@ -33,10 +33,10 @@ public class AttAppointment extends BaseEntity {
 
     private String teaName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime beginDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone="GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
     private String classRoom;
