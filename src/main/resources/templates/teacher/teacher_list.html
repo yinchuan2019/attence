@@ -54,6 +54,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">老师状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="teaStatus" value="1" th:title="入职" checked="">
+                    <input type="radio" name="teaStatus" value="0" th:title="离职">
+                    <input type="radio" name="teaStatus" value="2" th:title="转正">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{tea_education}]] </div>
                 <div class="layui-input-block">
                     <input name="teaEducation" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
@@ -129,7 +137,7 @@
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="addteacher" shiro:hasPermission="sys:user:add">添加</button>
-        <button class="layui-btn layui-btn-sm" lay-event="batchUpdate" shiro:hasPermission="sys:user:deleted">更新</button>
+        <!--<button class="layui-btn layui-btn-sm" lay-event="batchUpdate" shiro:hasPermission="sys:user:deleted">更新</button>-->
     </div>
 </script>
 <script type="text/html" id="tool">
@@ -193,6 +201,9 @@
                     }
                     if (item.teaStatus === 0) {
                         return "[[#{status_off}]]";
+                    }
+                    if (item.teaStatus === 2) {
+                        return "转正";
                     }
                 }
             },
