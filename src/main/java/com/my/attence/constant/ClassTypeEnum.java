@@ -6,7 +6,7 @@ package com.my.attence.constant;
  */
 public enum ClassTypeEnum {
     CLASS_MAKE(1,"课题制作"),
-    CLASS_ORDER(2,"一对多课程预约"),
+    //CLASS_ORDER(2,"一对多课程预约"),
 
     CLASS_VIP(3,"VIP作品集研究计划"),
 

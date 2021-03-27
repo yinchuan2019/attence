@@ -55,7 +55,7 @@ public class AttSalaryController {
             return R.fail("用户名称不正确");
         }
         entity.setTeaName(teacher.getTeaNmKanji());
-        entity.setWorkType(ClassTypeEnum.CLASS_ORDER.getName());
+        //entity.setWorkType(ClassTypeEnum.CLASS_ORDER.getName());
         entity.setAttType(1);
         attRecordService.save(entity);
         return R.success();
@@ -120,9 +120,7 @@ public class AttSalaryController {
                 Collectors.groupingBy(AttRecord::getWorkType,
                         Collectors.groupingBy(AttRecord::getAttType,
                                 Collectors.summingLong(e -> {
-                                    if(e.getWorkType().equals(ClassTypeEnum.CLASS_ORDER.getName()) ){
-                                        return Integer.parseInt(e.getSalary());
-                                    }else if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
+                                    if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
                                         return Integer.parseInt(e.getSalary());
                                     }else{
                                         long l = Duration.between(e.getBeginDate(), e.getEndDate()).toMinutes();

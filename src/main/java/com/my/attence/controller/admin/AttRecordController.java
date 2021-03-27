@@ -50,16 +50,15 @@ public class AttRecordController {
         BeanUtil.copyProperties(dto,entity);
         AttTeacher teacher = attTeacherService.findByLoginId(dto.getTeaNo());
         if(Objects.isNull(teacher)){
-            return R.fail("save");
+            return R.fail("teaNo不存在");
         }
         entity.setTeaName(teacher.getTeaNmKanji());
         entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
-
-        if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.getName()) ){
+        /*if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.getName()) ){
             entity.setSalary(teacher.getTeaWage());
         }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.getName()) ){
             entity.setTeaName(teacher.getTeaOtherWage());
-        }
+        }*/
         attRecordService.save(entity);
         return R.success();
     }

@@ -35,12 +35,21 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">薪资</label>
+                <div class="layui-input-block">
+                    <input name="salary" placeholder="请输入薪资" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-block">
                     <select name="workType">
                         <option value="">请选择类型</option>
-                        <option value="CLASS_MAKE">VIP作品集研究计划</option>
+                        <option value="CLASS_VIP">VIP作品集研究计划</option>
                         <option value="CLASS_WORK">事务工作</option>
+                        <option value="CLASS_OTHER">其他</option>
+                        <option value="CLASS_COURSE0">小论文</option>
+                        <option value="CLASS_COURSE1">模拟面接</option>
                     </select>
                 </div>
             </div>
@@ -77,7 +86,7 @@
             <div class="layui-input-inline layui-form">
                 <select id="workType">
                     <option value="">请选择类型</option>
-                    <option value="CLASS_MAKE">VIP作品集研究计划</option>
+                    <option value="CLASS_VIP">VIP作品集研究计划</option>
                     <option value="CLASS_WORK">事务工作</option>
                     <option value="CLASS_OTHER">其他</option>
                 </select>

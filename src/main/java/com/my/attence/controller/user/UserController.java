@@ -181,10 +181,10 @@ public class UserController {
     public List<AttAppointment> judgeAppointment(@RequestBody @Valid AttAppointmentDto dto,String loginId){
         final String classType = dto.getClassType();
         List<AttAppointment> list;
-        if(classType.equals(ClassTypeEnum.CLASS_ORDER)){
+        if(classType.equals(ClassTypeEnum.CLASS_COURSE0) || classType.equals(ClassTypeEnum.CLASS_COURSE1)){
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
                     .eq(AttAppointment::getBeginDate,dto.getBeginDate())
-                    .eq(AttAppointment::getClassType,ClassTypeEnum.CLASS_ORDER.getName())
+                    .eq(AttAppointment::getClassType,classType)
                     .eq(AttAppointment::getStuNo,loginId);
             list = attAppointmentService.list(eq);
 

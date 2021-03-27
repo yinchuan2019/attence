@@ -81,11 +81,13 @@ public class R {
         String result = "";
         try{
             if(msg.contains(":")){
-                temp1 = msg.split(":")[0];
-                temp = msg.split(":")[1];
+                temp = msg.split(":")[0];
+                temp1 = msg.split(":")[1];
+                result = MessageUtils.bundle.getString(temp);
+                result = result + ":" + temp1;
+            }else {
+                result = MessageUtils.bundle.getString(msg);
             }
-            result = MessageUtils.bundle.getString(temp1);
-            result = result + ":" + temp;
             return new R(1,result);
         }catch (MissingResourceException e){
             return new R(1,msg);
