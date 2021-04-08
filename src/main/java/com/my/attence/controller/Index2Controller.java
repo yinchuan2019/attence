@@ -55,6 +55,10 @@ public class Index2Controller {
     public String userStu7(Model model) {
         return "user/user_stu7" ;
     }
+    @GetMapping("/user_stu8")
+    public String userStu8(Model model) {
+        return "user/user_stu8" ;
+    }
     @GetMapping("/user_tea1")
     public String userTea1(Model model) {
         return "user/user_tea1" ;
@@ -102,6 +106,10 @@ public class Index2Controller {
     @GetMapping("/user_tea12")
     public String userTea12(Model model) {
         return "user/user_tea12" ;
+    }
+    @GetMapping("/user_tea13")
+    public String userTea13(Model model) {
+        return "user/user_tea13" ;
     }
 
     @GetMapping("/user_time")
