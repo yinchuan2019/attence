@@ -29,7 +29,8 @@
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> <span class="label label-danger">工作内容</span></p>
+			<p id="p1">出勤 -> <span class="label label-danger">工作内容</p>
+			<p id="p2">退勤 -> <span class="label label-danger">工作内容</span> -> 确认</p>
 		</div>
 
 	</div>
@@ -39,11 +40,19 @@
 		location.href = "/user/user_tea1";
 	});
 	var flag = getQueryVariable("signOut");
+	if(flag == 1){
+		$("#p1").hide();
+		$("#p2").show();
+	}else{
+		$("#p1").show();
+		$("#p2").hide();
+	}
 
 	$('#vip').click(function (){
 		if(flag == 1){
 			let object = {workType:"CLASS_VIP"};
 			signOut(object);
+
 		}else{
 			location.href = "/user/user_tea3?workType=CLASS_VIP";
 		}
@@ -80,7 +89,7 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					location.href = "/user/user_tea5?id=" + res.data.id;
+					location.href = "/user/user_tea13?id=" + res.data.id;
 				}else {
 					alert(res.msg);
 					return false;

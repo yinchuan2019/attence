@@ -53,6 +53,16 @@
 	</div>
 </div>
 <script>
+	$('#icon').click(function (){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+		if(userName.startsWith("S")){
+			location.href = "/user/user_stu1";
+		}else{
+			location.href = "/user/user_tea1";
+		}
+
+	});
+	
 	$('#line1 .btn').on('click', function(){
 		$('#line2 .active').removeClass('active');
 	});

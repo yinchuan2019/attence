@@ -24,7 +24,7 @@
 			<legend>一对多课程预约</legend>
 			<div class="row">
 				<table class="table table-bordered">
-					<caption>➡️可预约课时</caption>
+					<caption>可预约课时</caption>
 					<thead>
 						<tr>
 							<th>小论文</th>
@@ -41,11 +41,11 @@
 			</div>
 			<div class="row custom-control form-control-lg custom-checkbox">
 				<table class="table table-bordered">
-					<caption>➡️参加希望课程</caption>
+					<caption>参加希望课程</caption>
 					<thead>
 					<tr>
-						<th colspan="3">土曜日</th>
-						<th colspan="3">日曜日</th>
+						<th colspan="3">小论文</th>
+						<th colspan="3">模拟面接</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -117,7 +117,7 @@
 			</div>
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 预约课程 -> <span class="label label-danger">一对多课程预约</span></p>
+			<p>功能选择 -> 预约课程 -> <span class="label label-danger">一对多课程预约</span> -> 确认</p>
 		</div>
 
 	</div>
@@ -225,28 +225,30 @@
 			}
 		}
 
-
-		$.ajax({
-			type: "POST",
-			url: "/user/appointment",
-			data: JSON.stringify(arr),
-			dataType: "json",
-			contentType: 'application/json; charset=UTF-8',
-			cache: false,
-			async: false,
-			success: function (res) {
-				if (res.code == 0) {
-					location.href = "/user/user_stu3?id=" + res.data.id;
-				}else {
-					alert(res.msg);
-					$("#userName").val("");
-					$("#passWord").val("");
-					$("#userName").focus();
-					return false;
+		if(arr.length == 0){
+			alert("目前没有选择任何课程");
+		}else{
+			$.ajax({
+				type: "POST",
+				url: "/user/appointment",
+				data: JSON.stringify(arr),
+				dataType: "json",
+				contentType: 'application/json; charset=UTF-8',
+				cache: false,
+				async: false,
+				success: function (res) {
+					if (res.code == 0) {
+						location.href = "/user/user_stu8?id=" + res.data.id;
+					}else {
+						alert(res.msg);
+						$("#userName").val("");
+						$("#passWord").val("");
+						$("#userName").focus();
+						return false;
+					}
 				}
-			}
-		})
-
+			})
+		}
 	});
 
 	function courseCheck() {

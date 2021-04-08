@@ -34,7 +34,9 @@
 			<div class="row">
 				<label class="control-label" id="beginDate"></label>
 			</div>
-
+			<div class="row">
+				<input type="submit" id="top" value="返回首页" class="btn btn-primary btn-wide" />
+			</div>
 		</form>
 
 		<!-- fotter -->
@@ -47,6 +49,10 @@
 </div>
 <script>
 	$('#icon').click(function (){
+		location.href = "/user/user_tea1";
+	});
+
+	$('#top').click(function (){
 		location.href = "/user/user_tea1";
 	});
 

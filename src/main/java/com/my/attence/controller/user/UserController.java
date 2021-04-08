@@ -115,7 +115,7 @@ public class UserController {
             entity.setClassType(classType.getName());
             List<AttAppointment> attAppointments = judgeAppointment(dto,loginId);
             if (CollectionUtils.isNotEmpty(attAppointments)) {
-                return R.fail("已经被预约");
+                return R.fail("已经被预约，如有问题请找事务老师修改");
             }
 
             if (loginId.startsWith(Constant.START_WITH_T)) {

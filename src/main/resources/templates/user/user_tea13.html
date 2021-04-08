@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher11</title>
+<title>UserTeacher5</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/common.js"></script>
-
 </head>
 <body>
 <div class="wrapper fadeInDown">
@@ -22,38 +21,25 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>预约课程信息确认</legend>
-
+			<legend>确认</legend>
 			<div class="row">
-				<table class="table table-bordered" id="group">
-					<caption>️VIP作品集研究计划</caption>
-					<thead>
-						<tr>
-							<th>学生番号</th>
-							<th>学生姓名</th>
-							<th>座位</th>
-							<th>日期</th>
-							<th>时间</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-
-						</tr>
-					</tbody>
-				</table>
+				<label class="control-label" id="attType"></label>
 			</div>
-
 			<div class="row">
-					<input type="submit" id="return" value="返回" class="btn btn-primary btn-wide" />
+				<label class="control-label" id="workType"></label>
+			</div>
+			<div class="row">
+				<label class="control-label" id="beginDate"></label>
+			</div>
+			<div class="row">
+				<input type="submit" id="top" value="返回首页" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 信息确认 -> <span class="label label-danger">预约课程信息</span></p>
+			<p id="p">退勤 -> 工作内容 -> <span class="label label-danger">确认</span></p>
 		</div>
-
 	</div>
 </div>
 <script>
@@ -61,39 +47,39 @@
 		location.href = "/user/user_tea1";
 	});
 
-	$('#return').click(function (){
-		location.href = "/user/user_tea9";
+	$('#top').click(function (){
+		location.href = "/user/user_tea1";
 	});
 
 	$(function(){
-		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+		var workType = getQueryVariable("workType");
+		let id = getQueryVariable("id");
+
+
 		let object = {
+			id:id
 		}
-		let data = JSON.stringify(object);
+		let data = JSON.stringify(object)
+
 		$.ajax({
 			type: "POST",
-			url: "/user/findAppointment",
+			url: "/user/findRecord",
+			data: data,
 			dataType: "json",
-			data:data,
 			contentType: 'application/json; charset=UTF-8',
 			cache: false,
 			async: false,
-
 			success: function (res) {
 				if (res.code == 0) {
-					var groupTable = $('#group');
-
-					for(var i = 0;i<res.data.length;i++){
-						groupTable.append('<tr> ' +
-								'<td class="tdClass">' + res.data[i].stuNo + '</td>' +
-								'<td class="tdClass">' + res.data[i].stuName + '</td>' +
-								'<td class="tdClass">' + res.data[i].classRoom + '</td>' +
-								'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
-								'<td class="tdClass">' + res.data[i].endDate + '</td>' +
-								'</tr>')
+					if(res.data.attType== "1"){
+						$("#attType").html("社内");
+					} else if(res.data.attType== "2"){
+						$("#attType").html("社外");
 					}
-					noApplicationRecord.innerHTML = html
 
+					$("#workType").html(res.data.workType);
+
+					$("#beginDate").html(res.data.beginDate);
 				}else {
 					alert(res.msg);
 					$("#userName").val("");
