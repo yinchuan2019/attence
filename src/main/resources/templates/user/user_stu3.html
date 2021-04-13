@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>UserStundent3</title>
+	<title>[[#{stu3.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,7 +22,7 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>确认</legend>
+			<legend>[[#{stu3.title}]]</legend>
 			<div class="row">
 				<label id="classType" class="control-label"></label>
 			</div>
@@ -40,13 +40,13 @@
 				<label id="stuNo" class="control-label"></label>
 			</div>
 			<div class="row">
-				<input type="submit" id="top" value="返回首页" class="btn btn-primary btn-wide" />
+				<input type="submit" id="top" th:value="#{stu3.top}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 预约课程 -> 时间选择 -> 座位选择 -> <span class="label label-danger">确认</span></p>
+			<p>[[#{stu3.tip1}]]<span class="label label-danger">[[#{stu3.tip2}]]</span></p>
 		</div>
 
 	</div>
@@ -82,13 +82,13 @@
 			success: function (res) {
 				if (res.code == 0) {
 					$("#classType").html(res.data.classType);
-					$("#classRoom").html("席:" + res.data.classRoom);
+					$("#classRoom").html("[[#{stu3.classRoom}]]" + res.data.classRoom);
 					$("#beginDate").html(res.data.beginDate);
 					$("#endDate").html(res.data.endDate);
 					if(userName.substring(0,1) == "S") {
 						$("#stuNo").hide();
 					}else{
-						$("#stuNo").html("学生番号:" + res.data.stuNo);
+						$("#stuNo").html("[[#{stu3.stuNo}]]" + res.data.stuNo);
 					}
 				}else {
 					alert(res.msg);

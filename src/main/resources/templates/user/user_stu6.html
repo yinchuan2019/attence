@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserStundent6</title>
+<title>[[#{stu6.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -23,35 +23,35 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>可预约课时确认</legend>
+			<legend>[[#{stu6.title}]]</legend>
 			<div class="row">
 				<table class="table table-bordered">
-					<caption>可预约课时</caption>
+					<caption>[[#{stu6.timeConfimation}]]</caption>
 					<thead>
 						<tr>
-							<th>VIP作品集研究计划书</th>
-							<th>小论文</th>
-							<th>模拟面接</th>
+							<th>[[#{stu6.stuCourse0}]]</th>
+							<th>[[#{stu6.stuCourse1}]]</th>
+							<th>[[#{stu6.stuCourse2}]]</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><span id="course2"></span><span>小时</span></td>
-							<td><span id="course0"></span><span>小时</span></td>
-							<td><span id="course1"></span><span>小时</span></td>
+							<td><span id="course2"></span><span>[[#{stu6.H}]]</span></td>
+							<td><span id="course0"></span><span>[[#{stu6.H}]]</span></td>
+							<td><span id="course1"></span><span>[[#{stu6.H}]]</span></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
 			<div class="row">
-					<input type="submit" id="return" value="返回" class="btn btn-primary btn-wide" />
+					<input type="submit" id="return" th:value="#{stu6.return}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 信息确认-> <span class="label label-danger">可预约课时</span></p>
+			<p>[[#{stu6.tip1}]]<span class="label label-danger">[[#{stu6.tip2}]]</span></p>
 		</div>
 
 	</div>

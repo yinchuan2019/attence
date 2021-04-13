@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>UserSeat</title>
+	<title>[[#{seat.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -24,7 +24,7 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>座位选择</legend>
+			<legend>[[#{seat.title}]]</legend>
 			<img src="/images/logo.gif" id="icon" alt="User Icon" />
 			<input type="hidden" id="btn-group" value="" /><br/>
 			<div class="row">
@@ -42,12 +42,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<input type="submit" name="button1" id="confirm" value="确认" class="btn btn-primary btn-wide" />
+				<input type="submit" name="button1" id="confirm" th:value="#{seat.confirm}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<div id="formFooter">
-			<p>功能选择 -> 预约课程 -> 时间选择 -> <span class="label label-danger">座位选择</span> -> 确认</p>
+			<p>[[#{seat.tip1}]]<span class="label label-danger">[[#{seat.tip2}]]</span>[[#{seat.tip3}]]</p>
 		</div>
 
 	</div>
@@ -89,7 +89,7 @@
 		}
 
 		if(typeof classRoom == "undefined" ||  classRoom == ""){
-			alert("座位不能为空！");
+			alert("[[#{login.userNameInfo}]]");
 		}
 
 		let object = {

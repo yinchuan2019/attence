@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>UserStundent3</title>
+	<title>[[#{stu8.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,18 +22,18 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>确认</legend>
+			<legend>[[#{stu8.title}]]</legend>
 			<div class="row">
 				<label id="classType" class="control-label"></label>
 			</div>
 			<div class="row">
-				<input type="submit" id="top" value="返回首页" class="btn btn-primary btn-wide" />
+				<input type="submit" id="top" th:value="#{stu8.top}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 预约课程 -> 一对多课程预约 -> <span class="label label-danger">确认</span></p>
+			<p>[[#{stu8.tip1}]]<span class="label label-danger">[[#{stu8.tip2}]]</span></p>
 		</div>
 
 	</div>
@@ -68,7 +68,7 @@
 			async: false,
 			success: function (res) {
 				if (res.code == 0) {
-					$("#classType").html("一对多课程预约成功");
+					$("#classType").html("[[#{stu8.tip}]]");
 
 				}else {
 					alert(res.msg);

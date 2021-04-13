@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>Userteacher9</title>
+<title>[[#{tea9.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,14 +22,14 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>信息确认</legend>
-			<button type="button" id="onJobInfo" class="btn btn-primary btn-lg btn-block">出勤信息</button>
-			<button type="button" id="classConfimation" class="btn btn-primary btn-lg btn-block">预约课程信息</button>
+			<legend>[[#{tea9.title}]]</legend>
+			<button type="button" id="onJobInfo" class="btn btn-primary btn-lg btn-block">[[#{tea9.onJobInfo}]]</button>
+			<button type="button" id="classConfimation" class="btn btn-primary btn-lg btn-block">[[#{tea9.classConfimation}]]</button>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> <span class="label label-danger">信息确认</span></p>
+			<p>[[#{tea9.tip1}]]<span class="label label-danger">[[#{tea9.tip2}]]</span></p>
 		</div>
 
 	</div>

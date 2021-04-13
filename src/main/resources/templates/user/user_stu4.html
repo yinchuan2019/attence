@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserStundent3</title>
+<title>[[#{stu4.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -21,103 +21,103 @@
 		</div>
 
 
-			<legend>一对多课程预约</legend>
+			<legend>[[#{stu4.title}]]</legend>
 			<div class="row">
 				<table class="table table-bordered">
-					<caption>可预约课时</caption>
+					<caption>[[#{stu4.leftTime}]]</caption>
 					<thead>
 						<tr>
-							<th>小论文</th>
-							<th>模拟面接</th>
+							<th>[[#{stu4.course0}]]</th>
+							<th>[[#{stu4.course1}]]</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><span id="course0"></span><span>小时</span></td>
-							<td><span id="course1"></span><span>小时</span></td>
+							<td><span id="course0"></span><span>[[#{stu4.H}]]</span></td>
+							<td><span id="course1"></span><span>[[#{stu4.H}]]</span></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="row custom-control form-control-lg custom-checkbox">
 				<table class="table table-bordered">
-					<caption>参加希望课程</caption>
+					<caption>[[#{stu4.hopeCourse}]]</caption>
 					<thead>
 					<tr>
-						<th colspan="3">小论文</th>
-						<th colspan="3">模拟面接</th>
+						<th colspan="3">[[#{stu4.course0}]]</th>
+						<th colspan="3">[[#{stu4.course1}]]</th>
 					</tr>
 					</thead>
 					<tbody>
 						<!--第一周-->
 						<tr>
 							<td rowspan="2"><span id="sa1"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="custom-control-input" value="13:00"  data-end="16:00" id="saAmCheck1" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su1"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="custom-control-input" value="13:00" data-end="16:00" id="suAmCheck1" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="saPmCheck1" onclick="course0Onclick(this)"></td>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="suPmCheck1" onclick="course1Onclick(this)"></td>
 						</tr>
 						<!--第二周-->
 						<tr>
 							<td rowspan="2"><span id="sa2"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="13:00" data-end="16:00" id="saAmCheck2" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su2"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="13:00" data-end="16:00" id="suAmCheck2" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="saPmCheck2" onclick="course0Onclick(this)"></td>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="suPmCheck2" onclick="course1Onclick(this)"></td>
 						</tr>
 						<!--第三周-->
 						<tr>
 							<td rowspan="2"><span id="sa3"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="13:00" data-end="16:00" id="saAmCheck3" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su3"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="13:00" data-end="16:00" id="suAmCheck3" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="saPmCheck3" onclick="course0Onclick(this)"></td>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="suPmCheck3" onclick="course1Onclick(this)"></td>
 						</tr>
 						<!--第四周-->
 						<tr>
 							<td rowspan="2"><span id="sa4"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="13:00" data-end="16:00" id="saAmCheck4" onclick="course0Onclick(this)"></td>
 							<td rowspan="2"><span id="su4"></span></td>
-							<td>13～16点</td>
+							<td>[[#{stu4.T1}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="13:00" data-end="16:00" id="suAmCheck4" onclick="course1Onclick(this)"></td>
 						</tr>
 						<tr>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="saPmCheck4" onclick="course0Onclick(this)"></td>
-							<td>17～20点</td>
+							<td>[[#{stu4.T2}]]</td>
 							<td><input type="checkbox" class="form-check-input" value="17:00" data-end="20:00" id="suPmCheck4" onclick="course1Onclick(this)"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="row">
-					<input id="confirm" type="submit" name="button1" value="登陆" class="btn btn-primary btn-wide" />
+					<input id="confirm" type="submit" name="button1" th:value="#{stu4.submit}" class="btn btn-primary btn-wide" />
 			</div>
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 预约课程 -> <span class="label label-danger">一对多课程预约</span> -> 确认</p>
+			<p>[[#{stu4.tip1}]]<span class="label label-danger">[[#{stu4.tip2}]]</span>[[#{stu4.tip3}]]</p>
 		</div>
 
 	</div>
@@ -226,7 +226,7 @@
 		}
 
 		if(arr.length == 0){
-			alert("目前没有选择任何课程");
+			alert("[[#{stu4.info}]]");
 		}else{
 			$.ajax({
 				type: "POST",

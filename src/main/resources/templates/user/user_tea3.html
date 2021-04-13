@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher1</title>
+<title>[[#{tea3.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -21,14 +21,14 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-		<legend>出勤地选择</legend>
-			<button type="button" id="inCompany" class="btn btn-primary btn-lg btn-block">社内</button>
-			<button type="button" id="outCompany" class="btn btn-primary btn-lg btn-block">社外</button>
+		<legend>[[#{tea3.title}]]</legend>
+			<button type="button" id="inCompany" class="btn btn-primary btn-lg btn-block">[[#{tea3.inCompany}]]</button>
+			<button type="button" id="outCompany" class="btn btn-primary btn-lg btn-block">[[#{tea3.outCompany}]]</button>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 工作内容 -> <span class="label label-danger">出勤地</span></p>
+			<p>[[#{tea3.tip1}]]<span class="label label-danger">[[#{tea3.tip2}]]</span></p>
 		</div>
 
 	</div>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher7</title>
+<title>[[#{tea7.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -23,9 +23,9 @@
 		<!-- Form -->
 		<form onclick="return false">
 			<fieldset>
-				<legend>学生选择</legend>
+				<legend>[[#{tea7.title}]]</legend>
 				<div class="row">
-					<label  class="col-md-12 control-label">学生番号</label>
+					<label  class="col-md-12 control-label">[[#{tea7.stuNo}]]</label>
 
 					<br/>
 				</div>
@@ -37,7 +37,7 @@
 					<br/>
 				</div>
 				<div class="row">
-					<input type="submit" id="confirm" value="确认" class="btn btn-primary btn-wide" />
+					<input type="submit" id="confirm" th:value="#{tea7.confirm}" class="btn btn-primary btn-wide" />
 				</div>
 			</fieldset>
 
@@ -46,7 +46,7 @@
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 预约课程 -> 时间选择 -> 座位选择 -> <span class="label label-danger">学生选择</span> -> 确认</p>
+			<p>[[#{tea7.tip1}]]<span class="label label-danger">[[#{tea7.tip2}]]</span>[[#{tea7.tip3}]]</p>
 
 		</div>
 
@@ -85,7 +85,7 @@
 
 		let stuNo = $("#stuNo").val().toString();
 		if(stuNo == ""){
-			alert("请输入学生番号");
+			alert("[[#{tea7.info}]]");
 
 		}
 		let object = {

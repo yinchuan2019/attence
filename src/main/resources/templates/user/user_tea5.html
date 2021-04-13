@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher5</title>
+<title>[[#{tea5.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -21,7 +21,7 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>确认</legend>
+			<legend>[[#{tea5.title}]]</legend>
 			<div class="row">
 				<label class="control-label" id="attType"></label>
 			</div>
@@ -35,14 +35,14 @@
 				<label class="control-label" id="beginDate"></label>
 			</div>
 			<div class="row">
-				<input type="submit" id="top" value="返回首页" class="btn btn-primary btn-wide" />
+				<input type="submit" id="top" th:value="#{tea5.top}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p id="p1">功能选择 -> 工作内容 -> 出勤地 -> VIP作品集研究计划 -> <span class="label label-danger">确认</span></p>
-			<p id="p2">功能选择 -> 工作内容 -> 出勤地 -> <span class="label label-danger">确认</span></p>
+			<p id="p1">[[#{tea5.tip1}]]<span class="label label-danger">[[#{tea5.tip3}]]</span></p>
+			<p id="p2">[[#{tea5.tip2}]]<span class="label label-danger">[[#{tea5.tip3}]]</span></p>
 
 		</div>
 	</div>
@@ -77,15 +77,15 @@
 			success: function (res) {
 				if (res.code == 0) {
 					if(res.data.attType== "1"){
-						$("#attType").html("社内");
+						$("#attType").html("[[#{tea5.inCompany}]]");
 					} else if(res.data.attType== "2"){
-						$("#attType").html("社外");
+						$("#attType").html("[[#{tea5.outCompany}]]");
 					}
 
 					$("#workType").html(res.data.workType);
 					if(res.data.stuNo != "" && res.data.stuNo != null){
 						$("#stuNo").show();
-						$("#stuNo").html("学生番号:  " + res.data.stuNo);
+						$("#stuNo").html("[[#{tea5.stuNo}]]" + res.data.stuNo);
 						$("#p1").show();
 						$("#p2").hide();
 					}else{

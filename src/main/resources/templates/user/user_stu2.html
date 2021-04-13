@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserStundent2</title>
+<title>[[#{stu2.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,14 +22,14 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>预约课程</legend>
-			<button type="button" id="projectProduction" class="btn btn-primary btn-lg btn-block">课题制作</button>
-			<button type="button" id="oneToManyReservation" class="btn btn-primary btn-lg btn-block">一对多课程预约</button>
+			<legend>[[#{stu2.title}]]</legend>
+			<button type="button" id="projectProduction" class="btn btn-primary btn-lg btn-block">[[#{stu2.projectProduction}]]</button>
+			<button type="button" id="oneToManyReservation" class="btn btn-primary btn-lg btn-block">[[#{stu2.oneToManyReservation}]]</button>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> <span class="label label-danger">预约课程</span></p>
+			<p>[[#{stu2.tip1}]]<span class="label label-danger">[[#{stu2.tip2}]]</span></p>
 		</div>
 
 	</div>

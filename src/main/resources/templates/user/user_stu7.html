@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserStundent7</title>
+<title>[[#{stu7.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,15 +22,15 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>预约信息确认</legend>
+			<legend>[[#{stu7.title}]]</legend>
 			<div class="row">
 				<table class="table table-bordered" id="group">
-					<caption>课题制作</caption>
+					<caption>[[#{stu7.projectProduction}]]</caption>
 					<thead>
 						<tr>
-							<th>座位</th>
-							<th>开始时间</th>
-							<th>结束时间</th>
+							<th>[[#{stu7.classRoom}]]</th>
+							<th>[[#{stu7.beginDate}]]</th>
+							<th>[[#{stu7.endDate}]]</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -38,12 +38,12 @@
 					</tbody>
 				</table>
 				<table class="table table-bordered" id="group1">
-					<caption>一对多</caption>
+					<caption>[[#{stu7.oneToManyReservation}]]</caption>
 					<thead>
 					<tr>
-						<th>课程</th>
-						<th>开始时间</th>
-						<th>结束时间</th>
+						<th>[[#{stu7.class}]]</th>
+						<th>[[#{stu7.beginDate}]]</th>
+						<th>[[#{stu7.endDate}]]</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -53,13 +53,13 @@
 			</div>
 
 			<div class="row">
-					<input type="submit" id="return" value="返回" class="btn btn-primary btn-wide" />
+					<input type="submit" id="return" th:value="#{stu7.return}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 信息确认-> <span class="label label-danger">预约信息确认</span></p>
+			<p>[[#{stu7.tip1}]]<span class="label label-danger">[[#{stu7.tip2}]]</span></p>
 		</div>
 
 	</div>

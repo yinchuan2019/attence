@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher3</title>
+<title>[[#{tea2.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -21,16 +21,16 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>工作内容</legend>
-			<button type="button" id="vip" class="btn btn-primary btn-lg btn-block">VIP作品集研究计划</button>
-			<button type="button" id="someThing" class="btn btn-primary btn-lg btn-block">事务工作</button>
-			<button type="button" id="other" class="btn btn-primary btn-lg btn-block">其他</button>
+			<legend>[[#{tea2.title}]]</legend>
+			<button type="button" id="vip" class="btn btn-primary btn-lg btn-block">[[#{tea2.vip}]]</button>
+			<button type="button" id="someThing" class="btn btn-primary btn-lg btn-block">[[#{tea2.someThing}]]</button>
+			<button type="button" id="other" class="btn btn-primary btn-lg btn-block">[[#{tea2.other}]]</button>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p id="p1">出勤 -> <span class="label label-danger">工作内容</p>
-			<p id="p2">退勤 -> <span class="label label-danger">工作内容</span> -> 确认</p>
+			<p id="p1">[[#{tea2.tip1}]]<span class="label label-danger">[[#{tea2.tip3}]]</p>
+			<p id="p2">[[#{tea2.tip2}]]<span class="label label-danger">[[#{tea2.tip3}]]</span> -> [[#{tea2.tip4}]]</p>
 		</div>
 
 	</div>

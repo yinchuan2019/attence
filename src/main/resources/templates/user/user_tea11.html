@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher11</title>
+<title>[[#{tea11.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,18 +22,18 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>预约课程信息确认</legend>
+			<legend>[[#{tea11.title}]]</legend>
 
 			<div class="row">
 				<table class="table table-bordered" id="group">
-					<caption>️VIP作品集研究计划</caption>
+					<caption>[[#{tea11.vip}]]</caption>
 					<thead>
 						<tr>
-							<th>学生番号</th>
-							<th>学生姓名</th>
-							<th>座位</th>
-							<th>日期</th>
-							<th>时间</th>
+							<th>[[#{tea11.stuNo}]]</th>
+							<th>[[#{tea11.stuName}]]</th>
+							<th>[[#{tea11.set}]]</th>
+							<th>[[#{tea11.day}]]</th>
+							<th>[[#{tea11.time}]]</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -45,13 +45,13 @@
 			</div>
 
 			<div class="row">
-					<input type="submit" id="return" value="返回" class="btn btn-primary btn-wide" />
+					<input type="submit" id="return" th:alue="#{tea11.return}" class="btn btn-primary btn-wide" />
 			</div>
 		</form>
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 信息确认 -> <span class="label label-danger">预约课程信息</span></p>
+			<p>[[#{tea11.tip1}]]<span class="label label-danger">[[#{tea11.tip2}]]</span></p>
 		</div>
 
 	</div>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher10</title>
+<title>[[#{tea10.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,39 +22,30 @@
 
 		<!-- Form -->
 		<form onclick="return false">
-			<legend>出勤信息确认</legend>
+			<legend>[[#{tea10.title}]]</legend>
 			<div class="row">
 				<table class="table table-bordered" id="group">
-					<caption>️出勤信息</caption>
+					<caption>[[#{tea10.onJobInfo}]]</caption>
 					<thead>
 						<tr>
-							<th>分类</th>
-							<th>出勤地</th>
-							<th>时间</th>
+							<th>[[#{tea10.type}]]</th>
+							<th>[[#{tea10.where}]]</th>
+							<th>[[#{tea10.time}]]</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!--<tr>
-							<td rowspan="2">VIP作品集研究计划</td>
-							<td>社内</td>
-							<td>16小时</td>
 
-						</tr>
-						<tr>
-							<td>社外</td>
-							<td>21小时</td>
-						</tr>-->
 					</tbody>
 				</table>
 			</div>
 
 			<div class="row">
 				<table class="table table-bordered" id="group1">
-					<caption>交通费</caption>
+					<caption>[[#{tea10.mony}]]</caption>
 					<thead>
 					<tr>
-						<th>社内出勤日期</th>
-						<th>次数</th>
+						<th>[[#{tea10.inTime}]]</th>
+						<th>[[#{tea10.times}]]</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -70,7 +61,7 @@
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 信息确认 -> <span class="label label-danger">出勤信息</span></p>
+			<p>[[#{tea10.tip1}]]<span class="label label-danger">[[#{tea10.tip2}]]</span></p>
 		</div>
 
 	</div>
@@ -105,7 +96,7 @@
 						var trVar = '<tr>' + '<td rowspan="' + length +'">'+ key + '</td>';
 						for(let k in map[key]){
 							let k1 =  map[key][k];
-							k == 1 ? k = "社内" : k = "社外";
+							k == 1 ? k = "[[#{tea10.inCompany}]]" : k = "[[#{tea10.outCompany}]]";
 							trVar = trVar + '<td>' + k + '</td>' + '<td>' + k1 + '</td>' + '</tr>';
 						}
 						$('#group').append(trVar);

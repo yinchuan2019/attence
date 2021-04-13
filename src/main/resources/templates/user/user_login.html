@@ -22,14 +22,14 @@
 
 		<!-- Login Form -->
 		<form onclick="return false">
-			<input type="text" id="userName" class="fadeIn second" name="login" th:placeholder="#{login.user}">
-			<input type="text" id="passWord" class="fadeIn third" name="login" placeholder="password">
-			<input type="submit" id="login" class="fadeIn fourth" value="Log In">
+			<input type="text" id="userName" class="fadeIn second" name="login" th:placeholder="#{login.userName}">
+			<input type="text" id="passWord" class="fadeIn third" name="login" th:placeholder="#{login.passWord}">
+			<input type="submit" id="login" class="fadeIn fourth" th:value="#{login.login}">
 		</form>
 
 		<!-- Remind Passowrd -->
 		<div id="formFooter">
-			<a class="underlineHover" href="#">xxxxx</a>
+			<a class="underlineHover" href="#">[[#{login.info}]]</a>
 		</div>
 
 	</div>
@@ -39,12 +39,12 @@
 		const userName = $("#userName").val().toString();
 		const passWord = $("#passWord").val().toString();
 		if (userName == "") {
-			alert("用户名不能为空！");
+			alert("[[#{seat.info}]]");
 			$("#userName").focus();
 			return false;
 		}
 		if (passWord == "") {
-			alert("密码不能为空！");
+			alert("[[#{login.passWordInfo}]]");
 			$("#passWord").focus();
 			return false;
 		}

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<title>UserTeacher4</title>
+<title>[[#{tea12.title}]]</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/css/common.css" rel="stylesheet"/>
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
@@ -22,9 +22,9 @@
 		<!-- Form -->
 		<form onclick="return false">
 			<fieldset>
-				<legend>其他</legend>
+				<legend>[[#{tea12.title}]]</legend>
 				<div class="row content">
-					<label  class="col-md-3 control-label">工作内容</label>
+					<label  class="col-md-3 control-label">[[#{tea12.remarks}]]</label>
 					<div class="col-md-8">
 						<input class="form-control" type="text" id="remarks">
 					</div>
@@ -32,7 +32,7 @@
 
 				</div>
 				<div class="row content">
-					<label  class="col-md-3 control-label">薪资</label>
+					<label  class="col-md-3 control-label">[[#{tea12.salary}]]</label>
 					<div class="col-md-8">
 						<input class="form-control" type="text" id="salary">
 					</div>
@@ -41,7 +41,7 @@
 				</div>
 
 				<div class="row row1">
-					<input type="submit" id="confirm" value="确认" class="btn btn-primary btn-wide" />
+					<input type="submit" id="confirm" th:value="#{tea12.confirm}" class="btn btn-primary btn-wide" />
 				</div>
 			</fieldset>
 
@@ -49,7 +49,7 @@
 
 		<!-- fotter -->
 		<div id="formFooter">
-			<p>功能选择 -> 出勤地 -> 工作内容 -> <span class="label label-danger">其他</span></p>
+			<p>[[#{tea12.tip1}]]<span class="label label-danger">[[#{tea12.tip2}]]</span></p>
 
 		</div>
 
@@ -67,7 +67,7 @@
 		var salary = $('#salary').val();
 
 		if(typeof remarks == "undefined" ||  remarks == ""){
-			alert("备注不能为空");
+			alert("[[#{tea12.info}]]");
 		}
 
 		let object = {
