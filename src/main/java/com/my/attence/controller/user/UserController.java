@@ -231,6 +231,9 @@ public class UserController {
                 AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
                 entity.setStuName(student.getStuNmKanji());
             }
+            if(org.springframework.util.StringUtils.isEmpty(entity.getSalary())){
+                entity.setSalary("0");
+            }
             attRecordService.save(entity);
         }else{
             return R.fail("用户名不存在");

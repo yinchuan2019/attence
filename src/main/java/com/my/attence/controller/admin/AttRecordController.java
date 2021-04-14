@@ -59,6 +59,9 @@ public class AttRecordController {
         }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.getName()) ){
             entity.setTeaName(teacher.getTeaOtherWage());
         }*/
+        if(StringUtils.isEmpty(entity.getSalary())){
+            entity.setSalary("0");
+        }
         attRecordService.save(entity);
         return R.success();
     }

@@ -15,7 +15,7 @@ public class MessageUtils {
     public static Locale locale;
 
     public static ResourceBundle bundle = ResourceBundle.getBundle("messages/message_zh_CN");
-
+    public static ResourceBundle bundle_ja = ResourceBundle.getBundle("messages/message_ja_JP");
     @Autowired
     private  MessageSourceProperties messageSourceProperties;
 
