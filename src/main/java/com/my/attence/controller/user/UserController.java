@@ -72,10 +72,10 @@ public class UserController {
             LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery().eq(AttTeacher::getLoginId, dto.getUsername());
             AttTeacher one = attTeacherService.getOne(eq);
             if(one == null){
-                return R.fail("老师不存在");
+                return R.fail("user.info1");
             }
             if (!PasswordUtils.matchesNoSalt(one.getTeaPwd(), dto.getPassword())) {
-                return R.fail("用户名或密码错误");
+                return R.fail("user.info2");
             }
             request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
 
@@ -83,14 +83,14 @@ public class UserController {
             LambdaQueryWrapper<AttStudent> eq = Wrappers.<AttStudent>lambdaQuery().eq(AttStudent::getLoginId, dto.getUsername());
             AttStudent one = attStudentService.getOne(eq);
             if(one == null){
-                return R.fail("学生不存在");
+                return R.fail("user.info3");
             }
             if (!PasswordUtils.matchesNoSalt(one.getStuPwd(), dto.getPassword())) {
-                return R.fail("用户名或密码错误");
+                return R.fail("user.info2");
             }
             request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
         }else {
-            return R.fail("用户名不存在");
+            return R.fail("user.info3");
         }
         return R.success();
     }
@@ -106,7 +106,7 @@ public class UserController {
         for (AttAppointmentDto dto : list) {
             String loginId = TaleUtils.getLoginUser(request);
             if (Strings.isBlank(loginId)) {
-                return R.fail("请先登陆");
+                return R.fail("user.info6");
             }
 
             BeanUtils.copyProperties(dto, entity);
@@ -114,7 +114,7 @@ public class UserController {
             entity.setClassType(classType.getName());
             List<AttAppointment> attAppointments = judgeAppointment(dto,loginId);
             if (CollectionUtils.isNotEmpty(attAppointments)) {
-                return R.fail("已经被预约，如有问题请找事务老师修改");
+                return R.fail("user.info7");
             }
 
             if (loginId.startsWith(Constant.START_WITH_T)) {
@@ -126,15 +126,15 @@ public class UserController {
                 if (dto.getStuNo() != null) {
                     AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
                     if (student == null) {
-                        return R.fail("学号不存在");
+                        return R.fail("user.info3");
                     }
                     if(Integer.parseInt(student.getStuCourse2()) < 1){
-                        return R.fail("学生剩余时间");
+                        return R.fail("user.info9");
                     }
                     final Duration between = Duration.between(entity.getBeginDate(), entity.getEndDate());
                     final long l = Integer.parseInt(student.getStuCourse2()) - between.toMinutes();
                     if(l < 0){
-                        return R.fail("学生剩余时间不足");
+                        return R.fail("user.info10");
                     }
                     student.setStuCourse2(String.valueOf(l));
                     attStudentService.updateById(student);
@@ -153,7 +153,7 @@ public class UserController {
 
                 final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
                 if(attAppointmentList.size() > 19){
-                    return R.fail("当前时间人数已满 : "+ entity.getBeginDate().toString());
+                    return R.fail("user.info11"+ entity.getBeginDate().toString());
                 }
 
                 attAppointmentService.save(entity);
@@ -167,7 +167,7 @@ public class UserController {
                     attStudentService.updateById(student);
                 }
             } else {
-                return R.fail("用户名不存在");
+                return R.fail("user.info12");
             }
         }
         return R.success(entity);
@@ -206,7 +206,7 @@ public class UserController {
     public R signIn(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
         AttRecord entity = new AttRecord();
         BeanUtils.copyProperties(dto,entity);
@@ -218,7 +218,7 @@ public class UserController {
 
             List<AttRecord> list = attRecordService.list(eq);
             if(CollectionUtils.isNotEmpty(list)){
-                return R.fail("请先退勤");
+                return R.fail("user.info14");
             }
             ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getWorkType());
             entity.setWorkType(classType.getName());
@@ -235,7 +235,7 @@ public class UserController {
             }
             attRecordService.save(entity);
         }else{
-            return R.fail("用户名不存在");
+            return R.fail("user.info12");
         }
         return R.success(entity);
     }
@@ -248,7 +248,7 @@ public class UserController {
     public R signOut(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                  .eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName())
@@ -271,7 +271,7 @@ public class UserController {
             attRecordService.updateById(attRecord);
             return R.success(attRecord);
         }else{
-            return R.fail("未存在签到信息");
+            return R.fail("user.info16");
         }
     }
 
@@ -284,7 +284,7 @@ public class UserController {
     public R findAppointment(@RequestBody @Valid AttAppointmentDto dto, HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
 
         if(dto.getId() != null){
@@ -317,7 +317,7 @@ public class UserController {
 
             list = attAppointmentService.list(wrapper);
         }else {
-            return R.fail("用户名不存在");
+            return R.fail("user.info12");
         }
         return R.success(list);
     }
@@ -330,7 +330,7 @@ public class UserController {
     public R findRecord(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
         if(dto.getId() != null){
             AttRecord entity = attRecordService.getById(dto.getId());
@@ -354,7 +354,7 @@ public class UserController {
     public R findStuByTea(@RequestBody @Valid AttRecordDto dto, HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
 
         LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
@@ -377,7 +377,7 @@ public class UserController {
     public R recordInfo(HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
 
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
@@ -412,7 +412,7 @@ public class UserController {
     public R recordType(HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
 
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
@@ -441,7 +441,7 @@ public class UserController {
     public R course(HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
 
         HashMap<Object, Object> res = MapUtil.newHashMap(3);
@@ -471,7 +471,7 @@ public class UserController {
     public R isTeacher(HttpServletRequest request){
         String loginId = TaleUtils.getLoginUser(request);
         if(Strings.isBlank(loginId)){
-            return R.fail("请先登陆");
+            return R.fail("user.info6");
         }
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo,loginId)

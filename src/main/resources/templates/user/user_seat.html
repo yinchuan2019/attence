@@ -89,40 +89,40 @@
 		}
 
 		if(typeof classRoom == "undefined" ||  classRoom == ""){
-			alert("[[#{login.userNameInfo}]]");
-		}
-
-		let object = {
-			beginDate:beginDate,
-			endDate:endDate,
-			classRoom:classRoom,
-			classType:classType
-		}
-		var arr = new Array();
-		arr.push(object)
-
-		$.ajax({
-			type: "POST",
-			url: "/user/appointment",
-			data: JSON.stringify(arr),
-			dataType: "json",
-			contentType: 'application/json; charset=UTF-8',
-			cache: false,
-			async: false,
-			success: function (res) {
-				if (res.code == 0) {
-					if(userName.substring(0,1) == "S") {
-						location.href = "/user/user_stu3?id=" + res.data.id;
-					}
-				}else {
-					alert(res.msg);
-					$("#userName").val("");
-					$("#passWord").val("");
-					$("#userName").focus();
-					return false;
-				}
+			alert("[[#{seat.info}]]");
+		}else{
+			let object = {
+				beginDate:beginDate,
+				endDate:endDate,
+				classRoom:classRoom,
+				classType:classType
 			}
-		})
+			var arr = new Array();
+			arr.push(object)
+
+			$.ajax({
+				type: "POST",
+				url: "/user/appointment",
+				data: JSON.stringify(arr),
+				dataType: "json",
+				contentType: 'application/json; charset=UTF-8',
+				cache: false,
+				async: false,
+				success: function (res) {
+					if (res.code == 0) {
+						if(userName.substring(0,1) == "S") {
+							location.href = "/user/user_stu3?id=" + res.data.id;
+						}
+					}else {
+						alert(res.msg);
+						$("#userName").val("");
+						$("#passWord").val("");
+						$("#userName").focus();
+						return false;
+					}
+				}
+			})
+		}
 	});
 
 

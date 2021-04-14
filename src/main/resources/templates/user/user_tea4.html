@@ -63,35 +63,35 @@
 
 		if(typeof stuNo == "undefined" ||  stuNo == ""){
 			alert("[[#{tea4.info}]]");
-		}
-
-		let object = {
-			workType:workType,
-			attType:company,
-			stuNo:stuNo
-		}
-		let data = JSON.stringify(object)
-
-		$.ajax({
-			type: "POST",
-			url: "/user/signIn",
-			data: data,
-			dataType: "json",
-			contentType: 'application/json; charset=UTF-8',
-			cache: false,
-			async: false,
-			success: function (res) {
-				if (res.code == 0) {
-						location.href = "/user/user_tea5?id=" + res.data.id;
-				}else {
-					alert(res.msg);
-					$("#userName").val("");
-					$("#passWord").val("");
-					$("#userName").focus();
-					return false;
-				}
+		}else{
+			let object = {
+				workType:workType,
+				attType:company,
+				stuNo:stuNo
 			}
-		})
+			let data = JSON.stringify(object)
+
+			$.ajax({
+				type: "POST",
+				url: "/user/signIn",
+				data: data,
+				dataType: "json",
+				contentType: 'application/json; charset=UTF-8',
+				cache: false,
+				async: false,
+				success: function (res) {
+					if (res.code == 0) {
+						location.href = "/user/user_tea5?id=" + res.data.id;
+					}else {
+						alert(res.msg);
+						$("#userName").val("");
+						$("#passWord").val("");
+						$("#userName").focus();
+						return false;
+					}
+				}
+			})
+		}
 	});
 
 </script>
