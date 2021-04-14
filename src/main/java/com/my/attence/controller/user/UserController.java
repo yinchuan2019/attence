@@ -13,7 +13,6 @@ import com.my.attence.entity.AttAppointment;
 import com.my.attence.entity.AttRecord;
 import com.my.attence.entity.AttStudent;
 import com.my.attence.entity.AttTeacher;
-import com.my.attence.exception.BusinessException;
 import com.my.attence.modal.request.AttAppointmentDto;
 import com.my.attence.modal.request.AttRecordDto;
 import com.my.attence.modal.request.SysAdminDto;
@@ -76,7 +75,7 @@ public class UserController {
                 return R.fail("老师不存在");
             }
             if (!PasswordUtils.matchesNoSalt(one.getTeaPwd(), dto.getPassword())) {
-                throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
+                return R.fail("用户名或密码错误");
             }
             request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
 
@@ -87,7 +86,7 @@ public class UserController {
                 return R.fail("学生不存在");
             }
             if (!PasswordUtils.matchesNoSalt(one.getStuPwd(), dto.getPassword())) {
-                throw new BusinessException(BaseResponseCode.PASSWORD_ERROR);
+                return R.fail("用户名或密码错误");
             }
             request.getSession().setAttribute(Constant.LOGIN_SESSION_USER, one.getLoginId());
         }else {
