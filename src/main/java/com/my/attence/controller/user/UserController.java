@@ -131,11 +131,13 @@ public class UserController {
                     if (student == null) {
                         return R.fail("user.info3");
                     }
-                    if(Integer.parseInt(student.getStuCourse2()) < 1){
+                    if(Double.parseDouble(student.getStuCourse2()) < 1){
                         return R.fail("user.info9");
                     }
-                    final Duration between = Duration.between(entity.getBeginDate(), entity.getEndDate());
-                    final long l = Integer.parseInt(student.getStuCourse2()) - between.toMinutes();
+                    final long between = Duration.between(entity.getBeginDate(), entity.getEndDate()).toMinutes();
+                    double sum = new BigDecimal((float)between/60).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+                    final double l = Double.parseDouble(student.getStuCourse2()) - sum;
                     if(l < 0){
                         return R.fail("user.info10");
                     }
@@ -162,11 +164,11 @@ public class UserController {
 
                 attAppointmentService.save(entity);
                 if(classType.equals(ClassTypeEnum.CLASS_COURSE0)){
-                    int i = Integer.parseInt(student.getStuCourse0()) - 3;
+                    double i = Double.parseDouble(student.getStuCourse0()) - 3;
                     student.setStuCourse0(String.valueOf(i));
                     attStudentService.updateById(student);
                 }else if(classType.equals(ClassTypeEnum.CLASS_COURSE1)){
-                    int i = Integer.parseInt(student.getStuCourse1()) - 3;
+                    double i = Double.parseDouble(student.getStuCourse1()) - 3;
                     student.setStuCourse1(String.valueOf(i));
                     attStudentService.updateById(student);
                 }
