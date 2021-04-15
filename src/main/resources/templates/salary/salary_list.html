@@ -11,69 +11,69 @@
     </style>
 </head>
 <body>
-<div class="panel panel-default operation_user" hidden>
-    <div class="panel-heading title"></div>
-    <div class="layui-card-body">
-        <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
-            <input name="id" hidden/>
-            <div class="layui-form-item">
-                <label class="layui-form-label">学号</label>
-                <div class="layui-input-block">
-                    <input name="teaNo" placeholder="请输入学号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-form-label ">费用</div>
-                <div class="layui-input-block">
-                    <input name="salary" value="0" placeholder="请输入费用" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-form-label ">开始时间</div>
-                <div class="layui-input-block">
-                    <input type="text" name="beginDate" readonly class="layui-input" id="beginDate" placeholder="签到开始时间">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-form-label ">结束时间</div>
-                <div class="layui-input-block">
-                    <input type="text" name="endDate" readonly class="layui-input" id="endDate" placeholder="签到结束时间">
-                </div>
-            </div>
+<!--<div class="panel panel-default operation_user" hidden>-->
+<!--    <div class="panel-heading title"></div>-->
+<!--    <div class="layui-card-body">-->
+<!--        <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">-->
+<!--            <input name="id" hidden/>-->
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label">[[#{tea_id}]]</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input name="teaNo" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+<!--                <div class="layui-form-label ">费用</div>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input name="salary" value="0" placeholder="请输入费用" autocomplete="off" class="layui-input">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+<!--                <div class="layui-form-label ">[[#{beginDate}]]</div>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" name="beginDate" readonly class="layui-input" id="beginDate" th:placeholder="#{beginDate.infor}">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+<!--                <div class="layui-form-label ">[[#{endDate}]]</div>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" name="endDate" readonly class="layui-input" id="endDate" th:placeholder="#{endDate.infor}">-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
-                    <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+<!--            <div class="layui-form-item">-->
+<!--                <div class="layui-input-block">-->
+<!--                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">[[#{save}]]</button>-->
+<!--                    <button class="layui-btn layui-btn-primary" id="btn_cancel">[[#{cancel}]]</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 <div class="user_table_div">
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="teaNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
+                <input type="text" id="teaNo" class="layui-input" autocomplete="off" th:placeholder="#{infor1}">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="teaName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
+                <input type="text" id="teaName" class="layui-input" autocomplete="off" th:placeholder="#{infor2}">
             </div>
-            <div class="layui-input-inline">
-                <input type="text" readonly class="layui-input" id="createTime" placeholder="签到时间">
-            </div>
-            <div class="layui-input-inline layui-form">
-                <select id="workType">
-                    <option value="">请选择类型</option>
-                    <option value="CLASS_MAKE">VIP作品集研究计划</option>
-                    <option value="CLASS_WORK">事务工作</option>
-                    <option value="CLASS_OTHER">其他</option>
-                    <option value="CLASS_COURSE0">小论文</option>
-                    <option value="CLASS_COURSE1">模拟面接</option>
-                </select>
-            </div>
+<!--            <div class="layui-input-inline">-->
+<!--                <input type="text" readonly class="layui-input" id="createTime" th:placeholder="#{info3}">-->
+<!--            </div>-->
+<!--            <div class="layui-input-inline layui-form">-->
+<!--                <select id="workType">-->
+<!--                    <option value="">[[#{type}]]</option>-->
+<!--                    <option value="CLASS_MAKE">[[#{stu_course2}]]</option>-->
+<!--                    <option value="CLASS_WORK">[[#{type1}]]</option>-->
+<!--                    <option value="CLASS_OTHER">[[#{type2}]]</option>-->
+<!--                    <option value="CLASS_COURSE0">[[#{stu_course0}]]</option>-->
+<!--                    <option value="CLASS_COURSE1">[[#{stu_course1}]]</option>-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="layui-input-inline ">
-                <button class="layui-btn" onclick="search()" id="search">查询</button>
+                <button class="layui-btn" onclick="search()" id="search">[[#{search}]]</button>
             </div>
         </div>
 
@@ -89,8 +89,8 @@
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">[[#{edit}]]</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">[[#{del}]]</a>
 </script>
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
@@ -125,20 +125,20 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'},
-                    {field: 'teaNo', title: '学号', width: 180},
-                    {field: 'teaName', title: '姓名', width: 180},
+                    {field: 'teaNo', title: '[[#{tea_id}]]', width: 180},
+                    {field: 'teaName', title: '[[#{tea_nm_kanji}]]', width: 180},
                     {
-                        field: 'attType', title: '签到类型', width: 180, templet: function (item) {
+                        field: 'attType', title: '[[#{where}]]', width: 180, templet: function (item) {
                             if (item.attType === 1) {
-                                return "社内";
+                                return "[[#{inCompany}]]";
                             }
                             if (item.attType === 2) {
-                                return "社外";
+                                return "[[#{outCompany}]]";
                             }
                         }
                     },
-                    {field: 'workType', title: '类型', width: 180},
-                    {field: 'salary', title: '薪资', width: 180},
+                    {field: 'workType', title: '[[#{type}]]', width: 180},
+                    {field: 'salary', title: '[[#{salary}]]', width: 180},
                 ]
             ]
             , toolbar: '#toolbar'
@@ -185,17 +185,17 @@
                     var checkStatus = table.checkStatus(obj.config.id);
                     var data = checkStatus.data;
                     if (data.length == 0) {
-                        layer.msg("请选择要更新的学生");
+                        layer.msg("[[#{tea_info4}]]");
                     } else {
                         var userIds = [];
                         $(data).each(function (index, item) {
                             userIds.push(item.id);
                         });
-                        updlog(userIds, "选中的");
+                        updlog(userIds, "[[#{tea_info5}]]");
                     }
                     break;
                 case 'addAtt':
-                    $(".title").html("新增");
+                    $(".title").html("type");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
@@ -214,7 +214,7 @@
                 case 'edit':
                     $(".user_table_div").hide();
                     $(".operation_user").show();
-                    $(".title").html("编辑");
+                    $(".title").html("[[#{edit}]]");
                     form.val('operation_form', data);
 
                     break;
@@ -227,7 +227,7 @@
         });
         var updlog = function (userIds, username) {
             layer.open({
-                content: '确定要更新' + username + "用户么?",
+                content: '[[#{tea_info6}]]' + username + "[[#{tea_info7}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendPut("/attence/salary", userIds, function (res) {
@@ -240,7 +240,7 @@
 
         var dellog = function (userIds, username) {
             layer.open({
-                content: '确定要删除' + username + "么?",
+                content: '[[#{tea_info8}]]' + username + "[[#{tea_info9}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendDelete("/attence/salary", userIds, function (res) {

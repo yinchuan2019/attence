@@ -17,7 +17,7 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <div class="layui-form-label ">[[#{login_id}]]</div>
+                <div class="layui-form-label ">[[#{stu_id}]]</div>
                 <div class="layui-input-block">
                     <input name="loginId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
@@ -323,7 +323,7 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="loginId" class="layui-input" autocomplete="off" th:placeholder="#{login_id}">
+                <input type="text" id="loginId" class="layui-input" autocomplete="off" th:placeholder="#{stu_id}">
             </div>
             <div class="layui-input-inline">
                 <input type="text" id="stuNmKanji" class="layui-input" autocomplete="off" th:placeholder="#{stu_nm_kanji}">
@@ -389,7 +389,7 @@
     var cols = [
         [
             {type: 'radio', fixed: 'left'},
-            {field: 'loginId', title: '[[#{login_id}]]', width: 130},
+            {field: 'loginId', title: '[[#{stu_id}]]', width: 130},
             {field: 'stuNmKanji', title: '[[#{stu_nm_kanji}]]', width: 130},
             {field: 'stuNmRoma', title: '[[#{stu_nm_roma}]]', width: 130},
             {field: 'stuKokuseki', title: '[[#{stu_kokuseki}]]', width: 130},

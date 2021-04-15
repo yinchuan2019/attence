@@ -17,7 +17,7 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <div class="layui-form-label ">[[#{login_id}]]</div>
+                <div class="layui-form-label ">[[#{tea_id}]]</div>
                 <div class="layui-input-block">
                     <input name="loginId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
@@ -178,7 +178,7 @@
     var cols = [
         [
             {type: 'radio', fixed: 'left'},
-            {field: 'loginId', title: '[[#{login_id}]]', width: 130},
+            {field: 'loginId', title: '[[#{tea_id}]]', width: 130},
             {field: 'teaNmKanji', title: '[[#{tea_nm_kanji}]]', width: 130},
             {field: 'teaNmRoma', title: '[[#{tea_nm_roma}]]', width: 120},
             {field: 'teaEmail', title: '[[#{tea_email}]]', width: 120},

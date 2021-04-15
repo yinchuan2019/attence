@@ -16,27 +16,27 @@
             <input name="pid" hidden/>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">角色名称</label>
+                <label class="layui-form-label">[[#{role.name}]]</label>
                 <div class="layui-input-block">
-                    <input type="name" name="name" placeholder="角色名称" autocomplete="off" class="layui-input">
+                    <input type="name" name="name" th:placeholder="#{role.name}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">备注</div>
+                <div class="layui-form-label ">[[#{role.remake}]]</div>
                 <div class="layui-input-block">
-                    <input type="description" name="description" placeholder="请输入备注信息" autocomplete="off"
+                    <input type="description" name="description" th:placeholder="#{role.name}" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">状态</label>
+                <label class="layui-form-label">[[#{role.status}]]</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="status" lay-skin="switch" lay-filter="switch" lay-text="启用|禁用" checked>
+                    <input type="checkbox" name="status" lay-skin="switch" lay-filter="switch" th:lay-text="#{role.statusVal}" checked>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">请选择权限</label>
+                <label class="layui-form-label">[[#{role.info1}]]</label>
             </div>
             <div class="layui-form-item" >
                 <div class="layui-tree">
@@ -45,8 +45,8 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
-                    <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">[[#{save}]]</button>
+                    <button class="layui-btn layui-btn-primary" id="btn_cancel">[[#{cancel}]]</button>
                 </div>
             </div>
         </form>
@@ -57,18 +57,18 @@
     <div id="searchParam" shiro:hasPermission="sys:role:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="roleName" class="layui-input" autocomplete="off" placeholder="请输入角色名称">
+                <input type="text" id="roleName" class="layui-input" autocomplete="off" th:placeholder="#{role.name}">
             </div>
 
             <div class="layui-input-inline layui-form">
                 <select id="status">
-                    <option value="">请选择角色状态</option>
-                    <option value="1">正常</option>
-                    <option value="0">弃用</option>
+                    <option value="">[[#{role.info12}]]</option>
+                    <option value="1">[[#{role.status1}]]</option>
+                    <option value="0">[[#{role.status2}]]</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
-                <button class="layui-btn" onclick="search()" id="search">查询</button>
+                <button class="layui-btn" onclick="search()" id="search">[[#{search}]]</button>
             </div>
         </div>
 
@@ -78,12 +78,12 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addNewRole" shiro:hasPermission="sys:role:add" th:placeholder="#{login.user}">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addNewRole" shiro:hasPermission="sys:role:add" th:placeholder="#{login.user}">[[#{add}]]</button>
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update"><span th:text="#{common.edit}"/></a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:role:deleted">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update"><span th:text="#{edit}"/></a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:role:deleted">[[#{del}]]</a>
 </script>
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
@@ -103,21 +103,21 @@
     var cols = [
         [
             {type: 'checkbox', fixed: 'left'},
-            {field: 'name', title: '角色名称', width: 200},
-            {field: 'createTime', title: '创建时间', minWidth: 120},
-            {field: 'updateTime', title: '更新时间', minWidth: 120},
+            {field: 'name', title: '[[#{role.name}]]', width: 200},
+            {field: 'createTime', title: '[[#{create_time}]]', minWidth: 120},
+            {field: 'updateTime', title: '[[#{update_time}]]', minWidth: 120},
             {
-                field: 'status', title: '状态', width: 100, templet: function (item) {
+                field: 'status', title: '[[#{role.status}]]', width: 100, templet: function (item) {
                     if (item.status === 1) {
-                        return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" checked disabled>';
+                        return '  <input type="checkbox" lay-skin="switch" th:lay-text="[[#{role.statusVal}]]" checked disabled>';
                     }
                     if (item.status === 0) {
-                        return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" disabled>';
+                        return '  <input type="checkbox" lay-skin="switch" th:lay-text="[[#{role.statusVal}]]" disabled>';
                     }
                 }
             },
-            {field: 'description', title: '描述', width: 300},
-            {title: '操作', width: 250, toolbar: '#tool'}
+            {field: 'description', title: '[[#{role.description}]]', width: 300},
+            {title: '[[#{operation}]]', width: 250, toolbar: '#tool'}
         ]
     ]
 
@@ -267,7 +267,7 @@
 
         var tipDialog = function (id) {
             layer.open({
-                content: '确定要删除么',
+                content: '[[#{role.info}]]',
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendDelete("/sys/role/" + id, null, function (res) {

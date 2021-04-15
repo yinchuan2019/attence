@@ -17,27 +17,27 @@
         <form class="layui-form" action="" lay-filter="operation_form" id="operation_form" style="width: 700px;margin-top: 10px">
             <input name="id" hidden/>
             <div class="layui-form-item">
-                <label class="layui-form-label">学号</label>
+                <label class="layui-form-label">[[#{stu_id}]]</label>
                 <div class="layui-input-block">
-                    <input name="stuNo" placeholder="请输入学号" autocomplete="off" class="layui-input" readonly>
+                    <input name="stuNo" th:placeholder="#{stu_id}" autocomplete="off" class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">学生姓名</div>
+                <div class="layui-form-label ">[[#{appointment.stu}]]</div>
                 <div class="layui-input-block">
-                    <input name="stuName" placeholder="请输入姓名" autocomplete="off" class="layui-input" readonly>
+                    <input name="stuName" th:placeholder="#{appointment.stu}" autocomplete="off" class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">预约开始时间</div>
+                <div class="layui-form-label ">[[#{appointment.start}]]</div>
                 <div class="layui-input-block">
-                    <input type="text" name="beginDate" readonly class="layui-input" id="beginDate" placeholder="签到开始时间">
+                    <input type="text" name="beginDate" readonly class="layui-input" id="beginDate" th:placeholder="#{appointment.start}">
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-form-label ">预约结束时间</div>
+                <div class="layui-form-label ">[[#{appointment.end}]]</div>
                 <div class="layui-input-block">
-                    <input type="text" name="endDate" readonly class="layui-input" id="endDate" placeholder="签到结束时间">
+                    <input type="text" name="endDate" readonly class="layui-input" id="endDate" th:placeholder="#{appointment.end}">
                 </div>
             </div>
             <!--<div class="layui-form-item">
@@ -50,8 +50,8 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
-                    <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">[[#{save}]]</button>
+                    <button class="layui-btn layui-btn-primary" id="btn_cancel">[[#{cancel}]]</button>
                 </div>
             </div>
         </form>
@@ -61,22 +61,22 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="stuNo" class="layui-input" autocomplete="off" placeholder="请输入学号">
+                <input type="text" id="stuNo" class="layui-input" autocomplete="off" th:placeholder="#{appointment.info1}">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="stuName" class="layui-input" autocomplete="off" placeholder="请输入姓名">
+                <input type="text" id="stuName" class="layui-input" autocomplete="off" th:placeholder="#{appointment.info2}">
             </div>
             <div class="layui-input-inline layui-form">
                 <select id="classType">
-                    <option value="">请选择预约类型</option>
-                    <option value="CLASS_MAKE">课题制作</option>
-                    <option value="CLASS_VIP">VIP作品集研究计划</option>
-                    <option value="CLASS_COURSE0">小论文</option>
-                    <option value="CLASS_COURSE1">模拟面接</option>
+                    <option value="">[[#{appointment.typeSelect}]]</option>
+                    <option value="CLASS_MAKE">[[#{appointment.projectProduction}]]</option>
+                    <option value="CLASS_VIP">[[#{stu_course2}]]</option>
+                    <option value="CLASS_COURSE0">[[#{stu_course0}]]</option>
+                    <option value="CLASS_COURSE1">[[#{stu_course1}]]</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
-                <button class="layui-btn" onclick="search()" id="search">查询</button>
+                <button class="layui-btn" onclick="search()" id="search">[[#{search}]]</button>
             </div>
         </div>
 
@@ -88,12 +88,12 @@
 </body>
 <script type="text/html" id="toolbar">
     <!--<div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addAtt" shiro:hasPermission="sys:user:add">人工补签</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addAtt" shiro:hasPermission="sys:user:add">[[#{info6}]]</button>
     </div>-->
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">[[#{edit}]]</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">[[#{del}]]</a>
 </script>
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
@@ -128,27 +128,27 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'},
-                    {field: 'stuNo', title: '学号', width: 130},
-                    {field: 'stuName', title: '学生姓名', width: 130},
-                    {field: 'teaNo', title: '讲师编号', width: 130},
-                    {field: 'teaName', title: '讲师姓名', width: 130},
-                    {field: 'beginDate', title: '开始预约时间', width: 160},
-                    {field: 'endDate', title: '结束预约时间', width: 160},
-                    {field: 'classRoom', title: '教室', width: 160},
-                    {field: 'classType', title: '课程类型', width: 160},
+                    {field: 'stuNo', title: '[[#{stu_id}]]', width: 130},
+                    {field: 'stuName', title: '[[#{appointment.stu}]]', width: 130},
+                    {field: 'teaNo', title: '[[#{tea_id}]]', width: 130},
+                    {field: 'teaName', title: '[[#{appointment.sea}]]', width: 130},
+                    {field: 'beginDate', title: '[[#{appointment.start}]]', width: 160},
+                    {field: 'endDate', title: '[[#{appointment.end}]]', width: 160},
+                    {field: 'classRoom', title: '[[#{appointment.classRoom}]]', width: 160},
+                    {field: 'classType', title: '[[#{appointment.type}]]', width: 160},
                     {
-                        field: 'attType', title: '预约类型', width: 100, templet: function (item) {
+                        field: 'attType', title: '[[#{appointment.applytype}]]', width: 100, templet: function (item) {
                             if (item.attType === 1) {
-                                return "教师预约";
+                                return "[[#{appointment.applytype1}]]";
                             }
                             if (item.attType === 2) {
-                                return "学生预约";
+                                return "[[#{appointment.applytype2}]]";
                             }
                         }
                     },
-                    {field: 'createTime', title: '创建时间', minWidth: 120},
-                    {field: 'updateTime', title: '更新时间', minWidth: 120},
-                    {width: 300, toolbar: "#tool", title: '操作'}
+                    {field: 'createTime', title: '[[#{create_time}]]', minWidth: 120},
+                    {field: 'updateTime', title: '[[#{update_time}]]', minWidth: 120},
+                    {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
                 ]
             ]
             , toolbar: '#toolbar'
@@ -195,17 +195,17 @@
                     var checkStatus = table.checkStatus(obj.config.id);
                     var data = checkStatus.data;
                     if (data.length == 0) {
-                        layer.msg("请选择要更新的学生");
+                        layer.msg("[[#{stu_select_tips}]]");
                     } else {
                         var userIds = [];
                         $(data).each(function (index, item) {
                             userIds.push(item.id);
                         });
-                        updlog(userIds, "选中的");
+                        updlog(userIds, "[[#{tea_info5}]]");
                     }
                     break;
                 case 'addAtt':
-                    $(".title").html("新增");
+                    $(".title").html("[[#{tea_add}]]");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
@@ -224,7 +224,7 @@
                 case 'edit':
                     $(".user_table_div").hide();
                     $(".operation_user").show();
-                    $(".title").html("编辑");
+                    $(".title").html("[[#{edit}]]");
                     form.val('operation_form', data);
 
                     break;
@@ -237,7 +237,7 @@
         });
         var updlog = function (userIds, username) {
             layer.open({
-                content: '确定要更新' + username + "用户么?",
+                content: '[[#{tea_info6}]]' + username + "[[#{tea_info7}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendPut("/attence/appointment", userIds, function (res) {
@@ -250,7 +250,7 @@
 
         var dellog = function (userIds, username) {
             layer.open({
-                content: '确定要删除' + username + "么?",
+                content: '[[#{tea_info8}]]' + username + "[[#{tea_info9}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendDelete("/attence/appointment", userIds, function (res) {
