@@ -25,8 +25,6 @@ spring:
       additional-paths: src/main/java
       #classpath目录下的WEB-INF文件夹内容修改不重启
       spring.devtools.restart.exclude: WEB-INF/**
-  messages:
-    basename: messages/message_ja_Jp
   mail:
     host: smtp.gmail.com
     username: office@shangyistudiotokyo.com

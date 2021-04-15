@@ -1,10 +1,12 @@
 package com.my.attence.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
@@ -25,26 +28,35 @@ import java.util.ResourceBundle;
  * TODO
  */
 @Configuration
+@EnableAutoConfiguration
+@ComponentScan
 public class MessageConfig extends WebMvcConfigurerAdapter {
 
-
+    @Bean
+    public ResourceBundleMessageSource messageSource(){
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages/message");
+        return messageSource;
+    }
 
 
     @Bean
     public LocaleResolver localeResolver() {
-
-        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-
+        CookieLocaleResolver localeResolver = new CookieLocaleResolver();
+        localeResolver.setCookieName("localeCookie");
         //设置默认区域
-        localeResolver.setDefaultLocale(Locale.CHINESE); // 默认简化汉语
+        localeResolver.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
+        localeResolver.setCookieMaxAge(3600);//设置cookie有效期.
         return localeResolver;
     }
+
+
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
         // 参数名
-        lci.setParamName("l");
+        lci.setParamName("lang");
         return lci;
     }
 
@@ -53,12 +65,5 @@ public class MessageConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-    /*@Bean
-    @ConditionalOnMissingBean
-    public MessageSourceProperties messageSourceProperties() {
-        MessageSourceProperties source = new MessageSourceProperties();
-        source.setBasename("messages/message_zh_CN");// name of the resource bundle
-        return source;
-    }*/
 
 }

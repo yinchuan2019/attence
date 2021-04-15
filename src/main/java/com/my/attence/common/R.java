@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
+import sun.util.locale.LocaleUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.Locale;
@@ -21,13 +23,13 @@ import java.util.MissingResourceException;
 public class R {
 
     @Autowired
-    private ResourceBundleMessageSource resourceBundleMessageSource;
+    private ResourceBundleMessageSource messageSource;
 
-    private static ResourceBundleMessageSource messageSource;
+    private static ResourceBundleMessageSource resourceBundleMessageSource;
 
     @PostConstruct
     public void init(){
-        R.messageSource = this.resourceBundleMessageSource;
+        R.resourceBundleMessageSource = this.messageSource;
     }
 
     /**
@@ -101,10 +103,10 @@ public class R {
             if(msg.contains(":")){
                 temp = msg.split(":")[0];
                 temp1 = msg.split(":")[1];
-                result = messageSource.getMessage(temp, null, Locale.getDefault());
+                result = resourceBundleMessageSource.getMessage(temp, null, LocaleContextHolder.getLocale());
                 result = result + ":" + temp1;
             }else {
-                result = messageSource.getMessage(msg, null, Locale.getDefault());
+                result = resourceBundleMessageSource.getMessage(msg, null, LocaleContextHolder.getLocale());
             }
             return new R(1,result);
         }catch (MissingResourceException e){
