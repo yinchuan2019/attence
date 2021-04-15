@@ -3,7 +3,13 @@ package com.my.attence.common;
 import com.my.attence.utils.MessageUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.util.Locale;
 import java.util.MissingResourceException;
 
 /**
@@ -11,7 +17,19 @@ import java.util.MissingResourceException;
  * TODO
  */
 @Data
+@Component
 public class R {
+
+    @Autowired
+    private ResourceBundleMessageSource resourceBundleMessageSource;
+
+    private static ResourceBundleMessageSource messageSource;
+
+    @PostConstruct
+    public void init(){
+        R.messageSource = this.resourceBundleMessageSource;
+    }
+
     /**
      * 请求响应code，0为成功 其他为失败
      */
@@ -83,10 +101,10 @@ public class R {
             if(msg.contains(":")){
                 temp = msg.split(":")[0];
                 temp1 = msg.split(":")[1];
-                result = MessageUtils.bundle.getString(temp);
+                result = messageSource.getMessage(temp, null, Locale.getDefault());
                 result = result + ":" + temp1;
             }else {
-                result = MessageUtils.bundle.getString(msg);
+                result = messageSource.getMessage(msg, null, Locale.getDefault());
             }
             return new R(1,result);
         }catch (MissingResourceException e){
@@ -99,6 +117,7 @@ public class R {
     public static R getResult(int code, String msg){
         return new R(code,msg);
     }
+
 
 
 }
