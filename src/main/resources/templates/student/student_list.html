@@ -539,7 +539,7 @@
                     }
                     break;
                 case 'addStudent':
-                    $(".title").html("新增");
+                    $(".title").html("[[#{add}]]");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
@@ -575,7 +575,7 @@
         });
         var updlog = function (userId, username) {
             layer.open({
-                content: '确定要更新' + username + "用户么?",
+                content: '[[#{tea_info6}]]' + username + "[[#{tea_info7}]]",
                 yes: function (index) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendPut("/attence/student_status", userId, function (res) {
@@ -588,7 +588,7 @@
 
         var dellog = function (userIds, username) {
             layer.open({
-                content: '确定要删除' + username + "么?",
+                content: '[[#{tea_info8}]]' + username + "[[#{tea_info9}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendDelete("/attence/student", userIds, function (res) {
