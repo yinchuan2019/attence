@@ -40,7 +40,7 @@ public class AttStudentController {
         AttStudent entity = new AttStudent();
         BeanUtil.copyProperties(dto,entity);
         entity.setStuStatus(1);
-        entity.setStuPwd("111111");
+        //entity.setStuPwd("111111");
         final AttStudent student = attStudentService.findByLoginId(dto.getLoginId());
         if(student != null){
             return R.fail("用户id已经存在");
