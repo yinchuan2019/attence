@@ -306,6 +306,7 @@ public class UserController {
             wrapper.in(AttAppointment::getClassType,classTypeList);
         }
         wrapper.ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
+        wrapper.orderByDesc(AttAppointment::getBeginDate);
 
         if(loginId.startsWith(Constant.START_WITH_T)){
             wrapper.eq(AttAppointment::getTeaNo, loginId);
