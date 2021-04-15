@@ -36,6 +36,7 @@ public class MessageConfig extends WebMvcConfigurerAdapter {
     public ResourceBundleMessageSource messageSource(){
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages/message");
+        messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
 

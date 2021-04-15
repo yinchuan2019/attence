@@ -34,7 +34,7 @@ public class IndexController {
         return "admin/admin_list" ;
     }
 
-    @GetMapping("/admin/info")
+    @GetMapping("/admin_edit")
     public String userDetail(Model model) {
         this.addAttribute(model);
         return "admin/admin_edit" ;
