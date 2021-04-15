@@ -116,15 +116,15 @@ public class AttSalaryController {
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(queryWrapper);
         //讲师姓名 - 工作类型 - 出勤类型 - 总工资
-        Map<String, Map<String, Map<Integer, Long>>> map = list.stream().filter(e -> e.getEndDate() != null).collect(Collectors.groupingBy(AttRecord::getTeaNo,
+        Map<String, Map<String, Map<Integer, Double>>> map = list.stream().filter(e -> e.getEndDate() != null).collect(Collectors.groupingBy(AttRecord::getTeaNo,
                 Collectors.groupingBy(AttRecord::getWorkType,
                         Collectors.groupingBy(AttRecord::getAttType,
-                                Collectors.summingLong(e -> {
+                                Collectors.summingDouble(e -> {
                                     if(e.getWorkType().equals(ClassTypeEnum.CLASS_OTHER.getName()) ){
-                                        return Integer.parseInt(e.getSalary());
+                                        return Double.parseDouble(e.getSalary());
                                     }else{
                                         long l = Duration.between(e.getBeginDate(), e.getEndDate()).toMinutes();
-                                        return Integer.parseInt(e.getSalary());
+                                        return Double.parseDouble(e.getSalary());
                                     }}
                                 )))));
 
@@ -133,13 +133,13 @@ public class AttSalaryController {
             String key1 = (String) k;
             AttTeacher teacher = attTeacherService.findByLoginId(key1);
 
-            Map<String, Map<Integer, Long>> map1 = map.get(key1);
+            Map<String, Map<Integer, Double>> map1 = map.get(key1);
             for (Object k2 : map1.keySet()) {
                 String key2 = (String) k2;
-                Map<Integer, Long> map2 = map1.get(key2);
+                Map<Integer, Double> map2 = map1.get(key2);
                 for (Object k3 : map2.keySet()) {
                     Integer key3 = (Integer) k3;
-                    Long key4 = map2.get(key3);
+                    Double key4 = map2.get(key3);
 
                     AttRecordDto res = new AttRecordDto();
                     res.setTeaName(teacher.getTeaNmKanji());
