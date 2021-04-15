@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -264,12 +265,12 @@ public class UserController {
             AttRecord attRecord = list.get(0);
             attRecord.setEndDate(DateUtils.getCompleteTime(LocalDateTime.now()));
             final long l = Duration.between(attRecord.getBeginDate(), attRecord.getEndDate()).toMinutes();
-            final long sum = l / 15;
+            double sum = new BigDecimal((float)l/60).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.name())){
-                final long salary1 = sum * Integer.parseInt(teacher.getTeaWage());
+                final double salary1 = sum * (Integer.parseInt(teacher.getTeaWage()));
                 attRecord.setSalary(String.valueOf(salary1));
             }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.name())){
-                final long salary2 = sum * Integer.parseInt(teacher.getTeaOtherWage());
+                final double salary2 = sum * Integer.parseInt(teacher.getTeaOtherWage());
                 attRecord.setSalary(String.valueOf(salary2));
             }
             attRecordService.updateById(attRecord);
