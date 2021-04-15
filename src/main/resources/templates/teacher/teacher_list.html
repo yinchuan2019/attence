@@ -54,11 +54,11 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">老师状态</label>
+                <label class="layui-form-label">[[#{tea_teaStatus}]]</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="teaStatus" value="1" th:title="入职" checked="">
-                    <input type="radio" name="teaStatus" value="0" th:title="离职">
-                    <input type="radio" name="teaStatus" value="2" th:title="转正">
+                    <input type="radio" name="teaStatus" value="1" th:title="#{tea_teaStatus1}" checked="">
+                    <input type="radio" name="teaStatus" value="0" th:title="#{tea_teaStatus2}">
+                    <input type="radio" name="teaStatus" value="2" th:title="#{tea_teaStatus3}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -110,21 +110,21 @@
     <div id="searchParam" shiro:hasPermission="sys:user:list">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="loginId" class="layui-input" autocomplete="off" placeholder="请输入编号">
+                <input type="text" id="loginId" class="layui-input" autocomplete="off" th:placeholder="#{tea_info1}">
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="teaNmKanji" class="layui-input" autocomplete="off" placeholder="请输入姓名">
+                <input type="text" id="teaNmKanji" class="layui-input" autocomplete="off" th:placeholder="#{tea_info2}">
             </div>
             <div class="layui-input-inline layui-form">
                 <select id="teaStatus">
-                    <option value="">请选择账号状态</option>
-                    <option value="1">入职</option>
-                    <option value="0">离职</option>
-                    <option value="2">转正</option>
+                    <option value="">[[#{tea_info3}]]</option>
+                    <option value="1">[[#{tea_teaStatus1}]]</option>
+                    <option value="0">[[#{tea_teaStatus2}]]</option>
+                    <option value="2">[[#{tea_teaStatus3}]]</option>
                 </select>
             </div>
             <div class="layui-input-inline ">
-                <button class="layui-btn" onclick="search()" id="search">查询</button>
+                <button class="layui-btn" onclick="search()" id="search">[[#{search}]]</button>
             </div>
         </div>
 
@@ -136,13 +136,13 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addteacher" shiro:hasPermission="sys:user:add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addteacher" shiro:hasPermission="sys:user:add">[[#{add}]]</button>
         <!--<button class="layui-btn layui-btn-sm" lay-event="batchUpdate" shiro:hasPermission="sys:user:deleted">更新</button>-->
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:user:update">[[#{edit}]]</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">[[#{del}]]</a>
 </script>
 <script src="/layui/layui.all.js"></script>
 <script src="/js/core.util.js"></script>
@@ -181,10 +181,10 @@
             {
                 field: 'teaSex', title: '[[#{tea_sex}]]', width: 100, templet: function (item) {
                     if (item.teaSex === 1) {
-                        return "男";
+                        return "[[#{boy}]]";
                     }
                     if (item.teaSex === 0) {
-                        return "女";
+                        return "[[#{girl}]]";
                     }
                 }
             },
@@ -197,13 +197,13 @@
             {
                 field: 'teaStatus', title: '[[#{tea_status}]]', width: 120, templet: function (item) {
                     if (item.teaStatus === 1) {
-                        return "[[#{status_on}]]";
+                        return "[[#{tea_teaStatus1}]]";
                     }
                     if (item.teaStatus === 0) {
-                        return "[[#{status_off}]]";
+                        return "[[#{tea_teaStatus2}]]";
                     }
                     if (item.teaStatus === 2) {
-                        return "转正";
+                        return "[[#{tea_teaStatus3}]]";
                     }
                 }
             },
@@ -240,17 +240,17 @@
                     var checkStatus = table.checkStatus(obj.config.id);
                     var data = checkStatus.data;
                     if (data.length == 0) {
-                        layer.msg("请选择要更新的");
+                        layer.msg("[[#{tea_info4}]]");
                     } else {
                         var userIds = [];
                         $(data).each(function (index, item) {
                             userIds.push(item.id);
                         });
-                        updlog(userIds, "选中的");
+                        updlog(userIds, "[[#{tea_info5}]]");
                     }
                     break;
                 case 'addteacher':
-                    $(".title").html("新增");
+                    $(".title").html("[[#{tea_add}]]");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
@@ -273,7 +273,7 @@
                 case 'edit':
                     $(".user_table_div").hide();
                     $(".operation_user").show();
-                    $(".title").html("编辑");
+                    $(".title").html("[[#{edit}]]");
                     form.val('operation_form', data);
 
                     break;
@@ -286,7 +286,7 @@
         });
         var updlog = function (userIds, username) {
             layer.open({
-                content: '确定要更新' + username + "用户么?",
+                content: '[[#{tea_info6}]]' + username + "[[#{tea_info7}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendPut("/attence/teacher", userIds, function (res) {
@@ -299,7 +299,7 @@
 
         var dellog = function (userIds, username) {
             layer.open({
-                content: '确定要删除' + username + "么?",
+                content: '[[#{tea_info8}]]' + username + "[[#{tea_info9}]]",
                 yes: function (index, layero) {
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
                     CoreUtil.sendDelete("/attence/teacher", userIds, function (res) {
