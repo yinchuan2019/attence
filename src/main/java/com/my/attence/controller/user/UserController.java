@@ -149,7 +149,8 @@ public class UserController {
                 entity.setStuNo(loginId);
                 LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
                         .eq(AttAppointment::getBeginDate,entity.getBeginDate())
-                        .isNull(AttAppointment::getClassRoom);
+                        .isNull(AttAppointment::getClassRoom)
+                        .orderByDesc(AttAppointment::getBeginDate);
 
                 final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
                 if(attAppointmentList.size() > 19){
@@ -253,7 +254,7 @@ public class UserController {
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                  .eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName())
                  .eq(AttRecord::getTeaNo,loginId).isNull(AttRecord::getEndDate)
-                .orderByDesc(AttRecord::getBeginDate);
+                 .orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(eq);
         if(CollectionUtils.isNotEmpty(list)){
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
@@ -340,7 +341,9 @@ public class UserController {
 
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
                 .eq(AttRecord::getTeaNo, loginId)
-                .ge(AttRecord::getBeginDate, DateUtils.getTodayBegin());
+                .ge(AttRecord::getBeginDate, DateUtils.getTodayBegin())
+                .orderByDesc(AttRecord::getBeginDate);
+
         List<AttRecord> list = attRecordService.list(eq);
         Map<String, List<AttRecord>> collect = list.stream().collect(Collectors.groupingBy(AttRecord::getWorkType));
 

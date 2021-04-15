@@ -91,7 +91,7 @@ public class AttTeacherController {
         if (!StringUtils.isEmpty(dto.getTeaStatus())) {
             queryWrapper.eq(AttTeacher::getTeaStatus, dto.getTeaStatus());
         }
-        queryWrapper.orderByDesc(AttTeacher::getCreateTime);
+        queryWrapper.orderByDesc(AttTeacher::getId);
         IPage page = attTeacherService.page(p, queryWrapper);
         return R.success(page);
     }

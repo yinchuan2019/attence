@@ -110,7 +110,7 @@ public class AttStudentController {
         if (!StringUtils.isEmpty(dto.getStuStatus())) {
             queryWrapper.eq(AttStudent::getStuStatus, dto.getStuStatus());
         }
-        queryWrapper.orderByDesc(AttStudent::getCreateTime);
+        queryWrapper.orderByDesc(AttStudent::getId);
         IPage page = attStudentService.page(p, queryWrapper);
         return R.success(page);
     }
