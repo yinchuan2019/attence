@@ -1,6 +1,5 @@
 package com.my.attence.common;
 
-import com.my.attence.utils.MessageUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;

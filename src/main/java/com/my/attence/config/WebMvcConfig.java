@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.annotation.Resource;
 
@@ -17,13 +18,14 @@ import javax.annotation.Resource;
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Resource
     private LoginInterceptor baseInterceptor;
+    @Resource
+    private LocaleChangeInterceptor localeChangeInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseInterceptor)
                 .addPathPatterns("/**/index/**")
-                .addPathPatterns("/user/**")
-
-        ;
+                .addPathPatterns("/user/**");
+        registry.addInterceptor(localeChangeInterceptor);
     }
 
 

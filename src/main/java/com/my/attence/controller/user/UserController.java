@@ -229,6 +229,9 @@ public class UserController {
             entity.setTeaNo(loginId);
             if(StringUtils.isNotEmpty(dto.getStuNo())){
                 AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
+                if(Objects.isNull(student)){
+                    return R.fail("学号不存在");
+                }
                 entity.setStuName(student.getStuNmKanji());
             }
             if(org.springframework.util.StringUtils.isEmpty(entity.getSalary())){
@@ -486,6 +489,6 @@ public class UserController {
         if(CollectionUtils.isNotEmpty(list)){
             return R.success(list.get(0));
         }
-        return R.fail("");
+        return R.success("");
     }
 }

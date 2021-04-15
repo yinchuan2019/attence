@@ -45,7 +45,7 @@ public class MessageConfig extends WebMvcConfigurerAdapter {
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
         localeResolver.setCookieName("localeCookie");
         //设置默认区域
-        localeResolver.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
+        localeResolver.setDefaultLocale(Locale.JAPAN);
         localeResolver.setCookieMaxAge(3600);//设置cookie有效期.
         return localeResolver;
     }
