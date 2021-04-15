@@ -51,6 +51,4 @@ public class AttRecord extends BaseEntity {
     @TableField(exist = false)
     private String duration;
 
-    @TableField(exist = false)
-    private String salaryOfHour;
 }
