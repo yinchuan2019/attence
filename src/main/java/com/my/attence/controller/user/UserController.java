@@ -1,6 +1,7 @@
 package com.my.attence.controller.user;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -25,6 +26,7 @@ import com.my.attence.utils.PasswordUtils;
 import com.my.attence.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
@@ -397,7 +399,7 @@ public class UserController {
         List<AttRecord> list = attRecordService.list(eq);
         Map<String, Map<Integer, Long>> collect = list.stream().filter(e -> e.getEndDate() != null)
                 .collect(Collectors.groupingBy(o -> {
-                            if(Objects.nonNull(o.getRemarks())){
+                            if(ObjectUtil.isNotEmpty(o.getRemarks())){
                                 return o.getWorkType() +"-"+ o.getRemarks();
                             }else {
                                 return o.getWorkType();
