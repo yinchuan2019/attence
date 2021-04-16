@@ -170,10 +170,7 @@
 
             }
         });
-        form.on('switch(switch)', function () {
-            $(".operation_role input[name=status]").attr('type', 'hidden').val(this.checked ? 1 : 2);
 
-        });
         table.on('toolbar(user_table)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
@@ -196,9 +193,12 @@
                     $("#leftTree").hide();
                     $(".operation_user").show();
                     $("#operation_form")[0].reset();
-                    $(".operation_menu input[name=status]").attr('checked', 'checked');
-                    $(".operation_menu input[name=status]").attr('type', 'hidden').val(1);
-
+                    if (data.status == 1) {
+                        $(".operation_menu input[name=status]").attr('checked', 'checked');
+                        $(".operation_menu input[name=status]").attr('type', 'hidden').val(1);
+                    } else {
+                        $(".operation_menu input[name=status]").attr('type', 'hidden').removeAttr("checked").val(0);
+                    }
                     form.render(); //更新全部
 
                     break;
@@ -218,9 +218,11 @@
                     $("#leftTree").hide();
                     $(".operation_user").show();
                     $(".title").html("[[#{admin.info5}]]");
-                    $(".operation_user input[name=password]").val("");
 
-                    form.val('operation_form', data)
+
+
+                    form.val('operation_form', data);
+
                     form.render(); //更新全部
 
                     break;
@@ -283,7 +285,9 @@
         };
         form.on('switch(switch)', function () {
             $("input[type='checkbox']").val(this.checked ? 1 : 0);
+            $(".operation_user input[name=status]").attr('type', 'hidden').val(this.checked ? 1 : 2);
         });
+
         form.on('submit(submit)', function (data) {
             if (data.field.id === undefined || data.field.id === null || data.field.id === "") {
                 CoreUtil.sendPost("/sys/user", data.field, function (res) {

@@ -32,7 +32,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{role.status}]]</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="status" lay-skin="switch" lay-filter="switch" th:lay-text="#{role.statusVal}" checked>
+                    <input type="checkbox" name="status" value="1" lay-skin="switch" lay-filter="switch" th:lay-text="#{role.statusVal}" checked>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -178,7 +178,6 @@
             }
         });
         table.on('tool(role_table)', function (obj) {
-            var data = obj.data;
             switch (obj.event) {
                 case 'del':
                     tipDialog(data.id);
