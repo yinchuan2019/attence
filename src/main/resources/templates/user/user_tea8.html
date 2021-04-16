@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>[[#{tea8.title}]]</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/css/common.css" rel="stylesheet"/>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"/>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/common.js"></script>
+
+</head>
+<body>
+<div class="wrapper fadeInDown">
+	<div id="formContent">
+		<!-- Tabs Titles -->
+
+		<!-- Icon -->
+		<div class="fadeIn first">
+			<img src="/images/logo.gif" id="icon" alt="User Icon" />
+		</div>
+
+		<!-- Form -->
+		<form onclick="return false">
+			<legend>[[#{tea8.title}]]</legend>
+			<div class="row">
+				<label id="classType" class="control-label"></label>
+			</div>
+			<div class="row">
+				<label id="classRoom" class="control-label"></label>
+			</div>
+
+			<div class="row">
+				<label id="beginDate" class="control-label"></label>
+			</div>
+			<div class="row">
+				<label id="endDate" class="control-label"></label>
+			</div>
+			<div class="row">
+				<label id="stuNo" class="control-label"></label>
+			</div>
+			<div class="row">
+				<input type="submit" id="top" th:value="#{tea8.top}" class="btn btn-primary btn-wide" />
+			</div>
+		</form>
+
+		<!-- fotter -->
+		<div id="formFooter">
+			<p>[[#{tea8.tip1}]]<span class="label label-danger">[[#{tea8.tip2}]]</span></p>
+		</div>
+
+	</div>
+</div>
+<script>
+	$('#icon').click(function (){
+		location.href = "/user/user_tea1";
+	});
+
+	$('#top').click(function (){
+		location.href = "/user/user_tea1";
+	});
+
+	$(function(){
+		var userName = sessionStorage.getItem('userName');//获取sessionStorage对象中的数据
+
+		let id = getQueryVariable("id");
+
+
+		let object = {
+			id:id
+		}
+		let data = JSON.stringify(object)
+
+		$.ajax({
+			type: "POST",
+			url: "/user/findAppointment",
+			data: data,
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			cache: false,
+			async: false,
+			success: function (res) {
+				if (res.code == 0) {
+					$("#classType").html(res.data.classType);
+					$("#classRoom").html("[[#{tea8.classRoom}]]" + res.data.classRoom);
+					$("#beginDate").html(res.data.beginDate);
+					$("#endDate").html(res.data.endDate);
+					$("#stuNo").html("[[#{tea8.stuNo}]]" + res.data.stuNo);
+
+				}else {
+					alert(res.msg);
+					$("#userName").val("");
+					$("#passWord").val("");
+					$("#userName").focus();
+					return false;
+				}
+			}
+		})
+	});
+</script>
+</body>
+
+</html>
