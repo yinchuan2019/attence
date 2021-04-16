@@ -18,13 +18,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">[[#{role.name}]]</label>
                 <div class="layui-input-block">
-                    <input type="name" name="name" th:placeholder="#{role.name}" autocomplete="off" class="layui-input">
+                    <input type="name" name="name" th:placeholder="#{admin.info}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{role.remake}]]</div>
                 <div class="layui-input-block">
-                    <input type="description" name="description" th:placeholder="#{role.name}" autocomplete="off"
+                    <input type="description" name="description" th:placeholder="#{admin.info}" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
@@ -187,7 +187,7 @@
                     $(".role_table_div").hide();
                     //显示编辑窗口
                     $(".operation_role").show();
-                    $(".title").html("[[#{common.edit}]]");
+                    $(".title").html("[[#{edit}]]");
                     getRoleDetail(data.id);
                     break;
             }

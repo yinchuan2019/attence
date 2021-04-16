@@ -179,8 +179,22 @@
         [
             {type: 'radio', fixed: 'left'},
             {field: 'loginId', title: '[[#{tea_id}]]', width: 130},
+            {field: 'teaPwd', title: '[[#{tea_pwd}]]', width: 130},
             {field: 'teaNmKanji', title: '[[#{tea_nm_kanji}]]', width: 130},
             {field: 'teaNmRoma', title: '[[#{tea_nm_roma}]]', width: 120},
+            {
+                field: 'teaStatus', title: '[[#{tea_status}]]', width: 120, templet: function (item) {
+                    if (item.teaStatus === 1) {
+                        return "[[#{tea_teaStatus1}]]";
+                    }
+                    if (item.teaStatus === 0) {
+                        return "[[#{tea_teaStatus2}]]";
+                    }
+                    if (item.teaStatus === 2) {
+                        return "[[#{tea_teaStatus3}]]";
+                    }
+                }
+            },
             {field: 'teaEmail', title: '[[#{tea_email}]]', width: 120},
             {field: 'teaKokuseki', title: '[[#{tea_kokuseki}]]', width: 120},
 
@@ -200,19 +214,6 @@
             {field: 'teaOtherWage', title: '[[#{tea_other_wage}]]', width: 120},
             {field: 'teaCommutingCost', title: '[[#{tea_commuting_cost}]]', width: 120},
             {field: 'teaBank', title: '[[#{tea_bank}]]', width: 120},
-            {
-                field: 'teaStatus', title: '[[#{tea_status}]]', width: 120, templet: function (item) {
-                    if (item.teaStatus === 1) {
-                        return "[[#{tea_teaStatus1}]]";
-                    }
-                    if (item.teaStatus === 0) {
-                        return "[[#{tea_teaStatus2}]]";
-                    }
-                    if (item.teaStatus === 2) {
-                        return "[[#{tea_teaStatus3}]]";
-                    }
-                }
-            },
             {field: 'createTime', title: '[[#{create_time}]]', width: 130},
             {field: 'updateTime', title: '[[#{update_time}]]', width: 130},
             {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}

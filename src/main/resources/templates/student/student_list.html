@@ -41,6 +41,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">[[#{stu_status}]]</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="stuStatus" value="1" th:title="#{status_on}" checked="">
+                    <input type="radio" name="stuStatus" value="0" th:title="#{status_off}">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{stu_kokuseki}]]</div>
                 <div class="layui-input-block">
                     <input name="stuKokuseki" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
@@ -390,8 +398,19 @@
         [
             {type: 'radio', fixed: 'left'},
             {field: 'loginId', title: '[[#{stu_id}]]', width: 130},
+            {field: 'stuPwd', title: '[[#{stu_pwd}]]', width: 130},
             {field: 'stuNmKanji', title: '[[#{stu_nm_kanji}]]', width: 130},
             {field: 'stuNmRoma', title: '[[#{stu_nm_roma}]]', width: 130},
+            {
+                field: 'stuStatus', title: '[[#{stu_status}]]', width: 100, templet: function (item) {
+                    if (item.stuStatus === 1) {
+                        return "[[#{status_on}]]";
+                    }
+                    if (item.stuStatus === 0) {
+                        return "[[#{status_off}]]";
+                    }
+                }
+            },
             {field: 'stuKokuseki', title: '[[#{stu_kokuseki}]]', width: 130},
             {
                 field: 'stuSex', title: '[[#{stu_sex}]]', width: 100, templet: function (item) {
@@ -446,16 +465,7 @@
             {field: 'stuEnd', title: '[[#{stu_end}]]', width: 130},
             {field: 'stuShangEnd', title: '[[#{stu_shang_end}]]', width: 130},
             {field: 'stuJpEnd', title: '[[#{stu_jp_end}]]', width: 130},
-            {
-                field: 'stuStatus', title: '[[#{stu_status}]]', width: 100, templet: function (item) {
-                    if (item.stuStatus === 1) {
-                        return "[[#{status_on}]]";
-                    }
-                    if (item.stuStatus === 0) {
-                        return "[[#{status_off}]]";
-                    }
-                }
-            },
+
             {field: 'stuDoingJpSchool', title: '[[#{stu_doing_jp_school}]]', width: 130},
             {field: 'stuHomeSchool', title: '[[#{stu_home_school}]]', width: 130},
             {
@@ -504,6 +514,10 @@
             {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
         ]
     ]
+
+    form.on('switch(switch)', function () {
+        $(".operation_user input[name=stuStatus]").attr('type', 'hidden').val(this.checked ? 1 : 0);
+    });
 
     layui.use(['table', 'layer', 'laydate', 'transfer'], function () {
         //加载table

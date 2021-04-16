@@ -39,7 +39,7 @@ public class AttStudentController {
     public R add(@RequestBody @Valid AttStudentDto dto) {
         AttStudent entity = new AttStudent();
         BeanUtil.copyProperties(dto,entity);
-        entity.setStuStatus(1);
+//        entity.setStuStatus(1);
         //entity.setStuPwd("111111");
         final AttStudent student = attStudentService.findByLoginId(dto.getLoginId());
         if(student != null){
