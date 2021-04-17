@@ -2,6 +2,7 @@ package com.my.attence.controller.admin;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
@@ -15,12 +16,15 @@ import com.my.attence.service.AttStudentService;
 import com.my.attence.service.AttTeacherService;
 import com.my.attence.utils.DateUtils;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -116,7 +120,7 @@ public class AttSalaryController {
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(queryWrapper);
         //讲师姓名 - 工作类型 - 出勤类型 - 总工资
-        Map<String, Map<String, Map<Integer, Double>>> map = list.stream().filter(e -> e.getEndDate() != null).collect(Collectors.groupingBy(AttRecord::getTeaNo,
+        /*Map<String, Map<String, Map<Integer, Double>>> map = list.stream().filter(e -> e.getEndDate() != null).collect(Collectors.groupingBy(AttRecord::getTeaNo,
                 Collectors.groupingBy(AttRecord::getWorkType,
                         Collectors.groupingBy(AttRecord::getAttType,
                                 Collectors.summingDouble(e -> {
@@ -126,27 +130,56 @@ public class AttSalaryController {
                                         long l = Duration.between(e.getBeginDate(), e.getEndDate()).toMinutes();
                                         return Double.parseDouble(e.getSalary());
                                     }}
-                                )))));
+                                )))));*/
+        //时长
+        Map<String, Map<String, Map<Integer, List>>> mapp = list.stream().filter(e -> e.getEndDate() != null).collect(Collectors.groupingBy(AttRecord::getTeaNo,
+                Collectors.groupingBy(AttRecord::getWorkType,
+                        Collectors.groupingBy(AttRecord::getAttType,
+                                Collectors.collectingAndThen(Collectors.toList(), m -> {
+                                    final long totalCount = m.stream().count();
+                                    final List<Object> rlist = Lists.newArrayList();
+                                    double sum = 0.0;
+                                    for (AttRecord attRecord : m) {
+                                        double salary = Double.parseDouble(attRecord.getSalary());
+                                        sum += salary;
+                                    }
+
+                                    long duration = 0;
+                                    for (AttRecord attRecord : m) {
+                                        long l = Duration.between(attRecord.getBeginDate(), attRecord.getEndDate()).toMinutes();
+                                        duration += l;
+                                    }
+                                    rlist.add(duration);
+                                    rlist.add(sum);
+                                    return rlist;
+                                })
+                        ))));
+
 
         List<AttRecordDto> resList = Lists.newArrayList();
-        for(Object k : map.keySet()) {
+        for(Object k : mapp.keySet()) {
             String key1 = (String) k;
             AttTeacher teacher = attTeacherService.findByLoginId(key1);
 
-            Map<String, Map<Integer, Double>> map1 = map.get(key1);
+            Map<String, Map<Integer, List>> map1 = mapp.get(key1);
             for (Object k2 : map1.keySet()) {
                 String key2 = (String) k2;
-                Map<Integer, Double> map2 = map1.get(key2);
+                Map<Integer, List> map2 = map1.get(key2);
                 for (Object k3 : map2.keySet()) {
                     Integer key3 = (Integer) k3;
-                    Double key4 = map2.get(key3);
+                    List list1 = map2.get(key3);
 
                     AttRecordDto res = new AttRecordDto();
                     res.setTeaName(teacher.getTeaNmKanji());
                     res.setTeaNo(key1);
                     res.setWorkType(key2);
                     res.setAttType(key3);
-                    res.setSalary(key4.toString());
+                    if(!ObjectUtils.isEmpty(list1.get(0))){
+                        res.setDuration(list1.get(0).toString());
+                    }
+                    if(!ObjectUtils.isEmpty(list1.get(1))) {
+                        res.setSalary(list1.get(1).toString());
+                    }
                     resList.add(res);
                 }
             }

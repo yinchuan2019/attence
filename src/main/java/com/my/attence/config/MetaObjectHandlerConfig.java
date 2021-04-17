@@ -60,9 +60,7 @@ public class MetaObjectHandlerConfig implements MetaObjectHandler {
         Date currentDate = new Date();
         String[] setterNames = metaObject.getSetterNames();
         HashSet<String> setterNameSet = new HashSet<>(Arrays.asList(setterNames));
-        if (setterNameSet.contains("updateTime")) {
-            setFieldValByName("updateTime", currentDate, metaObject);
-        }
+        setFieldValByName("updateTime", currentDate, metaObject);
         if (setterNameSet.contains("updateDate")) {
             setFieldValByName("updateDate", currentDate, metaObject);
         }
