@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public R handleException(Exception e) {
         log.error("Exception,exception:{}", e, e);
-        return R.fail("系统繁忙，请稍候再试");
+        return R.fail("GlobalExceptionHandler1");
     }
 
     /**
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AuthorizationException.class)
     public R errorPermission(AuthorizationException e) {
         log.error("Exception,exception:{}", e, e);
-        return R.fail("方法参数校验异常");
+        return R.fail("GlobalExceptionHandler2");
 
     }
 

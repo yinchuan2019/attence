@@ -48,7 +48,7 @@ public class RoleController {
     @ApiOperation(value = "更新角色信息接口")
     public R updateDept(@RequestBody SysRoleDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("RoleController1");
         }
         roleService.updateRole(dto);
         return R.success();
@@ -58,10 +58,10 @@ public class RoleController {
     @ApiOperation(value = "绑定角色部门接口")
     public R bindDept(@RequestBody SysRole vo) {
         if (StringUtils.isEmpty(vo.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("RoleController1");
         }
         if (roleService.getById(vo.getId()) == null) {
-            return R.fail("获取角色失败");
+            return R.fail("RoleController2");
         }
 
         roleService.updateById(new SysRole().setId(vo.getId()).setDataScope(vo.getDataScope()));

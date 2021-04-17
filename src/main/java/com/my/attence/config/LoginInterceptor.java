@@ -42,7 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
         LOGGE.info("UserAgent: {}", request.getHeader(USER_AGENT));
-        LOGGE.info("用户访问地址: {}, 来路地址: {}", uri, IPKit.getIpAddrByRequest(request));
+        LOGGE.info("User access address: {}, IN address: {}", uri, IPKit.getIpAddrByRequest(request));
 
 
         //请求拦截处理

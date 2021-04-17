@@ -48,11 +48,11 @@ public class PermissionController {
     @ApiOperation(value = "更新菜单权限接口")
     public R updatePermission(@RequestBody @Valid SysPermission vo) {
         if (StringUtils.isEmpty(vo.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("PermissionController2");
         }
         SysPermission sysPermission = permissionService.getById(vo.getId());
         if (null == sysPermission) {
-            throw new BusinessException("传入数据异常");
+            throw new BusinessException("PermissionController1");
         }
         // 只有类型变更或者所属菜单变更
         if (sysPermission.getType().equals(vo.getType()) || !sysPermission.getPid().equals(vo.getPid())) {

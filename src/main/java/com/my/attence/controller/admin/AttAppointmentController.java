@@ -62,7 +62,7 @@ public class AttAppointmentController {
     @ApiOperation(value = "更新信息接口")
     public R update(@RequestBody AttAppointmentDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("AttAppointmentController");
         }
         AttAppointment entity = new AttAppointment();
         BeanUtil.copyProperties(dto,entity);

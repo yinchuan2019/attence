@@ -56,7 +56,7 @@ public class AttSalaryController {
         BeanUtil.copyProperties(dto,entity);
         AttTeacher teacher = attTeacherService.findByLoginId(dto.getTeaNo());
         if(teacher == null){
-            return R.fail("用户名称不正确");
+            return R.fail("AttSalaryController1");
         }
         entity.setTeaName(teacher.getTeaNmKanji());
         //entity.setWorkType(ClassTypeEnum.CLASS_ORDER.getName());
@@ -78,7 +78,7 @@ public class AttSalaryController {
     @ApiOperation(value = "更新信息接口")
     public R update(@RequestBody AttRecordDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("AttSalaryController2");
         }
         AttRecord entity = new AttRecord();
         BeanUtil.copyProperties(dto,entity);

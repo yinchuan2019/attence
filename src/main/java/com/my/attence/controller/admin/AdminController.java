@@ -70,14 +70,14 @@ public class AdminController {
     @GetMapping("/user/unLogin")
     @ApiOperation(value = "引导客户端去登录")
     public R unLogin() {
-        return R.getResult(1,"请重新登录");
+        return R.getResult(1,"AdminController1");
     }
 
     @PutMapping("/user")
     @ApiOperation(value = "更新用户信息接口")
     public R updateUserInfo(@RequestBody SysAdminDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("AdminController2");
         }
         adminService.updateUserInfo(dto);
         return R.success();
@@ -127,7 +127,7 @@ public class AdminController {
     public R updatePwd(@RequestBody SysAdminDto dto,
                        HttpServletRequest request) {
         if (StringUtils.isEmpty(dto.getOldPwd()) || StringUtils.isEmpty(dto.getNewPwd())) {
-            return R.fail("旧密码与新密码不能为空");
+            return R.fail("AdminController3");
         }
         SysAdmin login = TaleUtils.getLoginAdmin(request);
 

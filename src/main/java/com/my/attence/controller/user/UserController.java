@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 import com.my.attence.common.R;
-import com.my.attence.common.code.BaseResponseCode;
 import com.my.attence.constant.ClassTypeEnum;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.AttAppointment;
@@ -26,7 +25,6 @@ import com.my.attence.utils.PasswordUtils;
 import com.my.attence.utils.TaleUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
@@ -235,7 +233,7 @@ public class UserController {
             if(StringUtils.isNotEmpty(dto.getStuNo())){
                 AttStudent student = attStudentService.findByLoginId(dto.getStuNo());
                 if(Objects.isNull(student)){
-                    return R.fail("学号不存在");
+                    return R.fail("user.info17");
                 }
                 entity.setStuName(student.getStuNmKanji());
             }

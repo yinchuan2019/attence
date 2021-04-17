@@ -42,7 +42,7 @@ public class AttTeacherController {
         //entity.setTeaPwd("111111");
         final AttTeacher teacher = attTeacherService.findByLoginId(dto.getLoginId());
         if(teacher != null){
-            return R.fail("用户id已经存在");
+            return R.fail("AttTeacherController1");
         }
 
         attTeacherService.save(entity);
@@ -62,7 +62,7 @@ public class AttTeacherController {
     @ApiOperation(value = "更新信息接口")
     public R update(@RequestBody AttTeacherDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("AttTeacherController2");
         }
         AttTeacher entity = new AttTeacher();
         BeanUtil.copyProperties(dto,entity);

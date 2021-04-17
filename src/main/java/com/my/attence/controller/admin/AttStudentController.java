@@ -43,7 +43,7 @@ public class AttStudentController {
         //entity.setStuPwd("111111");
         final AttStudent student = attStudentService.findByLoginId(dto.getLoginId());
         if(student != null){
-            return R.fail("用户id已经存在");
+            return R.fail("AttStudentController1");
         }
         attStudentService.save(entity);
         return R.success();
@@ -62,7 +62,7 @@ public class AttStudentController {
     @ApiOperation(value = "更新信息接口")
     public R update(@RequestBody AttStudentDto dto) {
         if (StringUtils.isEmpty(dto.getId())) {
-            return R.fail("id不能为空");
+            return R.fail("AttStudentController2");
         }
         AttStudent entity = new AttStudent();
         BeanUtil.copyProperties(dto,entity);
@@ -75,7 +75,7 @@ public class AttStudentController {
     public R updateStatus(@RequestBody Long id) {
         AttStudent entity = attStudentService.getById(id);
         if (ObjectUtil.isEmpty(entity)) {
-            return R.fail("学生不存在");
+            return R.fail("AttStudentController3");
         }
         if(entity.getStuStatus() == 0){
             entity.setStuStatus(1);
