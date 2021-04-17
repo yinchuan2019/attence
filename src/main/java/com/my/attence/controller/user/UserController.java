@@ -150,10 +150,17 @@ public class UserController {
                 AttStudent student = attStudentService.findByLoginId(loginId);
                 entity.setStuName(student.getStuNmKanji());
                 entity.setStuNo(loginId);
-                LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                        .eq(AttAppointment::getBeginDate,entity.getBeginDate())
-                        .isNull(AttAppointment::getClassRoom)
-                        .orderByDesc(AttAppointment::getBeginDate);
+                LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery();
+                eq.eq(AttAppointment::getBeginDate,entity.getBeginDate());
+                eq.isNull(AttAppointment::getClassRoom);
+                eq.orderByDesc(AttAppointment::getBeginDate);
+                if(classType.equals(ClassTypeEnum.CLASS_COURSE0) || classType.equals(ClassTypeEnum.CLASS_COURSE1)){
+                    eq.eq(AttAppointment::getStuNo,loginId);
+                    final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
+                    if(CollectionUtils.isNotEmpty(attAppointmentList)){
+                        return R.fail("当前学生已经预约过该1对多");
+                    }
+                }
 
                 final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
                 if(attAppointmentList.size() > 19){

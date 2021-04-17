@@ -1,19 +1,22 @@
 package com.my.attence.constant;
 
+import com.my.attence.common.R;
+
 /**
  * Created by abel on 2021/1/24
  * TODO
  */
 public enum ClassTypeEnum {
-    CLASS_MAKE(1,"课题制作"),
+
+    CLASS_MAKE(1,"stu2.projectProduction"),
     //CLASS_ORDER(2,"一对多课程预约"),
 
-    CLASS_VIP(3,"VIP作品集研究计划"),
+    CLASS_VIP(3,"tu_course2"),
 
-    CLASS_WORK(4,"事务工作"),
-    CLASS_OTHER(5,"其他"),
-    CLASS_COURSE0(7,"小论文"),
-    CLASS_COURSE1(8,"模拟面接");
+    CLASS_WORK(4,"tea2.someThing"),
+    CLASS_OTHER(5,"tea2.other"),
+    CLASS_COURSE0(7,"stu_course0"),
+    CLASS_COURSE1(8,"tu_course1");
 
 
 
@@ -31,6 +34,6 @@ public enum ClassTypeEnum {
     }
 
     public String getName() {
-        return name;
+        return R.fail(name).getMsg();
     }
 }

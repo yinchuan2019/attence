@@ -1,15 +1,24 @@
 package com.my.attence.controller.admin;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
+import com.my.attence.common.code.BaseResponseCode;
 import com.my.attence.constant.Constant;
 import com.my.attence.entity.SysAdmin;
 import com.my.attence.entity.SysAdminRole;
+import com.my.attence.entity.SysRole;
+import com.my.attence.exception.BusinessException;
+import com.my.attence.mapper.SysAdminMapper;
 import com.my.attence.modal.request.SysAdminDto;
 import com.my.attence.service.HttpSessionService;
 import com.my.attence.service.AdminRoleService;
 import com.my.attence.service.AdminService;
+import com.my.attence.service.RoleService;
+import com.my.attence.utils.PasswordUtils;
 import com.my.attence.utils.TaleUtils;
 import com.my.attence.vo.req.AdminRoleOperationReqVO;
 import com.my.attence.vo.resp.AdminOwnRoleVO;
@@ -41,6 +50,10 @@ public class AdminController {
     private AdminRoleService adminRoleService;
     @Resource
     private HttpSessionService httpSessionService;
+    @Resource
+    private SysAdminMapper sysAdminMapper;
+    @Resource
+    private RoleService roleService;
 
     @PostMapping(value = "/user/login")
     @ApiOperation(value = "用户登录接口")
@@ -53,7 +66,16 @@ public class AdminController {
             CaptchaUtil.clear(request);
             return DataResult.fail("验证码错误！");
         }*/
-        SysAdmin login = adminService.login(dto);
+        SysAdmin login = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
+        if (null == login) {
+            return R.fail("该用户不存在,请先注册");
+        }
+        if (login.getStatus() == 2) {
+            return R.fail("该用户已被锁定，请联系运营人员");
+        }
+        if (!PasswordUtils.matches(login.getSalt(), dto.getPassword(), login.getPassword())) {
+            return R.fail("用户名或密码错误");
+        }
         request.getSession().setAttribute(Constant.LOGIN_SESSION_ADMIN, login);
         //String token = TaleUtils.getRandomToken() + "#" + login.getId();
         //login.setAccessToken(token);
@@ -63,7 +85,15 @@ public class AdminController {
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
     public R register(@RequestBody @Valid SysAdminDto dto) {
-        adminService.register(dto);
+        SysAdmin sysAdminOne = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
+        if (sysAdminOne != null) {
+            return R.fail("用户名已存在");
+        }
+        SysAdmin sysAdmin = new SysAdmin();
+        sysAdmin.setSalt(PasswordUtils.getSalt());
+        String encode = PasswordUtils.encode(dto.getPassword(), dto.getSalt());
+        sysAdmin.setPassword(encode);
+        sysAdminMapper.insert(sysAdmin);
         return R.success();
     }
 
@@ -79,7 +109,26 @@ public class AdminController {
         if (StringUtils.isEmpty(dto.getId())) {
             return R.fail("AdminController2");
         }
-        adminService.updateUserInfo(dto);
+        SysAdmin sysAdmin = sysAdminMapper.selectById(dto.getId());
+        if (null == sysAdmin) {
+            return R.fail("传入数据异常");
+        }
+
+        //如果用户名变更
+        if (!sysAdmin.getUsername().equals(dto.getUsername())) {
+            SysAdmin sysAdminOne = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
+            if (sysAdminOne != null) {
+                return R.fail("用户名已存在");
+            }
+        }
+
+        if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getPassword())) {
+            String newPassword = PasswordUtils.encode(dto.getPassword(), sysAdmin.getSalt());
+            sysAdmin.setPassword(newPassword);
+        } else {
+            sysAdmin.setPassword(null);
+        }
+        sysAdminMapper.updateById(sysAdmin);
         return R.success();
     }
 
@@ -105,13 +154,49 @@ public class AdminController {
     @PostMapping("/users")
     @ApiOperation(value = "分页获取用户列表接口")
     public R pageInfo(@RequestBody SysAdminDto dto) {
-        return R.success(adminService.pageInfo(dto));
+        Page page = new Page(dto.getPage(), dto.getLimit());
+        LambdaQueryWrapper<SysAdmin> queryWrapper = Wrappers.lambdaQuery();
+        if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getUsername())) {
+            queryWrapper.like(SysAdmin::getUsername, dto.getUsername());
+        }
+        if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getStartTime())) {
+            queryWrapper.gt(SysAdmin::getCreateTime, dto.getStartTime());
+        }
+        if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getEndTime())) {
+            queryWrapper.lt(SysAdmin::getCreateTime, dto.getEndTime());
+        }
+        if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getNickName())) {
+            queryWrapper.like(SysAdmin::getNickName, dto.getNickName());
+        }
+        if (null != dto.getStatus()) {
+            queryWrapper.eq(SysAdmin::getStatus, dto.getStatus());
+        }
+
+        IPage<SysAdmin> iPage = sysAdminMapper.selectPage(page, queryWrapper);
+        return R.success(iPage);
     }
 
     @PostMapping("/user")
     @ApiOperation(value = "新增用户接口")
     public R addUser(@RequestBody @Valid SysAdminDto dto) {
-        adminService.addUser(dto);
+        SysAdmin sysAdminOne = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
+        if (sysAdminOne != null) {
+            return R.fail("用户已存在，请勿重复添加！");
+        }
+        SysAdmin sysAdmin = new SysAdmin();
+        BeanUtil.copyProperties(dto, sysAdmin);
+        sysAdmin.setSalt(PasswordUtils.getSalt());
+        String encode = PasswordUtils.encode(dto.getPassword(), sysAdmin.getSalt());
+        sysAdmin.setPassword(encode);
+        sysAdmin.setStatus(1);
+        sysAdmin.setCreateWhere(1);
+        sysAdminMapper.insert(sysAdmin);
+        if (null != dto.getRoleIds() && !dto.getRoleIds().isEmpty()) {
+            AdminRoleOperationReqVO reqVO = new AdminRoleOperationReqVO();
+            reqVO.setUserId(dto.getId());
+            reqVO.setRoleIds(dto.getRoleIds());
+            adminRoleService.addUserRoleInfo(reqVO);
+        }
         return R.success();
     }
 
@@ -134,7 +219,19 @@ public class AdminController {
         dto.setId(login.getId());
         dto.setPassword(dto.getNewPwd());
 
-        adminService.updatePwd(dto);
+        SysAdmin sysAdmin = sysAdminMapper.selectById(dto.getId());
+        if (sysAdmin == null) {
+            return R.fail("传入数据异常");
+        }
+
+        if (!PasswordUtils.matches(sysAdmin.getSalt(), dto.getOldPwd(), sysAdmin.getPassword())) {
+            throw new BusinessException(BaseResponseCode.OLD_PASSWORD_ERROR);
+        }
+        if (sysAdmin.getPassword().equals(PasswordUtils.encode(dto.getNewPwd(), sysAdmin.getSalt()))) {
+            return R.fail("新密码不能与旧密码相同");
+        }
+        sysAdmin.setPassword(PasswordUtils.encode(dto.getNewPwd(), sysAdmin.getSalt()));
+        sysAdminMapper.updateById(sysAdmin);
         return R.success();
     }
 
@@ -153,8 +250,12 @@ public class AdminController {
     @ApiOperation(value = "赋予角色-获取所有角色接口")
     public R getUserOwnRole(@PathVariable("userId") Long userId) {
         R result = R.success();
-        AdminOwnRoleVO userOwnRole = adminService.getUserOwnRole(userId);
-        result.setData(userOwnRole);
+        List<Long> roleIdsByUserId = adminRoleService.getRoleIdsByUserId(userId);
+        List<SysRole> list = roleService.list();
+        AdminOwnRoleVO vo = new AdminOwnRoleVO();
+        vo.setAllRole(list);
+        vo.setOwnRoles(roleIdsByUserId);
+        result.setData(vo);
         return result;
     }
 
@@ -171,6 +272,6 @@ public class AdminController {
             reqVO.setRoleIds(roleIds);
             adminRoleService.addUserRoleInfo(reqVO);
         }
-        return  R.success();
+        return R.success();
     }
 }
