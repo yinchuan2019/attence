@@ -319,19 +319,17 @@ public class UserController {
             wrapper.eq(AttAppointment::getTeaNo, loginId);
 
             list = attAppointmentService.list(wrapper);
-            list.stream().filter(e -> {
-                e.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
-                return true;
-            }).collect(Collectors.toList());
+            for(AttAppointment e : list){
+                e.setClassType(ClassTypeEnum.valueOf(e.getClassType()).getName());
+            }
 
         }else if(loginId.startsWith(Constant.START_WITH_S)){
             wrapper.eq(AttAppointment::getStuNo, loginId);
 
             list = attAppointmentService.list(wrapper);
-            list.stream().filter(e -> {
-                e.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
-                return true;
-            }).collect(Collectors.toList());
+            for(AttAppointment e : list){
+                e.setClassType(ClassTypeEnum.valueOf(e.getClassType()).getName());
+            }
         }else {
             return R.fail("user.info12");
         }
