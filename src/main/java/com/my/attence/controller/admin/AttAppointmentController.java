@@ -101,8 +101,8 @@ public class AttAppointmentController {
         queryWrapper.orderByDesc(AttAppointment::getBeginDate);
         IPage<AttAppointment> page = attAppointmentService.page(p, queryWrapper);
         for(AttAppointment e : page.getRecords()){
-            if(!StringUtils.isEmpty(dto.getClassType())) {
-                e.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
+            if(!StringUtils.isEmpty(e.getClassType())) {
+                e.setClassType(ClassTypeEnum.valueOf(e.getClassType()).getName());
             }
         }
         return R.success(page);

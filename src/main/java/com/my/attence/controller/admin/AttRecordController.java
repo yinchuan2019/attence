@@ -119,8 +119,8 @@ public class AttRecordController {
                 final Duration between = Duration.between(e.getBeginDate(), e.getEndDate());
                 e.setDuration(String.valueOf(between.toMinutes()));
             }
-            if(!StringUtils.isEmpty(dto.getWorkType())){
-                e.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+            if(!StringUtils.isEmpty(e.getWorkType())){
+                e.setWorkType(ClassTypeEnum.valueOf(e.getWorkType()).getName());
             }
         }
         return R.success(page);
