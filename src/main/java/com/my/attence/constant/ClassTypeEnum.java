@@ -11,7 +11,7 @@ public enum ClassTypeEnum {
     CLASS_MAKE(1,"stu2.projectProduction"),
     //CLASS_ORDER(2,"一对多课程预约"),
 
-    CLASS_VIP(3,"tu_course2"),
+    CLASS_VIP(3,"stu_course2"),
 
     CLASS_WORK(4,"tea2.someThing"),
     CLASS_OTHER(5,"tea2.other"),
