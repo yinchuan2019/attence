@@ -53,7 +53,7 @@ public class AttRecordController {
             return R.fail("AttRecordController1");
         }
         entity.setTeaName(teacher.getTeaNmKanji());
-        entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+        entity.setWorkType(dto.getWorkType());
         /*if(dto.getWorkType().equals(ClassTypeEnum.CLASS_VIP.getName()) ){
             entity.setSalary(teacher.getTeaWage());
         }else if(dto.getWorkType().equals(ClassTypeEnum.CLASS_WORK.getName()) ){
@@ -83,7 +83,7 @@ public class AttRecordController {
         }
         AttRecord entity = new AttRecord();
         BeanUtil.copyProperties(dto,entity);
-        entity.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+        entity.setWorkType(dto.getWorkType());
         attRecordService.updateById(entity);
         return R.success();
     }
@@ -110,7 +110,7 @@ public class AttRecordController {
             queryWrapper.eq(AttRecord::getAttType, dto.getAttType());
         }
         if (!StringUtils.isEmpty(dto.getWorkType())) {
-            queryWrapper.eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+            queryWrapper.eq(AttRecord::getWorkType, dto.getWorkType());
         }
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         IPage<AttRecord> page = attRecordService.page(p, queryWrapper);
@@ -118,6 +118,9 @@ public class AttRecordController {
             if(e.getEndDate() != null){
                 final Duration between = Duration.between(e.getBeginDate(), e.getEndDate());
                 e.setDuration(String.valueOf(between.toMinutes()));
+            }
+            if(!StringUtils.isEmpty(dto.getWorkType())){
+                e.setWorkType(ClassTypeEnum.valueOf(dto.getWorkType()).getName());
             }
         }
         return R.success(page);

@@ -111,8 +111,8 @@ public class UserController {
             }
 
             BeanUtils.copyProperties(dto, entity);
-            ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getClassType());
-            entity.setClassType(classType.getName());
+            String classType = dto.getClassType();
+            entity.setClassType(classType);
             List<AttAppointment> attAppointments = judgeAppointment(dto,loginId);
             if (CollectionUtils.isNotEmpty(attAppointments)) {
                 return R.fail("user.info7");
@@ -154,7 +154,7 @@ public class UserController {
                 eq.eq(AttAppointment::getBeginDate,entity.getBeginDate());
                 eq.isNull(AttAppointment::getClassRoom);
                 eq.orderByDesc(AttAppointment::getBeginDate);
-                if(classType.equals(ClassTypeEnum.CLASS_COURSE0) || classType.equals(ClassTypeEnum.CLASS_COURSE1)){
+                if(classType.equals(ClassTypeEnum.CLASS_COURSE0.name()) || classType.equals(ClassTypeEnum.CLASS_COURSE1.name())){
                     eq.eq(AttAppointment::getStuNo,loginId);
                     final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
                     if(CollectionUtils.isNotEmpty(attAppointmentList)){
@@ -168,11 +168,11 @@ public class UserController {
                 }
 
                 attAppointmentService.save(entity);
-                if(classType.equals(ClassTypeEnum.CLASS_COURSE0)){
+                if(classType.equals(ClassTypeEnum.CLASS_COURSE0.name())){
                     double i = Double.parseDouble(student.getStuCourse0()) - 3;
                     student.setStuCourse0(String.valueOf(i));
                     attStudentService.updateById(student);
-                }else if(classType.equals(ClassTypeEnum.CLASS_COURSE1)){
+                }else if(classType.equals(ClassTypeEnum.CLASS_COURSE1.name())){
                     double i = Double.parseDouble(student.getStuCourse1()) - 3;
                     student.setStuCourse1(String.valueOf(i));
                     attStudentService.updateById(student);
@@ -191,7 +191,7 @@ public class UserController {
     public List<AttAppointment> judgeAppointment(@RequestBody @Valid AttAppointmentDto dto,String loginId){
         final String classType = dto.getClassType();
         List<AttAppointment> list;
-        if(classType.equals(ClassTypeEnum.CLASS_COURSE0) || classType.equals(ClassTypeEnum.CLASS_COURSE1)){
+        if(classType.equals(ClassTypeEnum.CLASS_COURSE0.name()) || classType.equals(ClassTypeEnum.CLASS_COURSE1.name())){
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
                     .eq(AttAppointment::getBeginDate,dto.getBeginDate())
                     .eq(AttAppointment::getClassType,classType)
@@ -231,8 +231,7 @@ public class UserController {
             if(CollectionUtils.isNotEmpty(list)){
                 return R.fail("user.info14");
             }
-            ClassTypeEnum classType = ClassTypeEnum.valueOf(dto.getWorkType());
-            entity.setWorkType(classType.getName());
+            entity.setWorkType(dto.getWorkType());
             entity.setBeginDate(DateUtils.getCompleteTime(LocalDateTime.now()));
             AttTeacher teacher = attTeacherService.findByLoginId(loginId);
             entity.setTeaName(teacher.getTeaNmKanji());
@@ -265,7 +264,7 @@ public class UserController {
             return R.fail("user.info6");
         }
         LambdaQueryWrapper<AttRecord> eq = Wrappers.<AttRecord>lambdaQuery()
-                 .eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName())
+                 .eq(AttRecord::getWorkType, dto.getWorkType())
                  .eq(AttRecord::getTeaNo,loginId).isNull(AttRecord::getEndDate)
                  .orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(eq);
@@ -303,21 +302,15 @@ public class UserController {
 
         if(dto.getId() != null){
             AttAppointment entity = attAppointmentService.getById(dto.getId());
+            entity.setClassType(ClassTypeEnum.valueOf(entity.getClassType()).getName());
             return R.success(entity);
         }
 
-        List<String> classTypeList = Lists.newArrayList();
-        if(CollectionUtils.isNotEmpty(dto.getClassTypes())){
-            for (String e : dto.getClassTypes()) {
-                ClassTypeEnum classTypeEnum = ClassTypeEnum.valueOf(e);
-                classTypeList.add(classTypeEnum.getName());
-            }
-        }
 
         List<AttAppointment> list;
         LambdaQueryWrapper<AttAppointment> wrapper = Wrappers.<AttAppointment>lambdaQuery();
-        if(CollectionUtils.isNotEmpty(classTypeList)){
-            wrapper.in(AttAppointment::getClassType,classTypeList);
+        if(CollectionUtils.isNotEmpty(dto.getClassTypes())){
+            wrapper.in(AttAppointment::getClassType,dto.getClassTypes());
         }
         wrapper.ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
         wrapper.orderByDesc(AttAppointment::getBeginDate);
@@ -326,11 +319,19 @@ public class UserController {
             wrapper.eq(AttAppointment::getTeaNo, loginId);
 
             list = attAppointmentService.list(wrapper);
+            list.stream().filter(e -> {
+                e.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
+                return true;
+            }).collect(Collectors.toList());
 
         }else if(loginId.startsWith(Constant.START_WITH_S)){
             wrapper.eq(AttAppointment::getStuNo, loginId);
 
             list = attAppointmentService.list(wrapper);
+            list.stream().filter(e -> {
+                e.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
+                return true;
+            }).collect(Collectors.toList());
         }else {
             return R.fail("user.info12");
         }

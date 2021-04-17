@@ -96,10 +96,15 @@ public class AttAppointmentController {
             queryWrapper.lt(AttAppointment::getEndDate, dto.getEndDate());
         }
         if (!StringUtils.isEmpty(dto.getClassType())) {
-            queryWrapper.eq(AttAppointment::getClassType, ClassTypeEnum.valueOf(dto.getClassType()).getName());
+            queryWrapper.eq(AttAppointment::getClassType, dto.getClassType());
         }
         queryWrapper.orderByDesc(AttAppointment::getBeginDate);
         IPage<AttAppointment> page = attAppointmentService.page(p, queryWrapper);
+        for(AttAppointment e : page.getRecords()){
+            if(!StringUtils.isEmpty(dto.getClassType())) {
+                e.setClassType(ClassTypeEnum.valueOf(dto.getClassType()).getName());
+            }
+        }
         return R.success(page);
     }
 }

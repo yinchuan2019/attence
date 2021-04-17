@@ -115,7 +115,7 @@ public class AttSalaryController {
             queryWrapper.eq(AttRecord::getTeaName, dto.getTeaName());
         }
         if (!StringUtils.isEmpty(dto.getWorkType())) {
-            queryWrapper.eq(AttRecord::getWorkType, ClassTypeEnum.valueOf(dto.getWorkType()).getName());
+            queryWrapper.eq(AttRecord::getWorkType, dto.getWorkType());
         }
         queryWrapper.orderByDesc(AttRecord::getBeginDate);
         List<AttRecord> list = attRecordService.list(queryWrapper);
