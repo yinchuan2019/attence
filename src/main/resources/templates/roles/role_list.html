@@ -29,15 +29,15 @@
                 </div>
             </div>
 
-            <div class="layui-form-item">
+            <!--<div class="layui-form-item">
                 <label class="layui-form-label">[[#{role.status}]]</label>
                 <div class="layui-input-block">
                     <input type="checkbox" name="status" value="1" lay-skin="switch" lay-filter="switch" th:lay-text="#{role.statusVal}" checked>
                 </div>
-            </div>
-            <div class="layui-form-item">
+            </div>-->
+            <!--<div class="layui-form-item">
                 <label class="layui-form-label">[[#{role.info1}]]</label>
-            </div>
+            </div>-->
             <div class="layui-form-item" >
                 <div class="layui-tree">
                     <div id="permissionTree"></div>
@@ -60,13 +60,13 @@
                 <input type="text" id="roleName" class="layui-input" autocomplete="off" th:placeholder="#{role.name}">
             </div>
 
-            <div class="layui-input-inline layui-form">
+            <!--<div class="layui-input-inline layui-form">
                 <select id="status">
                     <option value="">[[#{role.info12}]]</option>
                     <option value="1">[[#{role.status1}]]</option>
                     <option value="0">[[#{role.status2}]]</option>
                 </select>
-            </div>
+            </div>-->
             <div class="layui-input-inline ">
                 <button class="layui-btn" onclick="search()" id="search">[[#{search}]]</button>
             </div>
@@ -106,7 +106,7 @@
             {field: 'name', title: '[[#{role.name}]]', width: 200},
             {field: 'createTime', title: '[[#{create_time}]]', minWidth: 120},
             {field: 'updateTime', title: '[[#{update_time}]]', minWidth: 120},
-            {
+            /*{
                 field: 'status', title: '[[#{role.status}]]', width: 100, templet: function (item) {
                     if (item.status === 1) {
                         return '  <input type="checkbox" lay-skin="switch" th:lay-text="[[#{role.statusVal}]]" checked disabled>';
@@ -115,7 +115,7 @@
                         return '  <input type="checkbox" lay-skin="switch" th:lay-text="[[#{role.statusVal}]]" disabled>';
                     }
                 }
-            },
+            },*/
             {field: 'description', title: '[[#{role.description}]]', width: 300},
             {title: '[[#{operation}]]', width: 250, toolbar: '#tool'}
         ]
@@ -295,7 +295,7 @@
         tableIns1.reload({
             where: { //设定异步数据接口的额外参数，任意设
                 name: $("#roleName").val(),
-                status: $("#status").val(),
+                //status: $("#status").val(),
                 startTime: startTime,
                 endTime: endTime,
 
