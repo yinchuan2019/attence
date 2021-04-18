@@ -68,13 +68,13 @@ public class AdminController {
         }*/
         SysAdmin login = sysAdminMapper.selectOne(Wrappers.<SysAdmin>lambdaQuery().eq(SysAdmin::getUsername, dto.getUsername()));
         if (null == login) {
-            return R.fail("该用户不存在,请先注册");
+            return R.fail("AdminController4");
         }
         if (login.getStatus() == 2) {
-            return R.fail("该用户已被锁定，请联系运营人员");
+            return R.fail("AdminController5");
         }
         if (!PasswordUtils.matches(login.getSalt(), dto.getPassword(), login.getPassword())) {
-            return R.fail("用户名或密码错误");
+            return R.fail("AdminController6");
         }
         request.getSession().setAttribute(Constant.LOGIN_SESSION_ADMIN, login);
         //String token = TaleUtils.getRandomToken() + "#" + login.getId();

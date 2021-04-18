@@ -40,7 +40,7 @@
                     <input name="salary" th:placeholder="#{salary}" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item workType">
                 <label class="layui-form-label">[[#{type}]]</label>
                 <div class="layui-input-block">
                     <select name="workType">
@@ -48,8 +48,6 @@
                         <option value="CLASS_VIP">[[#{stu_course2}]]</option>
                         <option value="CLASS_WORK">[[#{type1}]]</option>
                         <option value="CLASS_OTHER">[[#{type2}]]</option>
-                        <option value="CLASS_COURSE0">[[#{stu_course0}]]</option>
-                        <option value="CLASS_COURSE1">[[#{stu_course1}]]</option>
                     </select>
                 </div>
             </div>
@@ -233,6 +231,7 @@
                     $(".title").html("[[#{tea_add}]]");
                     $(".user_table_div").hide();
                     $(".operation_user").show();
+                    $(".workType").show();
                     $("#operation_form")[0].reset();
                     form.render(); //更新全部
                     break;
@@ -251,6 +250,7 @@
                     $(".operation_user").show();
                     $(".title").html("[[#{edit}]]");
                     form.val('operation_form', data);
+                    $(".workType").hide();
 
                     break;
             }
