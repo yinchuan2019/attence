@@ -158,7 +158,7 @@ public class UserController {
                     eq.eq(AttAppointment::getStuNo,loginId);
                     final List<AttAppointment> attAppointmentList = attAppointmentService.list(eq);
                     if(CollectionUtils.isNotEmpty(attAppointmentList)){
-                        return R.fail("当前学生已经预约过该1对多");
+                        return R.fail("当前学生已经预约过该一对多");
                     }
                 }
 
@@ -406,9 +406,9 @@ public class UserController {
         Map<String, Map<Integer, Long>> collect = list.stream().filter(e -> e.getEndDate() != null)
                 .collect(Collectors.groupingBy(o -> {
                             if(ObjectUtil.isNotEmpty(o.getRemarks())){
-                                return o.getWorkType() +"-"+ o.getRemarks();
+                                return ClassTypeEnum.valueOf(o.getWorkType()).getName() +"-"+ o.getRemarks();
                             }else {
-                                return o.getWorkType();
+                                return ClassTypeEnum.valueOf(o.getWorkType()).getName() ;
                             }
                         },
                     Collectors.groupingBy(AttRecord::getAttType,

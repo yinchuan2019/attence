@@ -54,7 +54,15 @@
 			success: function (res) {
 				if (res.code == 0) {
 					if(res.data != ""){
-						$('#onJob').html("[[#{tea1.onJob1}]]" + res.data.workType)
+						var workType = "";
+						if(res.data.workType == "CLASS_VIP"){
+							workType = "[[#{tea2.vip}]]";
+						}else if(res.data.workType == "CLASS_OTHER"){
+							workType = "[[#{tea2.other}]]";
+						}else if(res.data.workType == "CLASS_WORK"){
+							workType = "[[#{tea2.someThing}]]";
+						}
+						$('#onJob').html("[[#{tea1.onJob1}]]" + workType)
 					}
 				}else {
 					return false;

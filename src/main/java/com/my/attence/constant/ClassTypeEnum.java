@@ -16,7 +16,7 @@ public enum ClassTypeEnum {
     CLASS_WORK(4,"tea2.someThing"),
     CLASS_OTHER(5,"tea2.other"),
     CLASS_COURSE0(7,"stu_course0"),
-    CLASS_COURSE1(8,"tu_course1");
+    CLASS_COURSE1(8,"stu_course1");
 
 
 

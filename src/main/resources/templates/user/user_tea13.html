@@ -76,8 +76,15 @@
 					} else if(res.data.attType== "2"){
 						$("#attType").html("社外");
 					}
-
-					$("#workType").html(res.data.workType);
+					var workTypeVal = "";
+					if(res.data.workType == "CLASS_VIP"){
+						workTypeVal = "[[#{tea2.vip}]]";
+					}else if(res.data.workType == "CLASS_OTHER"){
+						workTypeVal = "[[#{tea2.other}]]";
+					}else if(res.data.workType == "CLASS_WORK"){
+						workTypeVal = "[[#{tea2.someThing}]]";
+					}
+					$("#workType").html(workTypeVal);
 
 					$("#beginDate").html(res.data.endDate);
 				}else {

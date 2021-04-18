@@ -163,7 +163,8 @@ public class AttSalaryController {
 
             Map<String, Map<Integer, List>> map1 = mapp.get(key1);
             for (Object k2 : map1.keySet()) {
-                String key2 = (String) k2;
+                String key2 = (String)k2;
+                String key2Val = ClassTypeEnum.valueOf((String)k2).getName();
                 Map<Integer, List> map2 = map1.get(key2);
                 for (Object k3 : map2.keySet()) {
                     Integer key3 = (Integer) k3;
@@ -172,7 +173,7 @@ public class AttSalaryController {
                     AttRecordDto res = new AttRecordDto();
                     res.setTeaName(teacher.getTeaNmKanji());
                     res.setTeaNo(key1);
-                    res.setWorkType(key2);
+                    res.setWorkType(key2Val);
                     res.setAttType(key3);
                     if(!ObjectUtils.isEmpty(list1.get(0))){
                         res.setDuration(list1.get(0).toString());

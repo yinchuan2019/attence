@@ -82,7 +82,16 @@
 						$("#attType").html("[[#{tea5.outCompany}]]");
 					}
 
-					$("#workType").html(res.data.workType);
+					var workTypeVal = "";
+					if(res.data.workType == "CLASS_VIP"){
+						workTypeVal = "[[#{tea2.vip}]]";
+					}else if(res.data.workType == "CLASS_OTHER"){
+						workTypeVal = "[[#{tea2.other}]]";
+					}else if(res.data.workType == "CLASS_WORK"){
+						workTypeVal = "[[#{tea2.someThing}]]";
+					}
+					$("#workType").html(workTypeVal);
+
 					if(res.data.stuNo != "" && res.data.stuNo != null){
 						$("#stuNo").show();
 						$("#stuNo").html("[[#{tea5.stuNo}]]" + res.data.stuNo);
