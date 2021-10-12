@@ -245,10 +245,13 @@
                                 if (getData.length == 0) {
                                     layer.msg("[[#{admin.info9}]]");
                                 } else {
-
                                     $(getData).each(function (index, item) {
                                         roleIds.push(item.value);
                                     });
+                                }
+                                if (roleIds.length == 0) {
+                                    layer.msg("[[#{role.info1}]]");
+                                    return;
                                 }
                                 CoreUtil.sendPut("/sys/user/roles/" + data.id, roleIds, function (res) {
                                     layer.msg(res.msg);

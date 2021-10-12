@@ -178,6 +178,7 @@
             }
         });
         table.on('tool(role_table)', function (obj) {
+            var data = obj.data;
             switch (obj.event) {
                 case 'del':
                     tipDialog(data.id);
