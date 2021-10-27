@@ -13,7 +13,7 @@ public class PasswordTest {
 
         String salt = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 5);
 
-        String password = PasswordUtils.encode("111111", salt);
+        String password = PasswordUtils.encode("admin", salt);
         System.out.println("salt : " + salt + "   " + "password : " + password);
     }
 }

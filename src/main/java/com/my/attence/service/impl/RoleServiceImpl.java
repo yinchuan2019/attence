@@ -105,7 +105,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impleme
 
     private void setChecked(List<PermissionNode> list, Set<Object> checkList) {
         for (PermissionNode node : list) {
-            if (checkList.contains(node.getId())
+            if (checkList.contains(node.getId().intValue())
                     && (node.getChildren() == null || node.getChildren().isEmpty())) {
                 node.setChecked(true);
             }
