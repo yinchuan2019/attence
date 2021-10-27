@@ -120,6 +120,7 @@ public class AdminController {
             if (sysAdminOne != null) {
                 return R.fail("用户名已存在");
             }
+            sysAdmin.setUsername(dto.getUsername());
         }
 
         if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getPassword())) {
