@@ -126,8 +126,6 @@ public class AdminController {
         if (!org.apache.commons.lang.StringUtils.isEmpty(dto.getPassword())) {
             String newPassword = PasswordUtils.encode(dto.getPassword(), sysAdmin.getSalt());
             sysAdmin.setPassword(newPassword);
-        } else {
-            sysAdmin.setPassword(null);
         }
         sysAdminMapper.updateById(sysAdmin);
         return R.success();
