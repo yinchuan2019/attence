@@ -200,9 +200,11 @@ public class UserController {
 
         }else {
             LambdaQueryWrapper<AttAppointment> eq = Wrappers.<AttAppointment>lambdaQuery()
-                    .eq(AttAppointment::getClassRoom,dto.getClassRoom())
-                    .ge(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30))
-                    .le(AttAppointment::getEndDate,dto.getEndDate().plusMinutes(30));
+                    .eq(AttAppointment::getClassRoom, dto.getClassRoom())
+                    .and(w -> w.between(AttAppointment::getBeginDate, dto.getBeginDate().plusMinutes(-30), dto.getEndDate().plusMinutes(30))
+                            .or()
+                            .between(AttAppointment::getEndDate, dto.getBeginDate().plusMinutes(-30), dto.getEndDate().plusMinutes(30)));
+
             list = attAppointmentService.list(eq);
         }
         return list;
