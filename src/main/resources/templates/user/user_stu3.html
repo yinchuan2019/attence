@@ -40,7 +40,10 @@
 				<label id="stuNo" class="control-label"></label>
 			</div>
 			<div class="row">
-				<input type="submit" id="top" th:value="#{stu3.top}" class="btn btn-primary btn-wide" />
+				<input type="submit" id="top" style="margin-bottom: 20px" th:value="#{stu3.top}" class="btn btn-primary btn-wide" />
+			</div>
+			<div style="margin-bottom: 10px">
+				<p><span class="label label-danger">[[#{stu3.err}]]</span></p>
 			</div>
 		</form>
 

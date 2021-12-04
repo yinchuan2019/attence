@@ -113,8 +113,11 @@
 				</table>
 			</div>
 			<div class="row">
-					<input id="confirm" type="submit" name="button1" th:value="#{stu4.submit}" class="btn btn-primary btn-wide" />
+					<input id="confirm" type="submit" name="button1" style="margin-bottom: 20px" th:value="#{stu4.submit}" class="btn btn-primary btn-wide" />
 			</div>
+		<div style="margin-bottom: 10px;background: #D9524F;">
+			<p><span style="white-space: normal;"  class="label">[[#{stu4.err}]]</span></p>
+		</div>
 		<!-- fotter -->
 		<div id="formFooter">
 			<p>[[#{stu4.tip1}]]<span class="label label-danger">[[#{stu4.tip2}]]</span>[[#{stu4.tip3}]]</p>

@@ -33,6 +33,12 @@ public class Index2Controller {
         return "user/user_seat" ;
     }
 
+    @GetMapping("/user_seat_tea")
+    public String userSeatTea(Model model, HttpServletRequest request) {
+        addLanguage(request);
+        return "user/user_seat_tea" ;
+    }
+
     @GetMapping("/user_stu1")
     public String userStu1(Model model, HttpServletRequest request) {
         addLanguage(request);
@@ -145,6 +151,12 @@ public class Index2Controller {
     public String userTime(Model model, HttpServletRequest request) {
         addLanguage(request);
         return "user/user_time" ;
+    }
+
+    @GetMapping("/user_time_tea")
+    public String userTimeTea(Model model, HttpServletRequest request) {
+        addLanguage(request);
+        return "user/user_time_tea" ;
     }
 
 
