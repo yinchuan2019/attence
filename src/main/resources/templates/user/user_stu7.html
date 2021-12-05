@@ -53,6 +53,19 @@
 				</table>
 
 				<table class="table table-bordered" id="group1">
+					<caption>[[#{stu7.projectVIP}]]</caption>
+					<thead>
+					<tr>
+						<th>[[#{stu7.classRoom}]]</th>
+						<th>[[#{stu7.beginDate}]]</th>
+						<th>[[#{stu7.endDate}]]</th>
+					</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+				<table class="table table-bordered" id="group2">
 					<caption>[[#{stu7.oneToManyReservation}]]</caption>
 					<thead>
 					<tr>
@@ -105,14 +118,22 @@
 				if (res.code == 0) {
 					for(let i = 0;i<res.data.length;i++){
 						let classRoom = res.data[i].classRoom;
+						let classType = res.data[i].classType;
+
 						if(typeof classRoom == "undefined" ||  classRoom == null){
-							$('#group1').append('<tr> ' +
+							$('#group2').append('<tr> ' +
 									'<td class="tdClass">' + res.data[i].classType + '</td>' +
 									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
 									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
 									'</tr>')
-						}else {
-							$('#group').append('<tr> ' +
+						} else if(classType == 'CLASS_MAKE'){
+							$('#group0').append('<tr> ' +
+									'<td class="tdClass">' + classRoom + '</td>' +
+									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
+									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
+									'</tr>')
+						}else if(classType == 'CLASS_VIP'){
+							$('#group1').append('<tr> ' +
 									'<td class="tdClass">' + classRoom + '</td>' +
 									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
 									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
