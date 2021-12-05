@@ -314,7 +314,7 @@ public class UserController {
         if(CollectionUtils.isNotEmpty(dto.getClassTypes())){
             wrapper.in(AttAppointment::getClassType,dto.getClassTypes());
         }
-        wrapper.ge(AttAppointment::getBeginDate, DateUtils.getTodayBegin());
+        wrapper.ge(AttAppointment::getBeginDate,LocalDateTime.now());
         wrapper.orderByDesc(AttAppointment::getBeginDate);
 
         if(loginId.startsWith(Constant.START_WITH_T)){
@@ -330,7 +330,7 @@ public class UserController {
 
             list = attAppointmentService.list(wrapper);
             for(AttAppointment e : list){
-                e.setClassType(ClassTypeEnum.valueOf(e.getClassType()).getName());
+                e.setClassTypeName(ClassTypeEnum.valueOf(e.getClassType()).getName());
             }
         }else {
             return R.fail("user.info12");

@@ -38,20 +38,6 @@
 					</tbody>
 				</table>
 
-				<table class="table table-bordered" id="group0">
-					<caption>[[#{stu7.projectVIP}]]</caption>
-					<thead>
-					<tr>
-						<th>[[#{stu7.classRoom}]]</th>
-						<th>[[#{stu7.beginDate}]]</th>
-						<th>[[#{stu7.endDate}]]</th>
-					</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
-
 				<table class="table table-bordered" id="group1">
 					<caption>[[#{stu7.projectVIP}]]</caption>
 					<thead>
@@ -122,12 +108,12 @@
 
 						if(typeof classRoom == "undefined" ||  classRoom == null){
 							$('#group2').append('<tr> ' +
-									'<td class="tdClass">' + res.data[i].classType + '</td>' +
+									'<td class="tdClass">' + res.data[i].classTypeName + '</td>' +
 									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
 									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
 									'</tr>')
 						} else if(classType == 'CLASS_MAKE'){
-							$('#group0').append('<tr> ' +
+							$('#group').append('<tr> ' +
 									'<td class="tdClass">' + classRoom + '</td>' +
 									'<td class="tdClass">' + res.data[i].beginDate + '</td>' +
 									'<td class="tdClass">' + res.data[i].endDate + '</td>' +
