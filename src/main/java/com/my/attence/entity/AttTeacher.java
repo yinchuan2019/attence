@@ -62,6 +62,21 @@ public class AttTeacher extends BaseEntity {
     private Integer teaSex;
 
     /**
+     * 電話番号/电话号
+     */
+    private String teaPhoneNum;
+
+    /**
+     * Wechat/微信号
+     */
+    private String teaWechat;
+
+    /**
+     * line
+     */
+    private String teaLine;
+
+    /**
      * 学歴/学历
      */
     private String teaEducation;

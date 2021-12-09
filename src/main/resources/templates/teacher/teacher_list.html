@@ -60,6 +60,24 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_phone_num}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaPhoneNum" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_wechat}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaWechat" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">[[#{tea_line}]]</div>
+                <div class="layui-input-block">
+                    <input name="teaLine" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">[[#{tea_teaStatus}]]</label>
                 <div class="layui-input-block">
                     <input type="radio" name="teaStatus" value="1" th:title="#{tea_teaStatus1}" checked="">
@@ -208,6 +226,9 @@
                     }
                 }
             },
+            {field: 'teaPhoneNum', title: '[[#{tea_phone_num}]]', width: 130},
+            {field: 'teaWechat', title: '[[#{tea_wechat}]]', width: 130},
+            {field: 'teaLine', title: '[[#{tea_Line}]]', width: 130},
             {field: 'teaEducation', title: '[[#{tea_education}]]', width: 120},
             {field: 'teaMajor', title: '[[#{tea_major}]]', width: 120},
             {field: 'teaWage', title: '[[#{tea_wage}]]', width: 120},

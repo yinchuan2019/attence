@@ -185,6 +185,11 @@ public class AttStudent extends BaseEntity {
     private String stuWechat;
 
     /**
+     * line
+     */
+    private String stuLine;
+
+    /**
      * 経緯/背景
      */
     private String stuBackground;
