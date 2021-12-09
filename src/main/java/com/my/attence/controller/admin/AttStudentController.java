@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
+import com.my.attence.constant.Constant;
 import com.my.attence.entity.AttStudent;
 import com.my.attence.entity.AttTeacher;
 import com.my.attence.modal.request.AttStudentDto;
@@ -41,6 +42,9 @@ public class AttStudentController {
         BeanUtil.copyProperties(dto,entity);
 //        entity.setStuStatus(1);
         //entity.setStuPwd("111111");
+        if(! dto.getLoginId().startsWith(Constant.START_WITH_S)){
+            return R.fail("fail");
+        }
         final AttStudent student = attStudentService.findByLoginId(dto.getLoginId());
         if(student != null){
             return R.fail("AttStudentController1");

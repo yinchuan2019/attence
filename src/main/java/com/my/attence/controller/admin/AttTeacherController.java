@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.my.attence.common.R;
+import com.my.attence.constant.Constant;
 import com.my.attence.entity.AttTeacher;
 import com.my.attence.modal.request.AttTeacherDto;
 import com.my.attence.service.AttTeacherService;
@@ -39,6 +40,9 @@ public class AttTeacherController {
         BeanUtil.copyProperties(dto,entity);
         //入职
         entity.setTeaStatus(1);
+        if(! dto.getLoginId().startsWith(Constant.START_WITH_T)){
+            return R.fail("fail");
+        }
         //entity.setTeaPwd("111111");
         final AttTeacher teacher = attTeacherService.findByLoginId(dto.getLoginId());
         if(teacher != null){
