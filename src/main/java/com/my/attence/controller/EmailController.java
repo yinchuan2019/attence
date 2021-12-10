@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -118,7 +119,7 @@ public class EmailController {
 
     //@Scheduled(cron="0/5 * * * * ?")
     @Scheduled(cron="0 0 0 26 * ? ")
-    public void scheduledTask1() {
+    public void scheduledMail() {
         LambdaQueryWrapper<AttTeacher> eq = Wrappers.<AttTeacher>lambdaQuery()
                 .eq(AttTeacher::getTeaStatus, 1);
         List<AttTeacher> list = attTeacherService.list();
@@ -151,5 +152,10 @@ public class EmailController {
             sb.append("</html>");
             mailService.sendSimpleMail(e.getTeaEmail(), "工资",sb.toString());
         }
+    }
+
+    //@PostConstruct
+    public void doTest(){
+        scheduledMail();
     }
 }

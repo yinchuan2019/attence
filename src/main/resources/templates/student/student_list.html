@@ -494,7 +494,16 @@
                     }
                 }
             },
-            {field: 'stuEju', title: '[[#{stu_eju}]]', width: 130},
+            {
+                field: 'stuEju', title: '[[#{stu_eju}]]', width: 100, templet: function (item) {
+                    if (item.stuEju === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuEju === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
             {field: 'stuWhenJp', title: '[[#{stu_when_jp}]]', width: 130},
             {field: 'stuPhoneNum', title: '[[#{stu_phone_num}]]', width: 130},
             {field: 'stuWechat', title: '[[#{stu_wechat}]]', width: 130},
@@ -503,19 +512,64 @@
             {field: 'stuBroker', title: '[[#{stu_broker}]]', width: 130},
             {field: 'stuSchool1', title: '[[#{stu_school}]]', width: 130},
             {field: 'stuSchoolTime1', title: '[[#{stu_school_time}]]', width: 130},
-            {field: 'stuPass1', title: '[[#{stu_pass}]]', width: 130},
+            {
+                field: 'stuPass1', title: '[[#{stu_pass}]]', width: 100, templet: function (item) {
+                    if (item.stuPass1 === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuPass1 === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
             {field: 'stuSchool2', title: '[[#{stu_school}]]', width: 130},
             {field: 'stuSchoolTime2', title: '[[#{stu_school_time}]]', width: 130},
-            {field: 'stuPass2', title: '[[#{stu_pass}]]', width: 130},
+            {
+                field: 'stuPass2', title: '[[#{stu_pass}]]', width: 100, templet: function (item) {
+                    if (item.stuPass1 === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuPass1 === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
             {field: 'stuSchool3', title: '[[#{stu_school}]]', width: 130},
             {field: 'stuSchoolTime3', title: '[[#{stu_school_time}]]', width: 130},
-            {field: 'stuPass3', title: '[[#{stu_pass}]]', width: 130},
+            {
+                field: 'stuPass3', title: '[[#{stu_pass}]]', width: 100, templet: function (item) {
+                    if (item.stuPass1 === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuPass1 === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
             {field: 'stuSchool4', title: '[[#{stu_school}]]', width: 130},
             {field: 'stuSchoolTime4', title: '[[#{stu_school_time}]]', width: 130},
-            {field: 'stuPass4', title: '[[#{stu_pass}]]', width: 130},
+            {
+                field: 'stuPass4', title: '[[#{stu_pass}]]', width: 100, templet: function (item) {
+                    if (item.stuPass1 === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuPass1 === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
             {field: 'stuSchool5', title: '[[#{stu_school}]]', width: 130},
             {field: 'stuSchoolTime5', title: '[[#{stu_school_time}]]', width: 130},
-            {field: 'stuPass5', title: '[[#{stu_pass}]]', width: 130},
+            {
+                field: 'stuPass5', title: '[[#{stu_pass}]]', width: 100, templet: function (item) {
+                    if (item.stuPass1 === 1) {
+                        return "[[#{have}]]";
+                    }
+                    if (item.stuPass1 === 0) {
+                        return "[[#{havenot}]]";
+                    }
+                }
+            },
             {field: 'createTime', title: '[[#{create_time}]]', width: 130},
             {field: 'updateTime', title: '[[#{update_time}]]', width: 130},
             {width: 300, toolbar: "#tool", title: '[[#{operation}]]'}
