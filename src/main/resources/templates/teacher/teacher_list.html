@@ -343,17 +343,17 @@
 
         form.on('submit(submit)', function (data) {
 
-            if( $("#tea_wage").empty()){
+            if( $("#teaWage").val()==""){
                 layer.msg("[[#{tea_info10}]]");
                 return false
             }
 
-            if( $("#teaOtherWage").empty()){
+            if( $("#teaOtherWage").val()==""){
                 layer.msg("[[#{tea_info11}]]");
                 return false
             }
 
-            if( $("#teaCommutingCost").empty()){
+            if( $("#teaCommutingCost").val()==""){
                 layer.msg("[[#{tea_info12}]]");
                 return false
             }
