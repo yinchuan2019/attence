@@ -639,6 +639,7 @@
                 case 'edit':
                     $(".user_table_div").hide();
                     $(".operation_user").show();
+                    $(".operation_user input[name=loginId]").attr('readonly', true);
                     $(".title").html("[[#{edit}]]");
                     form.val('operation_form', data);
                     break;

@@ -19,7 +19,7 @@
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{tea_id}]]</div>
                 <div class="layui-input-block">
-                    <input name="loginId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input name="loginId" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input loginId">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -301,7 +301,9 @@
                 case 'edit':
                     $(".user_table_div").hide();
                     $(".operation_user").show();
+                    $(".operation_user input[name=loginId]").attr('readonly', true);
                     $(".title").html("[[#{edit}]]");
+
                     form.val('operation_form', data);
 
                     break;
