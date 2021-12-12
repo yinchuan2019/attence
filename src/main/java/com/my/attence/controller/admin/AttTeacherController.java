@@ -41,7 +41,7 @@ public class AttTeacherController {
         //入职
         entity.setTeaStatus(1);
         if(! dto.getLoginId().startsWith(Constant.START_WITH_T)){
-            return R.fail("fail");
+            return R.fail("AttTeacherController3");
         }
         //entity.setTeaPwd("111111");
         final AttTeacher teacher = attTeacherService.findByLoginId(dto.getLoginId());

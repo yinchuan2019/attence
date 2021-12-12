@@ -43,7 +43,7 @@ public class AttStudentController {
 //        entity.setStuStatus(1);
         //entity.setStuPwd("111111");
         if(! dto.getLoginId().startsWith(Constant.START_WITH_S)){
-            return R.fail("fail");
+            return R.fail("AttStudentController4");
         }
         final AttStudent student = attStudentService.findByLoginId(dto.getLoginId());
         if(student != null){
