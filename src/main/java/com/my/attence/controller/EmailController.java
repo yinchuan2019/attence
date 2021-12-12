@@ -154,7 +154,7 @@ public class EmailController {
         }
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void doTest(){
         scheduledMail();
     }
