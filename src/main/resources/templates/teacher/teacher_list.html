@@ -100,19 +100,19 @@
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{tea_wage}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaWage" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input id="teaWage" name="teaWage" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{tea_other_wage}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaOtherWage" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input id="teaOtherWage" name="teaOtherWage" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-form-label ">[[#{tea_commuting_cost}]]</div>
                 <div class="layui-input-block">
-                    <input name="teaCommutingCost" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
+                    <input id="teaCommutingCost" name="teaCommutingCost" th:placeholder="#{input_tips}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -228,7 +228,7 @@
             },
             {field: 'teaPhoneNum', title: '[[#{tea_phone_num}]]', width: 130},
             {field: 'teaWechat', title: '[[#{tea_wechat}]]', width: 130},
-            {field: 'teaLine', title: '[[#{tea_Line}]]', width: 130},
+            {field: 'teaLine', title: '[[#{tea_line}]]', width: 130},
             {field: 'teaEducation', title: '[[#{tea_education}]]', width: 120},
             {field: 'teaMajor', title: '[[#{tea_major}]]', width: 120},
             {field: 'teaWage', title: '[[#{tea_wage}]]', width: 120},
@@ -341,6 +341,23 @@
         };
 
         form.on('submit(submit)', function (data) {
+
+            if( $("#tea_wage").empty()){
+                layer.msg("[[#{tea_info10}]]");
+                return false
+            }
+
+            if( $("#teaOtherWage").empty()){
+                layer.msg("[[#{tea_info11}]]");
+                return false
+            }
+
+            if( $("#teaCommutingCost").empty()){
+                layer.msg("[[#{tea_info12}]]");
+                return false
+            }
+
+
             if (data.field.id === undefined || data.field.id === null || data.field.id === "") {
                 CoreUtil.sendPost("/attence/teacher", data.field, function (res) {
                     $(".user_table_div").show();
